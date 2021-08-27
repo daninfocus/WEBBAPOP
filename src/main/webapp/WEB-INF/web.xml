@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+
+    <servlet>
+        <servlet-name>login</servlet-name>
+        <jsp-file>/login.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>login</servlet-name>
+        <url-pattern>/Login</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>signup</servlet-name>
+        <jsp-file>/signup.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>signup</servlet-name>
+        <url-pattern>/Signup</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>Profile</servlet-name>
+        <servlet-class>com.WEBBAPOPFINAL.Profile</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Profile</servlet-name>
+        <url-pattern>/Profile</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>SaveMessage</servlet-name>
+        <servlet-class>com.WEBBAPOPFINAL.SaveMessage</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>SaveMessage</servlet-name>
+        <url-pattern>/saveMessage</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>Save</servlet-name>
+        <servlet-class>com.WEBBAPOPFINAL.WriteToDB</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Save</servlet-name>
+        <url-pattern>/Save</url-pattern>
+    </servlet-mapping>
+
+
+
+    <servlet>
+        <servlet-name>error</servlet-name>
+        <jsp-file>/error.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>error</servlet-name>
+        <url-pattern>/Error</url-pattern>
+    </servlet-mapping>
+
+
+    <!--<error-page>
+        <error-code>500</error-code>
+        <location>/error.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>403</error-code>
+        <location>/error.jsp</location>
+    </error-page>-->
+</web-app>

@@ -1,0 +1,172 @@
+html,
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    background: #181818;
+}
+h2 {
+    color: white;
+}
+h4 {
+    font-weight: normal;
+    color: rgb(156, 156, 156);
+}
+.globalContainer {
+    margin-left: 230px;
+    margin-top: 60px;
+    position: fixed;
+    width: 70%;
+
+    height: 80%;
+    border-radius: 5px;
+}
+.containerMessage {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+.containerList {
+    display: flex;
+    flex-direction: column;
+}
+.listMessages {
+    margin-bottom: 10px;
+    height: 80px;
+    width: 300px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 5px;
+    background-color: rgb(100, 100, 100);
+    border-radius: 5px;
+}
+.data {
+    margin-left: 5px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.name {
+    font-size: 12px;
+    color: #303030;
+}
+.dateLastMessage {
+    color: black;
+    margin-right: 15px;
+}
+.lastMessage{
+    color: black;
+}
+.productName {
+    color: black;
+    height: 25px;
+    overflow: hidden;
+    width:200px;
+    font-weight: bold;
+    font-size: 20px;
+}
+.top {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.img {
+    border-radius: 5px;
+    height: 80px;
+}
+.messages1 {
+    position: relative;
+    width: 100%;
+    border-radius: 5px;
+    bottom: 0;
+    margin: 0 10px 5px 10px;
+    background-color: rgb(54, 54, 54);
+}
+.input,
+.textarea {
+    border: 1px solid #ccc;
+    font-family: inherit;
+    font-size: inherit;
+    padding: 1px 6px;
+}
+
+.input-wrap {
+    position: relative;
+}
+.input-wrap .input {
+    position: absolute;
+    width: 100%;
+    left: 0;
+}
+.width-machine {
+    /*   Sort of a magic number to add extra space for number spinner */
+    padding: 0 1rem;
+}
+.send {
+    position: absolute; /* added */
+    bottom: 5px; /* added */
+    right: 5px;
+    height: 30px;
+    width: 30px;
+    border: none;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    padding: 10px;
+    font-size: 13px;
+    line-height: 10px;
+    border-radius: 20px;
+    background-color: #30ab53;
+}
+
+.send i {
+    margin-top: -5px;
+    margin-left: -2px;
+}
+
+.send:hover {
+    background-color: #268841;
+}
+#message-box {
+    position: absolute; /* added */
+    bottom: 5px; /* added */
+    left: 5px;
+
+    width: -moz-calc(100% - 50px);
+    width: -webkit-calc(100% - 50px);
+    width: -o-calc(100% - 50px);
+    width: calc(100% - 50px);
+    border: none;
+    outline: none;
+    min-height: 30px;
+    overflow: hidden;
+    padding: 0;
+}
+textarea {
+    overflow: auto;
+    resize: none;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    font-size: 20px;
+    color: rgb(146, 146, 146);
+}
+textarea:focus {
+    box-shadow: 0px 0px #30ab53;
+    -moz-box-shadow: 0 0 0 5px #30ab53;
+    -webkit-box-shadow: 0 0 0 5px #30ab53;
+    -o-box-shadow: 0 0 0 5px #30ab53;
+}
+.containerList a{
+    text-decoration: none;
+}
+@media screen and (max-width: 950px) {
+    .globalContainer {
+        margin-top: -76px;
+        margin-left: 10px;
+        width: 100%;
+    }
+    .listMessages {
+        width: 350px;
+    }
+}

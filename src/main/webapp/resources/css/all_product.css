@@ -1,0 +1,163 @@
+@import url("https://fonts.googleapis.com/css?family=Lato:400,700");
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.child-container {
+    transition: all 0.1s ease-in-out;
+    margin: 10px;
+    padding: 10px;
+    font-family: "Lato", sans-serif, sans-serif;
+    position: relative;
+    overflow: hidden;
+    width: 520px;
+    background: #404040;
+    -webkit-box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+}
+
+.child-container:hover {
+    transition: all 0.1s ease-in-out;
+    transform: translateY(-3px);
+}
+
+.p {
+    font-size: 0.8em;
+    color: #868686;
+    letter-spacing: 1px;
+    margin: 10px;
+}
+
+.h1 {
+    font-size: 1.2em;
+    color: #dfdfdf;
+    margin-top: -5px;
+}
+
+.price {
+    font-size: 20px;
+    top: 10px;
+    color: #acd2b4;
+    margin-top: -5px;
+}
+
+.price i {
+    font-size: 15px;
+}
+
+hr {
+    margin-right: 10px;
+}
+
+.img {
+    width: 50%;
+    border-radius: 10px;
+    margin: 5px;
+}
+
+.slideshow-buttons {
+    top: 70%;
+    display: none;
+}
+
+.one,
+.two,
+.three,
+.four {
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #e0c9cb;
+}
+
+.one {
+    left: 22%;
+}
+
+.two {
+    left: 27%;
+}
+
+.three {
+    left: 32%;
+}
+
+.four {
+    left: 37%;
+}
+
+.product {
+    position: absolute;
+    width: 40%;
+    height: 100%;
+    top: 10%;
+    left: 60%;
+}
+
+.desc {
+    text-transform: none;
+    letter-spacing: 0;
+    margin-bottom: 17px;
+    color: #4e4e4e;
+    font-size: 0.7em;
+    line-height: 1.6em;
+    margin-right: 25px;
+    text-align: justify;
+}
+
+.add {
+    position: absolute;
+    bottom: 40px;
+    background: #202020;
+    padding: 10px;
+    display: inline-block;
+    outline: 0;
+    border: 0;
+    margin: -1px;
+    border-radius: 2px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #f5f5f5;
+    cursor: pointer;
+    width: 67%;
+    height: 35px;
+}
+
+.like {
+    position: absolute;
+    bottom: 40px;
+    background: #202020;
+    padding: 10px;
+    display: inline-block;
+    outline: 0;
+    border: 0;
+    margin: -1px;
+    border-radius: 2px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #f5f5f5;
+    cursor: pointer;
+    width: 22%;
+    height: 35px;
+    right: 15px;
+}
+.add:hover {
+    background: #30ab53;
+    -webkit-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+}
+.like:hover {
+    background: #30ab53;
+    -webkit-transition: all 0.4s ease-in-out;
+    transition: all 0.4s ease-in-out;
+}
+.focus {
+    background: #ba7e7e;
+    color: #f5f5f5;
+}
