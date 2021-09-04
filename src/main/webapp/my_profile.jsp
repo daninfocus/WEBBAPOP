@@ -24,7 +24,10 @@
 </head>
 <body>
 <div class="parent">
-  <h2 class="title">Tu perfil</h2>
+  <div class="titlecontainer">
+    <h2 class="title">Tu perfil</h2>
+    <a class="logout" href="/Logout">Cerrar Sesion</a>
+  </div>
   <h4 class="desc">Aquí podrás ver y editar los datos de tu perfil</h4>
   <div class="listProfile1">
     <h4 class="cat1">Información personal</h4>

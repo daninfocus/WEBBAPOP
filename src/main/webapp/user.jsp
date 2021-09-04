@@ -27,11 +27,12 @@
 
         function load() {
             let option = "<%=request.getParameter("Option")%>";
-            let message = "<%=request.getParameter("Message_ID")%>";
+            let message = "<%=request.getParameter("Product_ID")%>";
 
 
             console.log(option);
-            if(message==null) {
+            console.log(message);
+            if(message == "null") {
                 document.querySelector('.my-profile-page').style.display = 'none';
                 document.querySelector('.my-product-page').style.display = 'none';
                 document.querySelector('.my-messages-page').style.display = 'none';
@@ -49,7 +50,11 @@
                             console.log("messages");
                             myMessages();
                         } else {
-                            myProducts();
+                            if (option.localeCompare("zone") == 0) {
+                                myZone();
+                            } else {
+                                myProducts();
+                            }
                         }
                     }
                 }
@@ -74,6 +79,8 @@
                 document.querySelector('.profile').style.color = '#818181';
                 document.querySelector('.my-messages-page').style.display = 'none';
                 document.querySelector('.messages').style.color = '#818181';
+                document.querySelector('.zone').style.color = '#818181';
+                document.querySelector('.messagesClick').style.color = '#818181';
             } else {
 
                 document.querySelector('.my-product-page').style.display = 'none';
@@ -93,6 +100,8 @@
                 document.querySelector('.products').style.color = '#818181';
                 document.querySelector('.my-messages-page').style.display = 'none';
                 document.querySelector('.messages').style.color = '#818181';
+                document.querySelector('.zone').style.color = '#818181';
+                document.querySelector('.messagesClick').style.color = '#818181';
 
             } else {
                 document.querySelector('.my-profile-page').style.display = 'none';
@@ -109,14 +118,19 @@
             if (messages.localeCompare("none") == 0) {
                 document.querySelector('.my-messages-page').style.display = 'contents';
                 document.querySelector('.messages').style.color = 'white';
+                document.querySelector('.messagesClick').style.color = 'white';
+
+
                 document.querySelector('.my-product-page').style.display = 'none';
                 document.querySelector('.products').style.color = '#818181';
                 document.querySelector('.my-profile-page').style.display = 'none';
                 document.querySelector('.profile').style.color = '#818181';
+                document.querySelector('.zone').style.color = '#818181';
 
             } else {
                 document.querySelector('.my-messages-page').style.display = 'none';
                 document.querySelector('.messages').style.color = '#818181';
+                document.querySelector('.messagesClick').style.color = '#818181';
             }
 
         }
@@ -126,16 +140,18 @@
         function myZone() {
             let profile = document.querySelector('.my-profile-page').style.display;
             let products = document.querySelector('.my-product-page').style.display;
-            if (!products.localeCompare("none") == 0) {
-                document.querySelector('.my-product-page').style.display = 'none';
-                document.querySelector('.products').style.color = '#818181';
-            }
-            if (profile.localeCompare("none") == 0) {
+
+            if (profile.localeCompare("none") == 0 && products.localeCompare("none") == 0) {
+                document.querySelector('.my-product-page').style.display = 'contents';
                 document.querySelector('.my-profile-page').style.display = 'contents';
-                document.querySelector('.profile').style.color = 'white';
+                document.querySelector('.zone').style.color = 'white';
+                document.querySelector('.my-messages-page').style.display = 'none';
+                document.querySelector('.messages').style.color = '#818181';
+                document.querySelector('.messagesClick').style.color = '#818181';
             } else {
+                document.querySelector('.my-product-page').style.display = 'none';
                 document.querySelector('.my-profile-page').style.display = 'none';
-                document.querySelector('.profile').style.color = '#818181';
+                document.querySelector('.zone').style.color = '#818181';
             }
 
 
@@ -246,14 +262,21 @@
 </div>
 
 <div class="bottomnav">
-    <a href="#products"><i class="fa fa-list" aria-hidden="true"></i>
+    <a class="products" href="#products"><i class="fa fa-list" aria-hidden="true"></i>
         <p>Inicio</p></a>
     <a href="#favourites"><i class="fa fa-heart" aria-hidden="true"></i>
         <p>Favoritos</p></a>
-    <a href="#addProduct"><i class="fa fa-plus-square"></i></a>
-    <a href="#messages"><i class="fa fa-comment" aria-hidden="true"></i>
-        <p>Mensajes</p></a>
-    <a href="javascript:myZone()"><i class="fa fa-user" aria-hidden="true"></i>
+    <a href="/Profile?newProduct=true"><i class="fa fa-plus-square"></i></a>
+    <a class="messagesClick"  <%
+        if (request.getParameter("newProduct") != null) {
+            out.print("href=\"/Profile?Option=messages\"");
+        }
+    %> onClick="myMessages()"><i class="fa fa-comment" aria-hidden="true"></i><p>Mensajes</p></a>
+    <a class="zone"  <%
+        if (request.getParameter("newProduct") != null) {
+            out.print("href=\"/Profile?Option=zone\"");
+        }
+    %> onClick="myZone()"><i class="fa fa-user" aria-hidden="true"></i>
         <p>Tu zona</p></a>
 </div>
 </body>

@@ -24,8 +24,8 @@
 </head>
 <body>
 <div class="boxDad">
-    <h2>Producto nuevo</h2>
-    <h4>Aquí puedes registrar un producto nuevo</h4>
+    <h2 style="color:white">Producto nuevo</h2>
+    <h4 style="color: rgb(156, 156, 156);font-weight: normal">Aquí puedes registrar un producto nuevo</h4>
     <div class="flexContainer">
         <button class="flexChild" id="motor"  onclick="clickMotor()">
             <i class="fas fa-car-side"></i>
@@ -61,8 +61,8 @@
                     <input type="text" id="model" name="model" placeholder="  Ej: Golf 4" />
                 </div>
                 <div class="price">
-                    <div><label for="model">Precio&emsp;</label></div>
-                    <input style="width: 100%" id="price" name="price" placeholder="  Con cabeza..."/>
+                    <div><label for="price">Precio&emsp;</label></div>
+                    <input style="width: 100%" name="price" placeholder="  Con cabeza..."/>
                 </div>
                 <div class="state">
                     <div><label for="model">Estado&emsp;</label></div>
@@ -73,9 +73,10 @@
                     <input type="text" id="km" name="km" placeholder="  Kilómetros actuales"/>
                 </div>
                 <div class="description">
-                    <div><label for="model">Descripcion&emsp;</label></div>
-                    <textarea id="description" name="description" placeholder="  Una breve descripcion de su vehiculo" ></textarea>
+                    <div><label for="descriptionCar">Descripcion&emsp;</label></div>
+                    <textarea id="descriptionCar" name="descriptionCar" placeholder="  Una breve descripcion de su vehiculo" ></textarea>
                 </div>
+
                 <input type="hidden" name="category" value="Motor" />
                 <input type="hidden" name="userId" value="<%=user.getId()%>" />
                 <input type="hidden" name="sold" value="no" />
@@ -93,19 +94,19 @@
                 </div>
                 <div class="type">
                     <div><label for="type">Tipo</label></div>
-                    <input type="text" id="type" name="type" placeholder="  Ej: Cochera, Cortijo" />
+                    <input type="text" name="type" placeholder="  Ej: Cochera, Cortijo" />
                 </div>
                 <div class="suface">
                     <div><label for="suface">Superfície m2&emsp;</label></div>
                     <input type="text" id="suface" name="suface" placeholder="  m2" />
                 </div>
                 <div class="price">
-                    <div><label for="model">Precio&emsp;</label></div>
-                    <input style="width: 100%" id="price" name="price" placeholder="  Con cabeza..."/>
+                    <div><label for="price">Precio&emsp;</label></div>
+                    <input style="width: 100%" name="price" placeholder="  Con cabeza..."/>
                 </div>
                 <div class="state">
                     <div><label for="model">Estado&emsp;</label></div>
-                    <input type="text" id="state" name="state" placeholder="  Ej: Obra nueva, Reformar..." />
+                    <input type="text" name="state" placeholder="  Ej: Obra nueva, Reformar..." />
                 </div>
                 <div class="rent-sale">
                     <div><label for="rent-sale">Alquiler o Venta&emsp;</label></div>
@@ -115,8 +116,8 @@
                     </select>
                 </div>
                 <div class="description">
-                    <div><label for="model">Descripcion&emsp;</label></div>
-                    <textarea id="description" name="description" placeholder="  Una breve descripcion de su propiedad" ></textarea>
+                    <div><label for="descriptionProp">Descripcion&emsp;</label></div>
+                    <textarea id="descriptionProp" name="descriptionProp" placeholder="  Una breve descripcion de su propiedad" ></textarea>
                 </div>
                 <input type="hidden" name="category" value="Property" />
                 <input type="hidden" name="userId" value="<%=user.getId()%>" />
@@ -130,24 +131,24 @@
         <form action="/Save" method="POST" class="form">
             <div class="form-contents">
                 <div class="tittle">
-                    <div><label for="tittle">Título</label></div>
-                    <input type="text" id="tittle" name="tittle" placeholder="  Titulo del anuncio" />
+                    <div><label for="title">Título</label></div>
+                    <input type="text" name="tittle" placeholder="  Titulo del anuncio" />
                 </div>
                 <div class="type">
                     <div><label for="type">Tipo</label></div>
-                    <input type="text" id="type" name="type" placeholder="  Ej: Camiseta, Pantalones" />
+                    <input type="text"  name="type" placeholder="  Ej: Camiseta, Pantalones" />
                 </div>
                 <div class="price">
-                    <div><label for="model">Precio&emsp;</label></div>
-                    <input style="width: 100%" id="price" name="price" placeholder="  Con cabeza..."/>
+                    <div><label for="price">Precio&emsp;</label></div>
+                    <input style="width: 100%" name="price" placeholder="  Con cabeza..."/>
                 </div>
                 <div class="state">
                     <div><label for="model">Estado&emsp;</label></div>
-                    <input type="text" id="state" name="state" placeholder="  Ej: Como nuevo.." />
+                    <input type="text"  name="state" placeholder="  Ej: Como nuevo.." />
                 </div>
                 <div class="description">
-                    <div><label for="model">Descripcion&emsp;</label></div>
-                    <textarea id="description" name="description" placeholder="  Una breve descripcion de su propiedad" ></textarea>
+                    <div><label for="descriptionFashion">Descripcion&emsp;</label></div>
+                    <textarea  id="descriptionFashion" name="descriptionFashion" placeholder="  Una breve descripcion de su propiedad" ></textarea>
                 </div>
                 <input type="hidden" name="category" value="Property" />
                 <input type="hidden" name="userId" value="<%=user.getId()%>" />
@@ -173,8 +174,8 @@
                     <input style="width: 100%" id="price" name="price" placeholder="  Con cabeza..."/>
                 </div>
                 <div class="description">
-                    <div><label for="model">Descripcion&emsp;</label></div>
-                    <textarea id="description" name="description" placeholder="  Una breve descripcion de su propiedad" ></textarea>
+                    <div><label for="descriptionOther">Descripcion&emsp;</label></div>
+                    <textarea id="descriptionOther" name="descriptionOther" placeholder="  Una breve descripcion de su propiedad" ></textarea>
                 </div>
                 <input type="hidden" name="category" value="Property" />
                 <input type="hidden" name="userId" value="<%=user.getId()%>" />

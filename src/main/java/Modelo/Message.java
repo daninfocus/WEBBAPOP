@@ -13,16 +13,21 @@ public class Message implements Comparable<Object>, Serializable {
     private String Sent_Date;
     private String Recieved_Date;
     private String Message;
-    private boolean	Message_Read; //1 for read 0 for sent
+    private int	Message_Read;
+    private int Message_Deleted;
 
     //Constructor
 
-    public Message(int ID_User_Sender,int ID_User_Reciever, int ID_Product, String sent_Date, String message) {
+    public Message(int ID_Message, int ID_User_Sender, int ID_User_Reciever, int ID_Product, String sent_Date, String recieved_Date, String message, int message_Read, int message_Deleted) {
+        this.ID_Message = ID_Message;
         this.ID_User_Sender = ID_User_Sender;
         this.ID_User_Reciever = ID_User_Reciever;
         this.ID_Product = ID_Product;
         Sent_Date = sent_Date;
+        Recieved_Date = recieved_Date;
         Message = message;
+        Message_Read = message_Read;
+        Message_Deleted = message_Deleted;
     }
 
 
@@ -68,11 +73,11 @@ public class Message implements Comparable<Object>, Serializable {
         Recieved_Date = recieved_Date;
     }
 
-    public boolean isMessage_Read() {
+    public int isMessage_Read() {
         return Message_Read;
     }
 
-    public void setMessage_Read(boolean message_Read) {
+    public void setMessage_Read(int message_Read) {
         Message_Read = message_Read;
     }
 
@@ -90,6 +95,14 @@ public class Message implements Comparable<Object>, Serializable {
 
     public void setID_Product(int ID_Product) {
         this.ID_Product = ID_Product;
+    }
+
+    public int isMessage_Deleted() {
+        return Message_Deleted;
+    }
+
+    public void setMessage_Deleted(int message_Deleted) {
+        Message_Deleted = message_Deleted;
     }
 
     @Override

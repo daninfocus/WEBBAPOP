@@ -30,7 +30,26 @@ public class MessageSQL implements DaoMessage {
 
     @Override
     public boolean update(Message message, DAOManager dao) {
-        return false;
+        String sentencia;
+
+        sentencia = "UPDATE Messages SET ID_Message='"+ message.getID_Message() +"', ID_User_Sender = '"
+                + message.getID_User_Sender() + "', ID_User_Reciever = '"
+                + message.getID_User_Reciever()+ "', ID_Product = '"
+                + message.getID_Product() + "', Message = '"
+                + message.getMessage() + "', Sent_Date = '"
+                + message.getSent_Date()+ "', Recieved_Date = '"
+                + message.getRecieved_Date() + "', Message_Read = '"
+                + message.isMessage_Read() + "', Message_Deleted = '"
+                + message.isMessage_Deleted() + "' WHERE ID_Message='"+message.getID_Message()+"';";
+
+        try (Statement stmt = dao.getConn().createStatement()) {
+            // enviar el commando insert
+            stmt.executeUpdate(sentencia);
+            return true;
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            return false;
+        }
     }
 
     @Override
@@ -52,22 +71,25 @@ public class MessageSQL implements DaoMessage {
         Message message = null;
         ArrayList<Message> messages = new ArrayList<>();
         String sentencia;
-        sentencia = "SELECT * from Messages where ID_User_Sender = ? or ID_User_Reciever = ? and ID_Product = ?";
+        sentencia = "SELECT * from Messages where ID_Product = ?";
         try {
             PreparedStatement ps = dao.getConn().prepareStatement(sentencia);
-            ps.setInt(1, ID_User);
-            ps.setInt(2, ID_User);
-            ps.setInt(3, ID_Product);
+            ps.setInt(1, ID_Product);
 
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    // obtener cada una de la columnas y mapearlas a la clase Alumno
+                    // obtener cada una de la columnas y mapearlas a la clase Message
+                    System.out.println(rs.getInt("ID_Message"));
                     message = new Message(
+                            rs.getInt("ID_Message"),
                             rs.getInt("ID_User_Sender"),
                             rs.getInt("ID_User_Reciever"),
                             rs.getInt("ID_Product"),
-                            rs.getString("sent_Date"),
-                            rs.getString("message"));
+                            rs.getString("Sent_Date"),
+                            rs.getString("Recieved_Date"),
+                            rs.getString("message"),
+                            rs.getInt("Message_Read"),
+                            rs.getInt("Message_Deleted"));
                     messages.add(message);
                 }
             }

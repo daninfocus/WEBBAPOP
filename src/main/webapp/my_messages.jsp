@@ -41,11 +41,31 @@
 
 
                         for (Integer product_id : gestion.getAllChats(loggedInUser.getId())) {
-                            Producto producto = gestion.getProductoPorID(product_id);
-                            Usuario usuarioOtro = gestion.getUsuarioPorId(producto.getIdUsuario());
-
                             ArrayList<Message> messages = gestion.getAllMessages(loggedInUser.getId(), product_id);
 
+                            Producto producto = gestion.getProductoPorID(product_id);
+
+                            Usuario usuarioOtro;
+
+                            if(loggedInUser.getId()==producto.getIdUsuario()){
+                                usuarioOtro = gestion.getUsuarioPorId(messages.get(0).getID_User_Sender());
+                            }else{
+                                usuarioOtro = gestion.getUsuarioPorId(producto.getIdUsuario());
+                            }
+
+
+
+
+                            Message lastMessage = messages.get(messages.size()-1);
+
+                            String tick = "";
+                            if(loggedInUser.getId()==lastMessage.getID_User_Sender()){
+                                if (lastMessage.isMessage_Read() == 1) {
+                                    tick = "  <i style=\"color:#4e9133\" class=\"fas fa-check-double\"></i>";
+                                } else {
+                                    tick = "  <i style=\"color:#404040\" class=\"fas fa-check\"></i>";
+                                }
+                            }
 
                             out.print("<a class=\"aList\" href=\"/Profile?Product_ID="+product_id+"\"><div class=\"listMessages\">" +
                                 "   <img\n" +
@@ -58,7 +78,7 @@
                                 "           <div class=\"dateLastMessage\">"+messages.get(messages.size()-1).getSent_Date()+"</div>\n" +
                                 "       </div>\n" +
                                 "       <div class=\"productName\">"+gestion.getProductoPorID(product_id).getNombre()+"</div>\n" +
-                                "       <div class=\"lastMessage\">"+messages.get(messages.size()-1).getMessage()+"</div>\n" +
+                                "       <div class=\"lastMessage\">"+lastMessage.getMessage()+" "+tick +"</div>\n" +
                                 "   </div>" +
                                 "</div></a>");
                         }
@@ -76,8 +96,14 @@
                         for (Message message : messages) {
                             if(message.getID_User_Reciever()==loggedInUser.getId()){
                                 out.print("<p style=\"left:10px;position: absolute;\">"+message.getMessage()+"</p><br>");
+                                message.setMessage_Read(1);
+                                gestion.updateMessage(message);
                             }else{
-                                out.print("<p style=\"right:10px;position: absolute;\">"+message.getMessage()+"</p><br>");
+                                if(message.isMessage_Read()==1) {
+                                    out.print("<p style=\"right:10px;position: absolute;\">" + message.getMessage() + "  <i style=\"color:#4e9133\" class=\"fas fa-check-double\"></i></p><br>");
+                                }else{
+                                    out.print("<p style=\"right:10px;position: absolute;\">" + message.getMessage() + "  <i style=\"color:#404040\" class=\"fas fa-check\"></i></p><br>");
+                                }
                             }
                         }
 
@@ -105,12 +131,13 @@
                 %>">
                 <input type="hidden" name="idUserReciever" value="<%
                 if(request.getParameter("Product_ID")!=null){
-                    if(Integer.parseInt(request.getParameter("Product_ID"))==loggedInUser.getId()){
+                    Producto producto = gestion.getProductoPorID(Integer.parseInt(request.getParameter("Product_ID")));
+                    if(producto.getIdUsuario()==loggedInUser.getId()){
                         ArrayList<Message> messages = gestion.getAllMessages(loggedInUser.getId(), Integer.parseInt(request.getParameter("Product_ID")));
 
-                        out.print(messages.get(messages.size()-1).getID_User_Sender());
+                        out.print(messages.get(0).getID_User_Sender());
                     }else{
-                        Producto producto = gestion.getProductoPorID(Integer.parseInt(request.getParameter("Product_ID")));
+
                         out.print(producto.getIdUsuario());
                     }
                 }

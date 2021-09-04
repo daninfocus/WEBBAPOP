@@ -75,6 +75,9 @@ public class GestionAPP implements Serializable {
 
     /*Otros Métodos*/
 
+    public boolean updateMessage(Message message){
+        return daoMessageSQL.update(message,dao);
+    }
     public boolean saveMessage(Message message) {
         return daoMessageSQL.insert(message, dao);
     }
