@@ -56,7 +56,9 @@ body {
 }
 
 /*SEARCH BAR*/
-
+.flex-container a{
+    text-decoration: none;
+}
 .search {
     position: relative;
     display: flex;

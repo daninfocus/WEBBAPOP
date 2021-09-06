@@ -27,6 +27,17 @@
 
 
     <servlet>
+        <servlet-name>Product</servlet-name>
+        <jsp-file>/product_page.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Product</servlet-name>
+        <url-pattern>/Product</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
         <servlet-name>Profile</servlet-name>
         <servlet-class>com.WEBBAPOPFINAL.Profile</servlet-class>
     </servlet>

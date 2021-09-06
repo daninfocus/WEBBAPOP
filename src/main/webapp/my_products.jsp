@@ -54,15 +54,14 @@
         para venderlos antes
     </h4>
 </div>
+
+<form action="/deleteProduct" method="post">
+
 <%
-
-
     int num=0;
-
     DecimalFormat df = new DecimalFormat("#,##0.##");
-
     for (Producto producto : productos) {
-        out.print("<div class=\"list\">\n" +
+        out.print("<input class=\"checkbox\" type=\"checkbox\" /><div class=\"list\">\n" +
                 "    <img src=\"\"/>\n" +
                 "    <div class=\"text-container\">\n" +
                 "        <div class=\"price\">"+df.format(producto.getPrecio())+"<i class=\"fa fa-euro-sign\" aria-hidden=\"true\"></i></div>\n" +
@@ -77,13 +76,13 @@
                 "        <div class=\"modifyDate\">15/08/2021</div>\n" +
                 "    </div>\n" +
                 "    <div class=\"buttons\">\n" +
-                "        <button type=\"button\" title=\"Marcar como vendido\" class=\"sell\">\n" +
+                "        <button onclick=\"window.location.href='/Sold?Product_ID="+producto.getid()+"';\" type=\"button\" title=\"Marcar como vendido\" class=\"sell\">\n" +
                 "            <i class=\"far fa-handshake\"></i>\n" +
                 "        </button>\n" +
-                "        <button type=\"button\" title=\"Marcar como reservado\" class=\"reserve\">\n" +
+                "        <button onclick=\"window.location.href='/Reserved?Product_ID="+producto.getid()+"';\" type=\"button\" title=\"Marcar como reservado\" class=\"reserve\">\n" +
                 "            <i class=\"far fa-bookmark\"></i>\n" +
                 "        </button>\n" +
-                "        <button type=\"button\" title=\"Editar\"class=\"edit\"><i class=\"far fa-edit\"></i></button>\n" +
+                "        <button onclick=\"window.location.href='/Edit?Product_ID="+producto.getid()+"';\" type=\"button\" title=\"Editar\"class=\"edit\"><i class=\"far fa-edit\"></i></button>\n" +
                 "    </div>\n" +
                 "</div>" +
                 "<br>");
@@ -92,6 +91,9 @@
 
 
 %>
-
+    <div style="width:100%;display: flex;flex-direction: row;justify-content: space-around">
+        <input class="checkboxSave" type="submit" value="Borrar producto">
+    </div>
+</form>
 </body>
 </html>
