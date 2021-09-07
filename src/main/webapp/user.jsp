@@ -81,10 +81,6 @@
                 document.querySelector('.messages').style.color = '#818181';
                 document.querySelector('.zone').style.color = '#818181';
                 document.querySelector('.messagesClick').style.color = '#818181';
-            } else {
-
-                document.querySelector('.my-product-page').style.display = 'none';
-                document.querySelector('.products').style.color = '#818181';
             }
 
         }
@@ -103,9 +99,6 @@
                 document.querySelector('.zone').style.color = '#818181';
                 document.querySelector('.messagesClick').style.color = '#818181';
 
-            } else {
-                document.querySelector('.my-profile-page').style.display = 'none';
-                document.querySelector('.profile').style.color = '#818181';
             }
 
         }
@@ -127,10 +120,6 @@
                 document.querySelector('.profile').style.color = '#818181';
                 document.querySelector('.zone').style.color = '#818181';
 
-            } else {
-                document.querySelector('.my-messages-page').style.display = 'none';
-                document.querySelector('.messages').style.color = '#818181';
-                document.querySelector('.messagesClick').style.color = '#818181';
             }
 
         }
@@ -148,10 +137,6 @@
                 document.querySelector('.my-messages-page').style.display = 'none';
                 document.querySelector('.messages').style.color = '#818181';
                 document.querySelector('.messagesClick').style.color = '#818181';
-            } else {
-                document.querySelector('.my-product-page').style.display = 'none';
-                document.querySelector('.my-profile-page').style.display = 'none';
-                document.querySelector('.zone').style.color = '#818181';
             }
 
 
@@ -218,46 +203,25 @@
     <% } %>
 </div>
 <div class="sidenav">
-    <a style="text-align: center;display: flex;align-items: center;justify-content: center;flex-wrap: wrap;flex-direction: column;padding: 10px;margin-bottom: 20px;"
-       class="profile" <%
+    <a class="profile" <%
         if (request.getParameter("newProduct") != null) {
             out.print("href=\"/Profile?Option=profile\"");
         }
     %> onClick="myProfile()"><i style="font-size: 30px; padding: 10px" class="fa fa-user"
                                 aria-hidden="true"></i>Perfil</a>
-    <a style="text-align: center;display: flex;align-items: center;justify-content: center;flex-wrap: wrap;flex-direction: column;padding: 10px;margin-bottom: 20px;
-" class="products"  <%
+    <a class="products"  <%
         if (request.getParameter("newProduct") != null) {
             out.print("href=\"/Profile?Option=products\"");
         }
     %> onClick="myProducts()"><i style="font-size: 30px; padding: 10px" class="fa fa-list"
                                  aria-hidden="true"></i>Productos</a>
-    <a style="text-align: center;display: flex;align-items: center;justify-content: center;flex-wrap: wrap;flex-direction: column;padding: 10px;margin-bottom: 20px;
-" class="messages"  <%
+    <a class="messages"  <%
         if (request.getParameter("newProduct") != null) {
             out.print("href=\"/Profile?Option=messages\"");
         }
     %> onClick="myMessages()"><i style="font-size: 30px; padding: 10px" class="fa fa-comment" aria-hidden="true"></i>Mensajes</a>
-    <a style="
-          text-align: center;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-wrap: wrap;
-          flex-direction: column;
-          padding: 10px;
-          margin-bottom: 20px;
-        " href="#favourites"><i style="font-size: 30px; padding: 10px" class="fa fa-heart" aria-hidden="true"></i>Favoritos</a>
-    <a style="
-          text-align: center;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-wrap: wrap;
-          flex-direction: column;
-          padding: 10px;
-          margin-bottom: 20px;
-        " href="#opinions"><i style="font-size: 30px; padding: 10px" class="fa fa-star" aria-hidden="true"></i>Opiniones</a>
+    <a href="#favourites"><i style="font-size: 30px; padding: 10px" class="fa fa-heart" aria-hidden="true"></i>Favoritos</a>
+    <a href="#opinions"><i style="font-size: 30px; padding: 10px" class="fa fa-star" aria-hidden="true"></i>Opiniones</a>
 
 </div>
 
@@ -281,6 +245,3 @@
 </div>
 </body>
 </html>
-
-
-

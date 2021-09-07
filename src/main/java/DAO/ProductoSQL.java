@@ -21,7 +21,8 @@ public class ProductoSQL implements DaoProducto {
                     + producto.getFecha() + "','"
                     + producto.getEstado() + "','"
                     + producto.getIdUsuario() + "','"
-                    + producto.getVendido() + "');";
+                    + producto.getVendido() + "','"
+                    + producto.getDeleted() + "');";
 
             st.executeUpdate(sentencia);
         } catch (Exception e) {
@@ -44,7 +45,8 @@ public class ProductoSQL implements DaoProducto {
                 + producto.getFecha() + "', estado = '"
                 + producto.getEstado() + "', idUsuario = '"
                 + producto.getIdUsuario() + "', vendido = '"
-                + producto.getVendido() + "' WHERE id='"+producto.getid()+"';";
+                + producto.getVendido() + "', deleted = '"
+                + producto.getDeleted() + "' WHERE id='"+producto.getid()+"';";
 
         try (Statement stmt = dao.getConn().createStatement()) {
             // enviar el commando insert
@@ -59,7 +61,7 @@ public class ProductoSQL implements DaoProducto {
     @Override
     public boolean delete(int id, DAOManager dao) {
         String sentencia;
-        sentencia = "delete from Producto where id = '" + id + "';";
+        sentencia = "UPDATE Producto where id = '" + id + "' set deleted=1;";
 
         try (Statement stmt = dao.getConn().createStatement()) {
             // enviar el commando delete
@@ -91,7 +93,8 @@ public class ProductoSQL implements DaoProducto {
                             rs.getString("fecha"),
                             rs.getString("estado"),
                             rs.getInt("idUsuario"),
-                            rs.getInt("vendido"));
+                            rs.getInt("vendido"),
+                            rs.getInt("deleted"));
                 }
             }
         } catch (SQLException ex) {
@@ -121,7 +124,8 @@ public class ProductoSQL implements DaoProducto {
                             rs.getString("fecha"),
                             rs.getString("estado"),
                             rs.getInt("idUsuario"),
-                            rs.getInt("vendido"));
+                            rs.getInt("vendido"),
+                            rs.getInt("deleted"));
                     productos.add(producto);
                 }
             }
@@ -153,7 +157,8 @@ public class ProductoSQL implements DaoProducto {
                             rs.getString("fecha"),
                             rs.getString("estado"),
                             rs.getInt("idUsuario"),
-                            rs.getInt("vendido"));
+                            rs.getInt("vendido"),
+                            rs.getInt("deleted"));
                     productos.add(producto);
                 }
             }
@@ -161,6 +166,20 @@ public class ProductoSQL implements DaoProducto {
             ex.printStackTrace();
         }
         return productos;
+    }
+
+    @Override
+    public boolean sell(int productID, DAOManager dao) {
+        String sentencia;
+        sentencia = "UPDATE Producto where id = '" + productID + "' set vendido=1;";
+
+        try (Statement stmt = dao.getConn().createStatement()) {
+            // enviar el commando delete
+            stmt.executeUpdate(sentencia);
+            return true;
+        } catch (SQLException ex) {
+            return false;
+        }
     }
 
 }

@@ -1,4 +1,3 @@
-
 h2 {
     color: white;
 }
@@ -6,12 +5,14 @@ h4 {
     font-weight: normal;
     color: rgb(156, 156, 156);
 }
-.text1{
+
+.parentProduct{
     margin-left: 230px;
     margin-top: 60px;
 }
+
 .list {
-    margin: 0 40px 40px 260px;
+    margin: 0 40px 40px 30px;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -127,12 +128,13 @@ h4 {
     flex-direction: row;
 }
 .checkbox{
-    margin: 37px 0 0 225px;
+    margin: 37px 0 0 0;
     position: absolute;
 }
 .checkboxSave{
     text-align: center;
 }
+
 
 @media screen and (max-width: 1049px) {
     .modifyDate-container {
@@ -163,7 +165,7 @@ h4 {
 }
 
 @media screen and (max-width: 950px){
-    .text1{
+    .parentProduct{
         margin-left: 40px;
         margin-top: 60px;
     }

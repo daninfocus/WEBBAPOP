@@ -40,9 +40,8 @@ public class Profile extends HttpServlet {
                     gestionAPP.saveMessage(message);
                 }
             }
-
             request.getParameter("newProduct");
-            RequestDispatcher rd = request.getRequestDispatcher("/user.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("user.jsp");
             rd.forward(request, response);
 
         }else{

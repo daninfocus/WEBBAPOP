@@ -19,6 +19,7 @@ public class Producto implements Comparable<Object>, Serializable {
     private String estado; // Estado en el que se encuentra el producto (Nuevo, Casi nuevo, etc)
     private int idUsuario;
     private int vendido;
+    private int deleted;
 
 
     /**
@@ -31,7 +32,7 @@ public class Producto implements Comparable<Object>, Serializable {
      * @param estado      the estado
      */
     // Constructor con los atributos de la clase Producto
-    public Producto(int id, String nombre, String descripcion, String categoria, float precio, String fecha, String estado, int idUsuario, int vendido) {
+    public Producto(int id, String nombre, String descripcion, String categoria, float precio, String fecha, String estado, int idUsuario, int vendido, int deleted) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -41,6 +42,7 @@ public class Producto implements Comparable<Object>, Serializable {
         this.estado = estado;
         this.idUsuario = idUsuario;
         this.vendido = vendido;
+        this.deleted = deleted;
     }
 
     // Getter and Setter de todos los atributos de la clase Producto
@@ -116,6 +118,14 @@ public class Producto implements Comparable<Object>, Serializable {
 
     public void setVendido(int vendido) {
         this.vendido = vendido;
+    }
+
+    public int getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(int deleted) {
+        this.deleted = deleted;
     }
 
     @Override

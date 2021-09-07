@@ -27,7 +27,7 @@ public class GestionAPP implements Serializable {
 
     /* Constructor */
     public GestionAPP() {
-        propertiesFile = new File("/resources/properties.prop");
+        propertiesFile = new File("C:\\Users\\Dan\\Desktop\\PROGRAMIN'\\WEBBAPOPFINAL\\src\\main\\resources\\properties.prop");
         props = new Properties();
 
         try {
@@ -75,9 +75,11 @@ public class GestionAPP implements Serializable {
 
     /*Otros Métodos*/
 
-    public boolean updateMessage(Message message){
-        return daoMessageSQL.update(message,dao);
+
+    public boolean updateMessage(Message message) {
+        return daoMessageSQL.update(message, dao);
     }
+
     public boolean saveMessage(Message message) {
         return daoMessageSQL.insert(message, dao);
     }
@@ -86,12 +88,159 @@ public class GestionAPP implements Serializable {
         return daoMessageSQL.readMessages(idUser, idProducto, dao);
     }
 
-    public ArrayList<Integer> getAllChats(int idUser){
-        return daoMessageSQL.getAllChats(idUser,dao);
+    public ArrayList<Integer> getAllChats(int idUser) {
+        return daoMessageSQL.getAllChats(idUser, dao);
     }
+
+
+    public ArrayList<Trato> getValoracionesPendientes(Usuario usuario) {
+        ArrayList<Trato> tratos = tratoSQL.readPendiente(usuario.getId(), dao);
+        ArrayList<Trato> temp = new ArrayList<>();
+        for (Trato trato : tratos) {
+            if (trato.getCompletado() == 0) {
+                temp.add(trato);
+            }
+        }
+        return temp;
+    }
+
+
+    public Trato buscaTratoId(int id) {
+        return tratoSQL.read(id, dao);
+    }
+
+    public boolean updateTrato(Trato trato) {
+        return tratoSQL.update(trato, dao);
+    }
+
+    public int generaIdTrato() {
+
+        int id = (int) (Math.random() * 8999 + 1000);
+
+        for (Usuario usuario : daoUsuarioSQL.getAll(dao)) {
+            for (Trato compra : getCompras(usuario.getId())) {
+                if (compra.getId() == id) {
+                    id = (int) (Math.random() * 8999 + 1000);
+                }
+            }
+            for (Trato venta : getVentas(usuario.getId())) {
+                if (venta.getId() == id) {
+                    id = (int) (Math.random() * 8999 + 1000);
+                }
+            }
+        }
+
+        return id;
+    }
+
+    public boolean addTrato(Trato trato) {
+        return tratoSQL.insert(trato, dao);
+    }
+
+    public ArrayList<Trato> getCompras(int idUsuario) {
+        ArrayList<Trato> tratos = tratoSQL.getAll(idUsuario, dao);
+        ArrayList<Trato> compras = new ArrayList<>();
+        for (Trato trato : tratos) {
+            if (trato.getTipoTrato().equals("Compra")) compras.add(trato);
+        }
+        return compras;
+    }
+
+    public ArrayList<Trato> getVentas(int idUsuario) {
+        ArrayList<Trato> tratos = tratoSQL.getAll(idUsuario, dao);
+        ArrayList<Trato> ventas = new ArrayList<>();
+        for (Trato trato : tratos) {
+            if (trato.getTipoTrato().equals("Venta")) ventas.add(trato);
+        }
+        return ventas;
+    }
+
+
+    public boolean sellProduct(int productID) {
+        return daoProductoSQL.sell(productID, dao);
+    }
+
+    public ArrayList<Producto> buscaProductoTexto(String nombreProducto) {
+        ArrayList<Producto> productos = getProductos();
+        ArrayList<Producto> temp = new ArrayList<>();
+        for (Producto producto : productos) {
+            if (producto.getNombre().toLowerCase().contains(nombreProducto.toLowerCase())) {
+                temp.add(producto);
+            }
+        }
+        return temp;
+    }
+
+    public void addProducto(Producto producto) {
+        daoProductoSQL.insert(producto, dao);
+    }
+
+    public boolean updateProducto(Producto producto) {
+
+        return daoProductoSQL.update(producto, dao);
+
+    }
+
+    public boolean quitaProducto(int idProducto) {
+        return daoProductoSQL.delete(idProducto, dao);
+    }
+
+    public Producto getProductoPorID(int id) {
+        return daoProductoSQL.read(id, dao);
+    }
+
+    public ArrayList<Producto> getProductosDeUsuario(int idUsuario) {
+        ArrayList<Producto> temp = new ArrayList<>();
+        for (Producto producto : daoProductoSQL.getAllFromUser(idUsuario, dao)) {
+            if (producto.getVendido() == 0) temp.add(producto);
+        }
+        return temp;
+    }
+
+    public ArrayList<Producto> getProductos() {
+        return daoProductoSQL.getAll(dao);
+    }
+
+
+    public boolean updateUsuario(Usuario usuario) {
+        return daoUsuarioSQL.update(usuario, dao);
+    }
+
     public boolean borrarUsuario(int idUsuario) {
         return daoUsuarioSQL.delete(idUsuario, dao);
     }
+
+    public boolean addUsuario(Usuario usuario) {
+
+        if (daoUsuarioSQL.insert(usuario, dao)) {
+            return true;
+        }
+        return false;
+    }
+
+    public Usuario getUsuarioPorEmail(String email) {
+        return daoUsuarioSQL.read(email, dao);
+    }
+
+    public Usuario getUsuarioPorId(int id) {
+        return daoUsuarioSQL.readID(id, dao);
+    }
+
+    public ArrayList<Usuario> getUsuarios() {
+        if (daoUsuarioSQL.getAll(dao).size() != 0) {
+            return daoUsuarioSQL.getAll(dao);
+        }
+        return null;
+    }
+
+    public Usuario login(String email, String password) {
+        Usuario u = daoUsuarioSQL.read(email, dao);
+        if (u != null) {
+            if (u.getPassword().equals(password)) return u;
+        }
+        return null;
+    }
+
 
     public double notaMedia(String email) {
         float total = 0;
@@ -120,120 +269,6 @@ public class GestionAPP implements Serializable {
         return media;
     }
 
-    public boolean updateUsuario(Usuario usuario) {
-        return daoUsuarioSQL.update(usuario, dao);
-    }
-
-    public int generaIdTrato() {
-
-        int id = (int) (Math.random() * 8999 + 1000);
-
-        for (Usuario usuario : daoUsuarioSQL.getAll(dao)) {
-            for (Trato compra : getCompras(usuario.getId())) {
-                if (compra.getId() == id) {
-                    id = (int) (Math.random() * 8999 + 1000);
-                }
-            }
-            for (Trato venta : getVentas(usuario.getId())) {
-                if (venta.getId() == id) {
-                    id = (int) (Math.random() * 8999 + 1000);
-                }
-            }
-        }
-
-        return id;
-    }
-
-    public boolean updateTrato(Trato trato) {
-        return tratoSQL.update(trato, dao);
-    }
-
-    public Trato buscaTratoId(int id) {
-        return tratoSQL.read(id, dao);
-    }
-
-    public ArrayList<Trato> getValoracionesPendientes(Usuario usuario) {
-        ArrayList<Trato> tratos = tratoSQL.readPendiente(usuario.getId(), dao);
-        ArrayList<Trato> temp = new ArrayList<>();
-        for (Trato trato : tratos) {
-            if (trato.getCompletado() == 0) {
-                temp.add(trato);
-            }
-        }
-        return temp;
-    }
-
-    public ArrayList<Producto> buscaProductoTexto(String nombreProducto) {
-        ArrayList<Producto> productos = getProductos();
-        ArrayList<Producto> temp = new ArrayList<>();
-        for (Producto producto : productos) {
-            if (producto.getNombre().toLowerCase().contains(nombreProducto.toLowerCase())) {
-                temp.add(producto);
-            }
-        }
-        return temp;
-    }
-
-    public boolean updateProducto(Producto producto) {
-
-        return daoProductoSQL.update(producto, dao);
-
-    }
-
-    public boolean addTrato(Trato trato) {
-        return tratoSQL.insert(trato, dao);
-    }
-
-    public ArrayList<Trato> getCompras(int idUsuario) {
-        ArrayList<Trato> tratos = tratoSQL.getAll(idUsuario, dao);
-        ArrayList<Trato> compras = new ArrayList<>();
-        for (Trato trato : tratos) {
-            if (trato.getTipoTrato().equals("Compra")) compras.add(trato);
-        }
-        return compras;
-    }
-
-    public ArrayList<Trato> getVentas(int idUsuario) {
-        ArrayList<Trato> tratos = tratoSQL.getAll(idUsuario, dao);
-        ArrayList<Trato> ventas = new ArrayList<>();
-        for (Trato trato : tratos) {
-            if (trato.getTipoTrato().equals("Venta")) ventas.add(trato);
-        }
-        return ventas;
-    }
-
-    public boolean quitaProducto(int idProducto) {
-        return daoProductoSQL.delete(idProducto, dao);
-    }
-
-    public Usuario buscaMail(String email) {
-        return daoUsuarioSQL.read(email, dao);
-    }
-
-    public Usuario getUsuarioPorEmail(String email) {
-        return daoUsuarioSQL.read(email, dao);
-    }
-
-    public Producto getProductoPorID(int id) {
-        return daoProductoSQL.read(id, dao);
-    }
-
-    public ArrayList<Producto> getProductosDeUsuario(int idUsuario) {
-        ArrayList<Producto> temp = new ArrayList<>();
-        for (Producto producto : daoProductoSQL.getAllFromUser(idUsuario, dao)) {
-            if (producto.getVendido() == 0) temp.add(producto);
-        }
-        return temp;
-    }
-
-    public ArrayList<Producto> getProductos() {
-        return daoProductoSQL.getAll(dao);
-    }
-
-    public void addProducto(Producto producto) {
-        daoProductoSQL.insert(producto, dao);
-    }
-
     public boolean checkDBConn() {
         try {
             dao.open();
@@ -241,25 +276,6 @@ public class GestionAPP implements Serializable {
         } catch (Exception e) {
             return false;
         }
-    }
-
-    public boolean addUsuario(Usuario usuario) {
-
-        if (daoUsuarioSQL.insert(usuario, dao)) {
-            return true;
-        }
-        return false;
-    }
-
-    public Usuario getUsuarioPorId(int id){
-        return daoUsuarioSQL.readID(id,dao);
-    }
-
-    public ArrayList<Usuario> getUsuarios() {
-        if (daoUsuarioSQL.getAll(dao).size() != 0) {
-            return daoUsuarioSQL.getAll(dao);
-        }
-        return null;
     }
 
     public boolean crearYEnviarExcel() {
@@ -429,14 +445,6 @@ public class GestionAPP implements Serializable {
 
     }
 
-    public Usuario login(String email, String password) {
-        Usuario u = daoUsuarioSQL.read(email, dao);
-        if (u != null) {
-            if (u.getPassword().equals(password)) return u;
-        }
-        return null;
-    }
-
     public static boolean validateString(String string) {
         boolean check = false;
         String abc = "abcdefghijklmnñopqrstuvwxyzáéíóú. ";
@@ -456,6 +464,5 @@ public class GestionAPP implements Serializable {
     public static boolean validarSexo(String gender) {
         return "m".equalsIgnoreCase(gender) || gender.equalsIgnoreCase("h");
     }
-
 
 }

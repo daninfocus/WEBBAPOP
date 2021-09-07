@@ -16,4 +16,6 @@ public interface DaoProducto {
     public ArrayList<Producto> getAll(DAOManager dao);
 
     public ArrayList<Producto> getAllFromUser(int id, DAOManager dao);
+
+    public boolean sell(int productID, DAOManager dao);
 }

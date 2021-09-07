@@ -2,13 +2,7 @@ package com.WEBBAPOPFINAL;
 
 import Modelo.GestionAPP;
 import Modelo.Producto;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,7 +25,7 @@ public class WriteToDB extends HttpServlet {
         String state = request.getParameter("state");
 
         GestionAPP gestionAPP = new GestionAPP();
-        Producto producto = new Producto(0,name,description,category,price,LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),state,id,0);
+        Producto producto = new Producto(0,name,description,category,price,LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")),state,id,0,0);
         gestionAPP.addProducto(producto);
         response.sendRedirect("/Profile");
 

@@ -68,6 +68,28 @@
         <url-pattern>/Save</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>DeleteProduct</servlet-name>
+        <servlet-class>com.WEBBAPOPFINAL.DeleteProduct</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>DeleteProduct</servlet-name>
+        <url-pattern>/deleteProduct</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>Sold</servlet-name>
+        <servlet-class>com.WEBBAPOPFINAL.Sold</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Sold</servlet-name>
+        <url-pattern>/Sold</url-pattern>
+    </servlet-mapping>
+
+
 
 
     <servlet>

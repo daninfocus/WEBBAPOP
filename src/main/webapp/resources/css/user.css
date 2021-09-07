@@ -191,6 +191,13 @@ body::-webkit-scrollbar-thumb:hover {
     text-transform: uppercase;
     font-family: Wallie, Helvetica;
     font-weight: bold;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: column wrap;
+    padding: 10px;
+    margin-bottom: 20px;
 }
 
 .sidenav a:hover {

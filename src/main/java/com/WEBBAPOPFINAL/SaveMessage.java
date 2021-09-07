@@ -34,7 +34,7 @@ public class SaveMessage extends HttpServlet {
         GestionAPP gestionAPP = new GestionAPP();
         Message message = new Message(0,idSender, idUserReciever, idProduct, sdf.format(cal.getTime()), "", messageContent, 0, 0);
         gestionAPP.saveMessage(message);
-        response.sendRedirect("/Profile?Option=messages");
+        response.sendRedirect("/Profile?Product_ID="+idProduct);
 
 
     }

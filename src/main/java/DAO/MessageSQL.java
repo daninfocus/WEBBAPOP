@@ -79,7 +79,7 @@ public class MessageSQL implements DaoMessage {
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
                     // obtener cada una de la columnas y mapearlas a la clase Message
-                    System.out.println(rs.getInt("ID_Message"));
+                    //System.out.println(rs.getInt("ID_Message"));
                     message = new Message(
                             rs.getInt("ID_Message"),
                             rs.getInt("ID_User_Sender"),
