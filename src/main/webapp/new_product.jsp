@@ -46,7 +46,7 @@
     </div>
 
     <div class="page-invisible" id="motor-form">
-        <form action="/Save" method="POST" class="form">
+        <form action="/Save" method="post" class="form" enctype="multipart/form-data">
             <div class="form-contents">
                 <div class="tittle">
                     <div><label for="title1">Título</label></div>
@@ -76,7 +76,7 @@
                     <div><label for="descriptionCar">Descripcion&emsp;</label></div>
                     <textarea id="descriptionCar" name="descriptionCar" placeholder="  Una breve descripcion de su vehiculo" ></textarea>
                 </div>
-
+                Select File to Upload:<input type="file" name="fileName">
                 <input type="hidden" name="category" value="Motor" />
                 <input type="hidden" name="userId" value="<%=user.getId()%>" />
                 <input type="hidden" name="sold" value="no" />

@@ -28,7 +28,7 @@
                 out.print("<a target=\"_blank\" href=\"/Product?Product_ID=" + producto.getid() + "\">\n" +
                         "<div class=\"child-container\">\n" +
                         "    <div class=\"images\">\n" +
-                        "        <img class=\"img\" src=\"http://mistillas.cl/wp-content/uploads/2018/04/Nike-Epic-React-Flyknit-%E2%80%9CPearl-Pink%E2%80%9D-01.jpg\" />\n" +
+                        "        <img class=\"img\" src=\"/Save?fileName="+producto.getImage()+" />\n" +
                         "    </div>\n" +
                         "    <div class=\"product\">\n" +
                         "        <h2 class=\"price\">" + df.format(producto.getPrecio()) + " <i class=\"fa fa-euro-sign\" aria-hidden=\"true\"></i></h2 >\n" +

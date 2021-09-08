@@ -8,8 +8,6 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
 import java.io.*;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /**
@@ -192,7 +190,15 @@ public class GestionAPP implements Serializable {
     public ArrayList<Producto> getProductosDeUsuario(int idUsuario) {
         ArrayList<Producto> temp = new ArrayList<>();
         for (Producto producto : daoProductoSQL.getAllFromUser(idUsuario, dao)) {
-            if (producto.getVendido() == 0) temp.add(producto);
+            if (producto.getVendido() == 0 && producto.getDeleted() == 0) temp.add(producto);
+        }
+        return temp;
+    }
+
+    public ArrayList<Producto> getProductosDeUsuarioVendidos(int idUsuario) {
+        ArrayList<Producto> temp = new ArrayList<>();
+        for (Producto producto : daoProductoSQL.getAllFromUser(idUsuario, dao)) {
+            if (producto.getVendido() == 1 && producto.getDeleted() == 0) temp.add(producto);
         }
         return temp;
     }
@@ -465,4 +471,13 @@ public class GestionAPP implements Serializable {
         return "m".equalsIgnoreCase(gender) || gender.equalsIgnoreCase("h");
     }
 
+    public boolean deleteProduct(int product_id) {
+        return daoProductoSQL.delete(product_id, dao);
+    }
+
+    public boolean reserveProduct(int productID) {
+        Producto product = getProductoPorID(productID);
+        product.setReserved(1);
+        return daoProductoSQL.update(product, dao);
+    }
 }

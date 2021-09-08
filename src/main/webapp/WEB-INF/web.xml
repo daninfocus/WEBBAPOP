@@ -3,7 +3,10 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
-
+    <context-param>
+        <param-name>tempfile.dir</param-name>
+        <param-value>tmpfiles</param-value>
+    </context-param>
     <servlet>
         <servlet-name>login</servlet-name>
         <jsp-file>/login.jsp</jsp-file>
@@ -60,7 +63,7 @@
 
     <servlet>
         <servlet-name>Save</servlet-name>
-        <servlet-class>com.WEBBAPOPFINAL.WriteToDB</servlet-class>
+        <servlet-class>com.WEBBAPOPFINAL.NewProduct</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -88,6 +91,17 @@
         <servlet-name>Sold</servlet-name>
         <url-pattern>/Sold</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ReserveProduct</servlet-name>
+        <servlet-class>com.WEBBAPOPFINAL.ReserveProduct</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>ReserveProduct</servlet-name>
+        <url-pattern>/Reserved</url-pattern>
+    </servlet-mapping>
+
 
 
 

@@ -79,7 +79,7 @@
             "  <div class=\"image\">\n" +
             "    <img\n" +
             "            class=\"img\"\n" +
-            "            src=\"http://mistillas.cl/wp-content/uploads/2018/04/Nike-Epic-React-Flyknit-%E2%80%9CPearl-Pink%E2%80%9D-01.jpg\"\n" +
+            "            src=\"C:\\apache-tomcat-9.0.50\\tmpfiles\\Saab-9-3-Aero_2000_1.jpg\"\n" +
             "    />\n" +
             "  </div>\n" +
             "  <div class=\"productInfo\">\n" +
@@ -115,13 +115,17 @@
             "      <h4>"+seller.getNombre()+"</h4>\n" +
             "    </div>\n" +
             "      <div class=\"buttons\">\n" +
-            "          <button onclick=\"window.location.href='/Sold?Product_ID="+product.getid()+"';\" type=\"button\" title=\"Marcar como vendido\" class=\"sell\">\n" +
-            "              <i class=\"far fa-handshake\"></i>\n" +
-            "          </button>\n" +
-            "          <button onclick=\"window.location.href='/Reserved?Product_ID="+product.getid()+"';\" type=\"button\" title=\"Marcar como reservado\" class=\"reserve\">\n" +
-            "              <i class=\"far fa-bookmark\"></i>\n" +
-            "          </button>\n" +
-            "          <button onclick=\"window.location.href='/Edit?Product_ID="+product.getid()+"';\" type=\"button\" title=\"Editar\"class=\"edit\"><i class=\"far fa-edit\"></i></button>\n" +
+            (product.getVendido()==0?"          <button onclick=\"window.location.href='/Sold?Product_ID="+product.getid()+"';\" type=\"button\" title=\"Marcar como vendido\" class=\"sell\">\n" +
+                    "              <i class=\"far fa-handshake\"></i>\n" +
+                    "          </button>\n" +
+                    "          <button onclick=\"window.location.href='/Reserved?Product_ID="+product.getid()+"';\" type=\"button\" title=\"Marcar como reservado\" class=\"reserve\">\n" +
+                    "              <i class=\"far fa-bookmark\"></i>\n" +
+                    "          </button>\n" +
+                    "          <button onclick=\"window.location.href='/Edit?Product_ID="+product.getid()+"';\" type=\"button\" title=\"Editar\"class=\"edit\"><i class=\"far fa-edit\"></i></button>\n"
+            :"")
+
+            +
+
             "          <button onclick=\"window.location.href='/Delete?Product_ID="+product.getid()+"';\" type=\"button\" title=\"BORRAR\" class=\"delete\">\n" +
             "              <i class=\"far fa-trash-alt\"></i>\n" +
             "          </button>\n" +
@@ -130,7 +134,7 @@
             "  <div class=\"image\">\n" +
             "    <img\n" +
             "            class=\"img\"\n" +
-            "            src=\"http://mistillas.cl/wp-content/uploads/2018/04/Nike-Epic-React-Flyknit-%E2%80%9CPearl-Pink%E2%80%9D-01.jpg\"\n" +
+            "            src=\"C:\\apache-tomcat-9.0.50\\tmpfiles\\Saab-9-3-Aero_2000_1.jpg\"\n" +
             "    />\n" +
             "  </div>\n" +
             "  <div class=\"productInfo\">\n" +

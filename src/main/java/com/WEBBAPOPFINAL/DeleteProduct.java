@@ -31,7 +31,7 @@ public class DeleteProduct extends HttpServlet {
             temp = request.getParameter("checkbox"+i);
             if(temp!=null) {
                 product_id = Integer.parseInt(temp);
-                gestionAPP.sellProduct(product_id);
+                gestionAPP.deleteProduct(product_id);
             }
         }
         response.sendRedirect("/Profile");

@@ -22,7 +22,9 @@ public class ProductoSQL implements DaoProducto {
                     + producto.getEstado() + "','"
                     + producto.getIdUsuario() + "','"
                     + producto.getVendido() + "','"
-                    + producto.getDeleted() + "');";
+                    + producto.getDeleted() + "','"
+                    + producto.getReserved() + "','"
+                    + producto.getImage() +"');";
 
             st.executeUpdate(sentencia);
         } catch (Exception e) {
@@ -46,7 +48,9 @@ public class ProductoSQL implements DaoProducto {
                 + producto.getEstado() + "', idUsuario = '"
                 + producto.getIdUsuario() + "', vendido = '"
                 + producto.getVendido() + "', deleted = '"
-                + producto.getDeleted() + "' WHERE id='"+producto.getid()+"';";
+                + producto.getDeleted() + "', reserved = '"
+                + producto.getReserved() +"', reserved = '"
+                + producto.getImage() + "' WHERE id='"+producto.getid()+"';";
 
         try (Statement stmt = dao.getConn().createStatement()) {
             // enviar el commando insert
@@ -61,7 +65,7 @@ public class ProductoSQL implements DaoProducto {
     @Override
     public boolean delete(int id, DAOManager dao) {
         String sentencia;
-        sentencia = "UPDATE Producto where id = '" + id + "' set deleted=1;";
+        sentencia = "UPDATE Producto set deleted='1' where id = '" + id + "';";
 
         try (Statement stmt = dao.getConn().createStatement()) {
             // enviar el commando delete
@@ -94,7 +98,9 @@ public class ProductoSQL implements DaoProducto {
                             rs.getString("estado"),
                             rs.getInt("idUsuario"),
                             rs.getInt("vendido"),
-                            rs.getInt("deleted"));
+                            rs.getInt("deleted"),
+                            rs.getInt("reserved"),
+                            rs.getString("image"));
                 }
             }
         } catch (SQLException ex) {
@@ -125,7 +131,9 @@ public class ProductoSQL implements DaoProducto {
                             rs.getString("estado"),
                             rs.getInt("idUsuario"),
                             rs.getInt("vendido"),
-                            rs.getInt("deleted"));
+                            rs.getInt("deleted"),
+                            rs.getInt("reserved"),
+                            rs.getString("image"));
                     productos.add(producto);
                 }
             }
@@ -158,7 +166,9 @@ public class ProductoSQL implements DaoProducto {
                             rs.getString("estado"),
                             rs.getInt("idUsuario"),
                             rs.getInt("vendido"),
-                            rs.getInt("deleted"));
+                            rs.getInt("deleted"),
+                            rs.getInt("reserved"),
+                            rs.getString("image"));
                     productos.add(producto);
                 }
             }
@@ -171,7 +181,7 @@ public class ProductoSQL implements DaoProducto {
     @Override
     public boolean sell(int productID, DAOManager dao) {
         String sentencia;
-        sentencia = "UPDATE Producto where id = '" + productID + "' set vendido=1;";
+        sentencia = "UPDATE Producto set vendido='1' where id = '" + productID + "';";
 
         try (Statement stmt = dao.getConn().createStatement()) {
             // enviar el commando delete

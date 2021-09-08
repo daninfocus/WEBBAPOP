@@ -51,50 +51,98 @@
     <div class="text1">
         <h2>Tus productos</h2>
         <h4>
-            Aquí podrás subir productos, gestionar los que ya tienes y destacarlos
-            para venderlos antes
+            Aquí podrás subir productos y gestionar los que ya tienes.
         </h4>
     </div>
+    <div class="tabs">
 
-    <form action="/deleteProduct" method="post">
+        <input type="radio" name="tabs" id="tabone" checked="checked">
+        <label for="tabone">En Venta</label>
+        <div class="tab">
+            <h1>Tus productos en venta</h1>
+            <form action="/deleteProduct" method="post">
 
-    <%
-        int num=0;
-        DecimalFormat df = new DecimalFormat("#,##0.##");
-        for (Producto producto : productos) {
-            out.print("<input type=\"checkbox\" class=\"checkbox\" name=\"checkbox"+num+"\" value="+producto.getid()+"><div class=\"list\">\n" +
-                    "    <img src=\"\"/>\n" +
-                    "    <div class=\"text-container\">\n" +
-                    "        <div class=\"price\">"+df.format(producto.getPrecio())+"<i class=\"fa fa-euro-sign\" aria-hidden=\"true\"></i></div>\n" +
-                    "        <div style=\"overflow:hidden;white-space: nowrap;\" class=\"name"+num+"\">"+producto.getNombre()+"</div>\n" +
-                    "    </div>\n" +
-                    "    <div class=\"publishDate-container\">\n" +
-                    "        <div class=\"text\">Publicado</div>\n" +
-                    "        <div class=\"publishDate\">"+producto.getFecha()+"</div>\n" +
-                    "    </div>\n" +
-                    "    <div class=\"modifyDate-container\">\n" +
-                    "        <div class=\"text\">Modify</div>\n" +
-                    "        <div class=\"modifyDate\">15/08/2021</div>\n" +
-                    "    </div>\n" +
-                    "    <div class=\"buttons\">\n" +
-                    "        <button onclick=\"window.location.href='/Sold?Product_ID="+producto.getid()+"';\" type=\"button\" title=\"Marcar como vendido\" class=\"sell\">\n" +
-                    "            <i class=\"far fa-handshake\"></i>\n" +
-                    "        </button>\n" +
-                    "        <button onclick=\"window.location.href='/Reserved?Product_ID="+producto.getid()+"';\" type=\"button\" title=\"Marcar como reservado\" class=\"reserve\">\n" +
-                    "            <i class=\"far fa-bookmark\"></i>\n" +
-                    "        </button>\n" +
-                    "        <button onclick=\"window.location.href='/Edit?Product_ID="+producto.getid()+"';\" type=\"button\" title=\"Editar\"class=\"edit\"><i class=\"far fa-edit\"></i></button>\n" +
-                    "    </div>\n" +
-                    "</div>" +
-                    "<br>");
-            num++;
-        }
-    %>
-        <div style="width:100%;display: flex;flex-direction: row;justify-content: space-around">
-            <input type="hidden" name="userEmail" value="<%=session.getAttribute("loggedInUser")%>">
-            <input class="checkboxSave" type="submit" value="Borrar producto" onclick='return confirm("Se borrara permanentemente los productos seleccionados")'>
+                <%
+                    int num=0;
+                    DecimalFormat df = new DecimalFormat("#,##0.##");
+                    for (Producto producto : productos) {
+                        out.print(
+                                "<input type=\"checkbox\" class=\"checkbox\" name=\"checkbox"+num+"\" value="+producto.getid()+">\n" +
+                                        "<a class=\"list\" target=\"_blank\" href=\"/Product?Product_ID=" + producto.getid() + "\">\n" +
+                                        "    <img src=\"\"/>\n" +
+                                        "    <div class=\"text-container\">\n" +
+                                        "        <div class=\"price\">"+df.format(producto.getPrecio())+"<i class=\"fa fa-euro-sign\" aria-hidden=\"true\"></i></div>\n" +
+                                        "        <div style=\"overflow:hidden;white-space: nowrap;\" class=\"name"+num+"\">"+producto.getNombre()+"</div>\n" +
+                                        "    </div>\n" +
+                                        "    <div class=\"publishDate-container\">\n" +
+                                        "        <div class=\"text\">Publicado</div>\n" +
+                                        "        <div class=\"publishDate\">"+producto.getFecha()+"</div>\n" +
+                                        "    </div>\n" +
+                                        "    <div class=\"modifyDate-container\">\n" +
+                                        "        <div class=\"text\">Modify</div>\n" +
+                                        "        <div class=\"modifyDate\">15/08/2021</div>\n" +
+                                        "    </div>\n" +
+                                        "    <div class=\"buttons\">\n" +
+                                        "        <button onclick=\"window.location.href='/Sold?Product_ID="+producto.getid()+"';\" type=\"button\" title=\"Marcar como vendido\" class=\"sell\">\n" +
+                                        "            <i class=\"far fa-handshake\"></i>\n" +
+                                        "        </button>\n" +
+                                        "        <button onclick=\"window.location.href='/Reserved?Product_ID="+producto.getid()+"';\" type=\"button\" title=\"Marcar como reservado\" class=\"reserve\">\n" +
+                                        "            <i class=\"far fa-bookmark\"></i>\n" +
+                                        "        </button>\n" +
+                                        "        <button onclick=\"window.location.href='/Edit?Product_ID="+producto.getid()+"';\" type=\"button\" title=\"Editar\"class=\"edit\"><i class=\"far fa-edit\"></i></button>\n" +
+                                        "    </div>\n" +
+                                        "</a>" +
+                                        "<br>");
+                        num++;
+                    }
+                %>
+                <div style="width:100%;display: flex;flex-direction: row;justify-content: space-around">
+                    <input type="hidden" name="userEmail" value="<%=session.getAttribute("loggedInUser")%>">
+                    <input class="checkboxSave" type="submit" value="Borrar producto" onclick='return confirm("Se borrara permanentemente los productos seleccionados")'>
+                </div>
+            </form>
         </div>
-    </form>
+
+        <input type="radio" name="tabs" id="tabtwo">
+        <label for="tabtwo">Vendidos</label>
+        <div class="tab">
+            <h1>Tus productos vendidos</h1>
+            <form action="/deleteProduct" method="post">
+
+                <%
+                    num=0;
+                    df = new DecimalFormat("#,##0.##");
+
+                    ArrayList<Producto> productosVendidos = gestionAPP.getProductosDeUsuarioVendidos(user.getId());
+                    for (Producto producto : productosVendidos) {
+                        out.print(
+                                "<input type=\"checkbox\" class=\"checkbox\" name=\"checkbox"+num+"\" value="+producto.getid()+">\n" +
+                                        "<a class=\"list\" target=\"_blank\" href=\"/Product?Product_ID=" + producto.getid() + "\">\n" +
+                                        "    <img src=\"\"/>\n" +
+                                        "    <div class=\"text-container\">\n" +
+                                        "        <div class=\"price\">"+df.format(producto.getPrecio())+"<i class=\"fa fa-euro-sign\" aria-hidden=\"true\"></i></div>\n" +
+                                        "        <div style=\"overflow:hidden;white-space: nowrap;\" class=\"name"+num+"\">"+producto.getNombre()+"</div>\n" +
+                                        "    </div>\n" +
+                                        "    <div class=\"publishDate-container\">\n" +
+                                        "        <div class=\"text\">Publicado</div>\n" +
+                                        "        <div class=\"publishDate\">"+producto.getFecha()+"</div>\n" +
+                                        "    </div>\n" +
+                                        "    <div class=\"modifyDate-container\">\n" +
+                                        "        <div class=\"text\">Modify</div>\n" +
+                                        "        <div class=\"modifyDate\">15/08/2021</div>\n" +
+                                        "    </div>\n" +
+                                        "</a>" +
+                                        "<br>");
+                        num++;
+                    }
+                %>
+                <div style="width:100%;display: flex;flex-direction: row;justify-content: space-around">
+                    <input type="hidden" name="userEmail" value="<%=session.getAttribute("loggedInUser")%>">
+                    <input class="checkboxSave" type="submit" value="Borrar producto" onclick='return confirm("Se borrara permanentemente los productos seleccionados")'>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 </body>
 </html>
