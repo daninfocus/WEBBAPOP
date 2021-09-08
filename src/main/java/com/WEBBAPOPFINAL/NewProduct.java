@@ -1,5 +1,6 @@
 package com.WEBBAPOPFINAL;
 
+import DAO.DAOManager;
 import Modelo.GestionAPP;
 import Modelo.Producto;
 import java.io.File;
@@ -7,6 +8,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
@@ -15,57 +18,26 @@ import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.security.core.parameters.P;
 
-//@WebServlet(name = "save", value = "/Save")
+//@WebServlet(name = "save", value = "/Save")\
+@MultipartConfig(maxFileSize = 16177216)//1.5mb
 public class NewProduct extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private ServletFileUpload uploader = null;
-    @Override
-    public void init() throws ServletException{
-        DiskFileItemFactory fileFactory = new DiskFileItemFactory();
-        File filesDir = (File) getServletContext().getAttribute("FILES_DIR_FILE");
-        fileFactory.setRepository(filesDir);
-        this.uploader = new ServletFileUpload(fileFactory);
-    }
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String fileName = request.getParameter("fileName");
-        if(fileName == null || fileName.equals("")){
-            throw new ServletException("File Name can't be null or empty");
-        }
-        File file = new File(request.getServletContext().getAttribute("FILES_DIR")+File.separator+fileName);
-        if(!file.exists()){
-            throw new ServletException("File doesn't exists on server.");
-        }
-        System.out.println("File location on server::"+file.getAbsolutePath());
-        ServletContext ctx = getServletContext();
-        InputStream fis = new FileInputStream(file);
-        String mimeType = ctx.getMimeType(file.getAbsolutePath());
-        response.setContentType(mimeType != null? mimeType:"application/octet-stream");
-        response.setContentLength((int) file.length());
-        response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
-
-        ServletOutputStream os       = response.getOutputStream();
-        byte[] bufferData = new byte[1024];
-        int read=0;
-        while((read = fis.read(bufferData))!= -1){
-            os.write(bufferData, 0, read);
-        }
-        os.flush();
-        os.close();
-        fis.close();
-        System.out.println("File downloaded at client successfully");
-    }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -78,24 +50,25 @@ public class NewProduct extends HttpServlet {
         //String category = request.getParameter("category");
         //String sold = request.getParameter("sold");
         //String state = request.getParameter("state");
+        response.setContentType("text/html;charset=UTF-8");
+
+        GestionAPP gestionAPP = new GestionAPP();
+        Producto producto = new Producto(0,"","","",0f,"","",0,0,0,0,"");
+
         if(!ServletFileUpload.isMultipartContent(request)){
             throw new ServletException("Content type is not multipart/form-data");
         }
 
-        response.setContentType("text/html");
-        PrintWriter out = response.getWriter();
-        out.write("<html><head></head><body>");
-
         try {
+
             FileItemFactory factory = new DiskFileItemFactory();
 
             ServletFileUpload upload = new ServletFileUpload( factory );
             upload.setSizeMax(5242880);
 
             List<FileItem> uploadItems = upload.parseRequest( request );
-
-            Producto producto = new Producto(0,"","","",0f,"","",0,0,0,0,"");
-
+            String fileBlob="";
+            InputStream fileContent=null;
             for( FileItem uploadItem : uploadItems )
             {
 
@@ -111,42 +84,43 @@ public class NewProduct extends HttpServlet {
                     if(fieldName.equals("state")) producto.setEstado(value);
                     if(fieldName.equals("userId")) producto.setIdUsuario(Integer.parseInt(value));
                 }else{
-                    Iterator<FileItem> fileItemsIterator = uploadItems.iterator();
-                    while(fileItemsIterator.hasNext()){
-                        FileItem fileItem = fileItemsIterator.next();
-                        if(fileItem.getFieldName().equals("fileName")) {
-                            System.out.println("FieldName=" + fileItem.getFieldName());
-                            System.out.println("FileName=" + fileItem.getName());
-                            System.out.println("ContentType=" + fileItem.getContentType());
-                            System.out.println("Size in bytes=" + fileItem.getSize());
 
-                            File file = new File(request.getServletContext().getAttribute("FILES_DIR") + File.separator + fileItem.getName());
-                            System.out.println("Absolute Path at server=" + file.getAbsolutePath());
-                            String image = file.getAbsolutePath();
-                            producto.setImage(fileItem.getName());
-                            fileItem.write(file);
-                            out.write("File " + fileItem.getName() + " uploaded successfully.");
-                            out.write("<br>");
-                            out.write("<a href=\"UploadDownloadFileServlet?fileName=" + fileItem.getName() + "\">Download " + fileItem.getName() + "</a>");
-                        }
-                    }
+                    fileBlob = uploadItem.getString();
+                    String fieldName = uploadItem.getFieldName();
+                    String fileName = FilenameUtils.getName(uploadItem.getName());
+                    fileContent = uploadItem.getInputStream();
                 }
             }
 
-
-            GestionAPP gestionAPP = new GestionAPP();
             producto.setFecha();
-            gestionAPP.addProducto(producto);
 
+            int result = 0;
+            try {
+                Connection con = gestionAPP.getConn();
+                PreparedStatement ps = con.prepareStatement("INSERT INTO Producto values(?,?,?,?,?,?,?,?,?,?,?,?)");
+                //InputStream is = part.getInputStream();
+                ps.setInt(1,0);
+                ps.setString(2,producto.getNombre());
+                ps.setString(3,producto.getDescripcion());
+                ps.setString(4,producto.getCategoria());
+                ps.setFloat(5,producto.getPrecio());
+                ps.setString(6,producto.getFecha());
+                ps.setString(7,producto.getEstado());
+                ps.setInt(8,producto.getIdUsuario());
+                ps.setInt(9,0);
+                ps.setInt(10,0);
+                ps.setInt(11,0);
+                ps.setBlob(12, fileContent);
+                result = ps.executeUpdate();
+            } catch (Exception e) {
+                System.out.println(e);
+            }
 
-
-
+            response.sendRedirect("/Profile");
         } catch (FileUploadException e) {
-            out.write("Exception in uploading file.");
+            System.out.println("Exception in uploading file.");
         } catch (Exception e) {
-            out.write("Exception in uploading file.");
+            System.out.println("Exception in uploading file.");
         }
-        out.write("</body></html>");
-        response.sendRedirect("/Profile");
     }
 }

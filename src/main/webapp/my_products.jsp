@@ -69,7 +69,10 @@
                         out.print(
                                 "<input type=\"checkbox\" class=\"checkbox\" name=\"checkbox"+num+"\" value="+producto.getid()+">\n" +
                                         "<a class=\"list\" target=\"_blank\" href=\"/Product?Product_ID=" + producto.getid() + "\">\n" +
-                                        "    <img src=\"\"/>\n" +
+                                        "    <img\n" +
+                                        "            class=\"img\"\n" +
+                                        "            src=\"image.jsp?imgID="+producto.getid()+"\"\n" +
+                                        "    />\n" +
                                         "    <div class=\"text-container\">\n" +
                                         "        <div class=\"price\">"+df.format(producto.getPrecio())+"<i class=\"fa fa-euro-sign\" aria-hidden=\"true\"></i></div>\n" +
                                         "        <div style=\"overflow:hidden;white-space: nowrap;\" class=\"name"+num+"\">"+producto.getNombre()+"</div>\n" +
@@ -118,7 +121,10 @@
                         out.print(
                                 "<input type=\"checkbox\" class=\"checkbox\" name=\"checkbox"+num+"\" value="+producto.getid()+">\n" +
                                         "<a class=\"list\" target=\"_blank\" href=\"/Product?Product_ID=" + producto.getid() + "\">\n" +
-                                        "    <img src=\"\"/>\n" +
+                                        "    <img\n" +
+                                        "            class=\"img\"\n" +
+                                        "            src=\"image.jsp?imgID="+producto.getid()+"\"\n" +
+                                        "    />\n" +
                                         "    <div class=\"text-container\">\n" +
                                         "        <div class=\"price\">"+df.format(producto.getPrecio())+"<i class=\"fa fa-euro-sign\" aria-hidden=\"true\"></i></div>\n" +
                                         "        <div style=\"overflow:hidden;white-space: nowrap;\" class=\"name"+num+"\">"+producto.getNombre()+"</div>\n" +

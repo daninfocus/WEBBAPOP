@@ -79,7 +79,7 @@
             "  <div class=\"image\">\n" +
             "    <img\n" +
             "            class=\"img\"\n" +
-            "            src=\"C:\\apache-tomcat-9.0.50\\tmpfiles\\Saab-9-3-Aero_2000_1.jpg\"\n" +
+            "            src=\"image.jsp?imgID="+idProd+"\"\n" +
             "    />\n" +
             "  </div>\n" +
             "  <div class=\"productInfo\">\n" +
@@ -134,7 +134,7 @@
             "  <div class=\"image\">\n" +
             "    <img\n" +
             "            class=\"img\"\n" +
-            "            src=\"C:\\apache-tomcat-9.0.50\\tmpfiles\\Saab-9-3-Aero_2000_1.jpg\"\n" +
+            "            src=\"image.jsp?imgID="+idProd+"\"\n" +
             "    />\n" +
             "  </div>\n" +
             "  <div class=\"productInfo\">\n" +

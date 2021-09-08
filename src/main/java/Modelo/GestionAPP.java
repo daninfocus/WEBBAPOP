@@ -8,6 +8,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
 import java.io.*;
+import java.sql.Connection;
 import java.util.*;
 
 /**
@@ -273,6 +274,10 @@ public class GestionAPP implements Serializable {
         double media = total / contador;
         userTemp.setNotaMedia(media);
         return media;
+    }
+
+    public Connection getConn(){
+        return dao.getConn();
     }
 
     public boolean checkDBConn() {

@@ -21,8 +21,9 @@
     <title>Document</title>
 </head>
 <body>
+
 <%
-    GestionAPP gestion = new GestionAPP();
+    GestionAPP gestionAPP = new GestionAPP();
     Usuario loggedInUser = gestion.getUsuarioPorEmail(session.getAttribute("loggedInUser").toString());
 
 
@@ -62,10 +63,10 @@
                         }
 
                         out.print("<a class=\"aList\" href=\"/Profile?Product_ID=" + product_ids + "\"><div class=\"listMessages\">" +
-                                "   <img\n" +
-                                "       class=\"img\"\n" +
-                                "       src=\"http://mistillas.cl/wp-content/uploads/2018/04/Nike-Epic-React-Flyknit-%E2%80%9CPearl-Pink%E2%80%9D-01.jpg\"\n" +
-                                "       />\n" +
+                                "    <img\n" +
+                                "            class=\"img\"\n" +
+                                "            src=\"image.jsp?imgID="+product_ids+"\"\n" +
+                                "    />\n" +
                                 "   <div class=\"data\">\n" +
                                 "       <div class=\"top\">\n" +
                                 "           <div class=\"name\">" + usuarioOtro.getNombre() + "</div>\n" +

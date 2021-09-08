@@ -54,11 +54,13 @@ hr {
     color: white;
     margin-right: 10px;
 }
+.images{
+    height: 175px;
+}
 
 .img {
-    width: 50%;
+    height: 100%;
     border-radius: 10px;
-    margin: 5px;
 }
 
 .slideshow-buttons {

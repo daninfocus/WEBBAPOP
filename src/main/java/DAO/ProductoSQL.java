@@ -2,6 +2,8 @@ package DAO;
 
 import Modelo.Producto;
 
+import javax.servlet.http.Part;
+import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -10,6 +12,7 @@ public class ProductoSQL implements DaoProducto {
     public boolean insert(Producto producto, DAOManager dao) {
         String sentencia;
         Connection conn = dao.getConn();
+
         try {
             Statement st = conn.createStatement();
             sentencia = "INSERT INTO Producto VALUES ('"
