@@ -8,8 +8,8 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-  GestionAPP gestionAPP = new GestionAPP();
-  Usuario user = gestionAPP.getUsuarioPorEmail(request.getSession().getAttribute("loggedInUser").toString());
+  GestionAPP gestion = (GestionAPP)session.getAttribute("gestion");
+  Usuario user = gestion.getUsuarioPorEmail(request.getSession().getAttribute("loggedInUser").toString());
 
 %>
 <!DOCTYPE html>

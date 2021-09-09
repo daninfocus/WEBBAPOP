@@ -12,7 +12,7 @@ public class Trato implements Comparable<Object>, Serializable {
     private String tipoTrato; //Compra o Venta
     private int idUsuario; //id del usuario que tenga el trato
     private String emailOtroUsuario;
-    private int idOtroTrato;
+    //private int idOtroTrato;
     private int idProducto;
     private String fecha;
     private float precio;
@@ -21,11 +21,11 @@ public class Trato implements Comparable<Object>, Serializable {
     private int completado;
 
 
-    public Trato(int id, String tipoTrato, int idUsuario,String emailOtroUsuario, int idOtroTrato, int idProducto, String fecha, float precio, String comentario, int puntuacion, int completado) {
+    public Trato(int id, String tipoTrato, int idUsuario,String emailOtroUsuario, int idProducto, String fecha, float precio, String comentario, int puntuacion, int completado) {
         this.id = id;
         this.tipoTrato = tipoTrato;
         this.emailOtroUsuario=emailOtroUsuario;
-        this.idOtroTrato = idOtroTrato;
+        //this.idOtroTrato = idOtroTrato;
         this.idUsuario = idUsuario;
         this.idProducto = idProducto;
         this.fecha = fecha;
@@ -175,13 +175,13 @@ public class Trato implements Comparable<Object>, Serializable {
         this.idProducto = idProducto;
     }
 
-    public int getIdOtroTrato() {
+    /*public int getIdOtroTrato() {
         return idOtroTrato;
     }
 
     public void setIdOtroTrato(int idOtroTrato) {
         this.idOtroTrato = idOtroTrato;
-    }
+    }*/
 
     public int getCompletado() {
         return completado;

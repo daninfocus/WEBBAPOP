@@ -1,0 +1,181 @@
+
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: visible;
+    opacity: 1;
+    z-index: 2;
+}
+.overlay:target {
+
+    opacity: 1;
+}
+
+.popup {
+    margin: 30px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    width: 50%;
+    position: relative;
+    transition: all 2s ease-in-out;
+}
+
+.popup h2 {
+    margin-top: 0;
+    color: #333;
+    font-family: Tahoma, Arial, sans-serif;
+}
+.popup .close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    transition: all 200ms;
+    font-size: 30px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #333;
+}
+.popup .close:hover {
+    color: #06d85f;
+}
+
+.deleteConvo {
+    margin-right: 40px;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    padding: 10px;
+    text-decoration: none;
+    font-size: 13px;
+    line-height: 10px;
+    border-radius: 4px;
+}
+.deleteConvo:hover {
+    background-color: #bb2840;
+    color: white;
+}
+
+.qty .count {
+    color: #000;
+    display: inline-block;
+    vertical-align: top;
+    font-size: 25px;
+    font-weight: 700;
+    line-height: 30px;
+    padding: 0 2px;
+    min-width: 35px;
+    text-align: center;
+}
+.qty .plus {
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: top;
+    color: white;
+    width: 30px;
+    height: 30px;
+    font: 30px/1 Arial, sans-serif;
+    text-align: center;
+    border-radius: 50%;
+}
+.qty .minus {
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: top;
+    color: white;
+    width: 30px;
+    height: 30px;
+    font: 30px/1 Arial, sans-serif;
+    text-align: center;
+    border-radius: 50%;
+    background-clip: padding-box;
+}
+div {
+    text-align: center;
+}
+.minus:hover {
+    background-color: #717fe0 !important;
+}
+.plus:hover {
+    background-color: #717fe0 !important;
+}
+/*Prevent text selection*/
+span {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+input {
+    border: 0;
+    width: 2%;
+}
+nput::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+input:disabled {
+    background-color: white;
+}
+
+.review {
+    margin-top: 40px;
+}
+textarea {
+    border: solid 2px grey;
+    margin-top: 20px;
+    width: 100%;
+    overflow: auto;
+    resize: vertical;
+    border-radius: 5px;
+    outline: none;
+    font-size: 20px;
+    color: rgb(146, 146, 146);
+    margin-bottom: 40px;
+}
+textarea:focus {
+    box-shadow: 0px 0px #30ab53;
+    -moz-box-shadow: 0 0 0 5px #30ab53;
+    -webkit-box-shadow: 0 0 0 5px #30ab53;
+    -o-box-shadow: 0 0 0 5px #30ab53;
+}
+
+.users-list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 40px;
+}
+.users {
+    width: 100%;
+    border-radius: 5px;
+    background-color: rgb(151, 151, 151);
+}
+.starsContainer {
+    margin-top: 40px;
+}
+.btn btn-danger btn-sm {
+    overflow: hidden;
+    white-space: nowrap;
+}
+.price input{
+    border: solid 2px grey;
+    resize: vertical;
+    border-radius: 5px;
+    outline: none;
+    font-size: inherit;
+    margin-top: 20px;
+    width: 50%;
+}
+
+
+.price input:focus {
+    box-shadow: 0px 0px #30ab53;
+    -moz-box-shadow: 0 0 0 5px #30ab53;
+    -webkit-box-shadow: 0 0 0 5px #30ab53;
+    -o-box-shadow: 0 0 0 5px #30ab53;
+}

@@ -11,9 +11,9 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    GestionAPP gestionAPP = new GestionAPP();
-    Usuario user = gestionAPP.getUsuarioPorEmail(session.getAttribute("loggedInUser").toString());
-    ArrayList<Producto> productos = gestionAPP.getProductosDeUsuario(user.getId());
+    GestionAPP gestion = (GestionAPP)session.getAttribute("gestion");
+    Usuario user = gestion.getUsuarioPorEmail(session.getAttribute("loggedInUser").toString());
+    ArrayList<Producto> productos = gestion.getProductosDeUsuario(user.getId());
     int totalProd= productos.size();
 %>
 <!DOCTYPE html>
@@ -116,7 +116,7 @@
                     num=0;
                     df = new DecimalFormat("#,##0.##");
 
-                    ArrayList<Producto> productosVendidos = gestionAPP.getProductosDeUsuarioVendidos(user.getId());
+                    ArrayList<Producto> productosVendidos = gestion.getProductosDeUsuarioVendidos(user.getId());
                     for (Producto producto : productosVendidos) {
                         out.print(
                                 "<input type=\"checkbox\" class=\"checkbox\" name=\"checkbox"+num+"\" value="+producto.getid()+">\n" +

@@ -1,7 +1,8 @@
 <%@ page import="Modelo.GestionAPP" %>
 <%@ page import="Modelo.Producto" %>
 <%@ page import="java.text.DecimalFormat" %>
-<%@ page import="java.sql.*" %><%--
+<%@ page import="java.sql.*" %>
+<%@ page import="com.WEBBAPOPFINAL.Images" %><%--
   Created by IntelliJ IDEA.
   User: Dan
   Date: 10/08/2021
@@ -9,9 +10,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%
-    GestionAPP gestionAPP = new GestionAPP();
-%>
+
+
+
 <html>
 <head>
     <title>Product</title>
@@ -21,15 +22,15 @@
 </head>
 <body>
 <table>
-
+    <jsp:useBean id="photo" class="com.WEBBAPOPFINAL.Images" scope="session" />
 
     <%
-
+        GestionAPP gestion = (GestionAPP)session.getAttribute("gestion");
         int conta = 0;
         DecimalFormat df = new DecimalFormat("#,##0.##");
         out.print("<div class=\"flex-container\">");
 
-        for (Producto producto : gestionAPP.getProductos()) {
+        for (Producto producto : gestion.getProductos()) {
             if (producto.getVendido() == 0) {
 
                 out.print("<a target=\"_blank\" href=\"/Product?Product_ID=" + producto.getid() + "\">\n" +
@@ -48,10 +49,10 @@
                         "    </div>\n" +
                         "</div></a>\n" +
                         "<br>");
-
             }
 
         }
+
         out.print(" </div>");
 
     %>

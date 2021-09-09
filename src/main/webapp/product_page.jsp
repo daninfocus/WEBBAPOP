@@ -57,10 +57,10 @@
 
 <%
   int idProd = Integer.parseInt(request.getParameter("Product_ID"));
-  GestionAPP gestionAPP = new GestionAPP();
-  Producto product = gestionAPP.getProductoPorID(idProd);
-  Usuario loggedInUser = gestionAPP.getUsuarioPorEmail(session.getAttribute("loggedInUser").toString());
-  Usuario seller = gestionAPP.getUsuarioPorId(product.getIdUsuario());
+  GestionAPP gestion = (GestionAPP)session.getAttribute("gestion");
+  Producto product = gestion.getProductoPorID(idProd);
+  Usuario loggedInUser = gestion.getUsuarioPorEmail(session.getAttribute("loggedInUser").toString());
+  Usuario seller = gestion.getUsuarioPorId(product.getIdUsuario());
   if(product.getIdUsuario()!=loggedInUser.getId()){
     out.print("\n" +
             "<div class=\"containerProduct\">\n" +

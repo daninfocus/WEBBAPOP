@@ -12,12 +12,11 @@ public class TratoSQL implements DaoTrato {
         Connection conn = dao.getConn();
         try {
             Statement st = conn.createStatement();
-            sentencia = "INSERT INTO Trato VALUES ('"
+            sentencia = "INSERT INTO Trato(id,tipoTrato,idUsuario,emailOtroUser,idProducto,fecha,precio,comentario,puntuacion,completado) VALUES ('"
                     + trato.getId() + "','"
                     + trato.getTipoTrato() + "','"
                     + trato.getIdUsuario() + "','"
                     + trato.getEmailOtroUsuario() + "','"
-                    + trato.getIdOtroTrato() + "','"
                     + trato.getIdProducto() + "','"
                     + trato.getFecha() + "','"
                     + trato.getPrecio() + "','"
@@ -76,7 +75,6 @@ public class TratoSQL implements DaoTrato {
                             rs.getString("tipoTrato"),
                             rs.getInt("idUsuario"),
                             rs.getString("emailOtroUsuario"),
-                            rs.getInt("idOtroTrato"),
                             rs.getInt("idProducto"),
                             rs.getString("fecha"),
                             rs.getFloat("precio"),
@@ -110,7 +108,6 @@ public class TratoSQL implements DaoTrato {
                             rs.getString("tipoTrato"),
                             rs.getInt("idUsuario"),
                             rs.getString("emailOtroUsuario"),
-                            rs.getInt("idOtroTrato"),
                             rs.getInt("idProducto"),
                             rs.getString("fecha"),
                             rs.getFloat("precio"),
@@ -144,7 +141,6 @@ public class TratoSQL implements DaoTrato {
                             rs.getString("tipoTrato"),
                             rs.getInt("idUsuario"),
                             rs.getString("emailOtroUsuario"),
-                            rs.getInt("idOtroTrato"),
                             rs.getInt("idProducto"),
                             rs.getString("fecha"),
                             rs.getFloat("precio"),

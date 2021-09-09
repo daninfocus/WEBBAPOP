@@ -75,6 +75,8 @@ public class GestionAPP implements Serializable {
     /*Otros Métodos*/
 
 
+    //Messages
+
     public boolean updateMessage(Message message) {
         return daoMessageSQL.update(message, dao);
     }
@@ -87,10 +89,9 @@ public class GestionAPP implements Serializable {
         return daoMessageSQL.readMessages(idUser, idProducto, dao);
     }
 
-    public ArrayList<Integer> getAllChats(int idUser) {
+    public ArrayList<Integer> getAllChatsProductID(int idUser) {
         return daoMessageSQL.getAllChats(idUser, dao);
     }
-
 
     public ArrayList<Trato> getValoracionesPendientes(Usuario usuario) {
         ArrayList<Trato> tratos = tratoSQL.readPendiente(usuario.getId(), dao);
@@ -103,6 +104,7 @@ public class GestionAPP implements Serializable {
         return temp;
     }
 
+    //Trato
 
     public Trato buscaTratoId(int id) {
         return tratoSQL.read(id, dao);
@@ -136,6 +138,8 @@ public class GestionAPP implements Serializable {
         return tratoSQL.insert(trato, dao);
     }
 
+    //Compras y ventas
+
     public ArrayList<Trato> getCompras(int idUsuario) {
         ArrayList<Trato> tratos = tratoSQL.getAll(idUsuario, dao);
         ArrayList<Trato> compras = new ArrayList<>();
@@ -154,6 +158,7 @@ public class GestionAPP implements Serializable {
         return ventas;
     }
 
+    //Productos
 
     public boolean sellProduct(int productID) {
         return daoProductoSQL.sell(productID, dao);
@@ -208,6 +213,7 @@ public class GestionAPP implements Serializable {
         return daoProductoSQL.getAll(dao);
     }
 
+    //Usuarios
 
     public boolean updateUsuario(Usuario usuario) {
         return daoUsuarioSQL.update(usuario, dao);
@@ -248,6 +254,8 @@ public class GestionAPP implements Serializable {
         return null;
     }
 
+
+    //Other
 
     public double notaMedia(String email) {
         float total = 0;

@@ -7,6 +7,8 @@
         <param-name>tempfile.dir</param-name>
         <param-value>tmpfiles</param-value>
     </context-param>
+
+
     <servlet>
         <servlet-name>login</servlet-name>
         <jsp-file>/login.jsp</jsp-file>
@@ -17,6 +19,7 @@
         <url-pattern>/Login</url-pattern>
     </servlet-mapping>
 
+    <!--.....................................-->
 
     <servlet>
         <servlet-name>signup</servlet-name>
@@ -28,6 +31,7 @@
         <url-pattern>/Signup</url-pattern>
     </servlet-mapping>
 
+    <!--.....................................-->
 
     <servlet>
         <servlet-name>Product</servlet-name>
@@ -39,6 +43,7 @@
         <url-pattern>/Product</url-pattern>
     </servlet-mapping>
 
+    <!--.....................................-->
 
     <servlet>
         <servlet-name>Profile</servlet-name>
@@ -50,6 +55,8 @@
         <url-pattern>/Profile</url-pattern>
     </servlet-mapping>
 
+    <!--.....................................-->
+
     <servlet>
         <servlet-name>SaveMessage</servlet-name>
         <servlet-class>com.WEBBAPOPFINAL.SaveMessage</servlet-class>
@@ -60,6 +67,7 @@
         <url-pattern>/saveMessage</url-pattern>
     </servlet-mapping>
 
+    <!--.....................................-->
 
     <servlet>
         <servlet-name>Save</servlet-name>
@@ -71,6 +79,8 @@
         <url-pattern>/Save</url-pattern>
     </servlet-mapping>
 
+    <!--.....................................-->
+
     <servlet>
         <servlet-name>DeleteProduct</servlet-name>
         <servlet-class>com.WEBBAPOPFINAL.DeleteProduct</servlet-class>
@@ -81,6 +91,7 @@
         <url-pattern>/deleteProduct</url-pattern>
     </servlet-mapping>
 
+    <!--.....................................-->
 
     <servlet>
         <servlet-name>Sold</servlet-name>
@@ -92,6 +103,8 @@
         <url-pattern>/Sold</url-pattern>
     </servlet-mapping>
 
+    <!--.....................................-->
+
     <servlet>
         <servlet-name>ReserveProduct</servlet-name>
         <servlet-class>com.WEBBAPOPFINAL.ReserveProduct</servlet-class>
@@ -99,12 +112,22 @@
 
     <servlet-mapping>
         <servlet-name>ReserveProduct</servlet-name>
-        <url-pattern>/Reserved</url-pattern>
+        <url-pattern>/ReserveProduct</url-pattern>
     </servlet-mapping>
 
+    <!--.....................................-->
 
+    <servlet>
+        <servlet-name>SellMenu</servlet-name>
+        <jsp-file>/sell.jsp</jsp-file>
+    </servlet>
 
+    <servlet-mapping>
+        <servlet-name>SellMenu</servlet-name>
+        <url-pattern>/SellMenu</url-pattern>
+    </servlet-mapping>
 
+    <!--.....................................-->
 
     <servlet>
         <servlet-name>error</servlet-name>

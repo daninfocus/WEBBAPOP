@@ -13,10 +13,10 @@
 <%
 
     int productID ;
-    GestionAPP gestionAPP = new GestionAPP();
-    Connection conn = gestionAPP.getConn();
+    GestionAPP gestion = (GestionAPP)session.getAttribute("gestion");
+    Connection conn = gestion.getConn();
 
-    if ( request.getParameter("imgID") != null )
+    if ( request.getParameter("imgID") != null && Integer.parseInt(request.getParameter("imgID"))!=0)
     {
 
         productID = Integer.parseInt(request.getParameter("imgID")) ;
@@ -39,8 +39,8 @@
             e.printStackTrace();
             throw e;
         }
-        finally
-        {
+    }else{
+        if(Integer.parseInt(request.getParameter("imgID"))==0){
             conn.close();
         }
     }

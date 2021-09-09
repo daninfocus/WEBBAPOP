@@ -23,12 +23,8 @@
 <body>
 
 <%
-    GestionAPP gestionAPP = new GestionAPP();
+    GestionAPP gestion = (GestionAPP) session.getAttribute("gestion");
     Usuario loggedInUser = gestion.getUsuarioPorEmail(session.getAttribute("loggedInUser").toString());
-
-
-
-
 %>
 <div class="globalContainer">
     <!---margin: 60px 0 500px 100px;-->
@@ -39,11 +35,11 @@
     <div class="containerMessage">
         <div class="containerList">
             <%
-                for (Integer product_ids : gestion.getAllChats(loggedInUser.getId())) {
+                for (Integer product_ids : gestion.getAllChatsProductID(loggedInUser.getId())) {
                     ArrayList<Message> messages = gestion.getAllMessages(loggedInUser.getId(), product_ids);
 
                     Producto producto = gestion.getProductoPorID(product_ids);
-                    if(producto!=null) {
+                    if (producto != null) {
                         Usuario usuarioOtro;
                         if (loggedInUser.getId() == producto.getIdUsuario()) {
                             usuarioOtro = gestion.getUsuarioPorId(messages.get(0).getID_User_Sender());
@@ -65,7 +61,7 @@
                         out.print("<a class=\"aList\" href=\"/Profile?Product_ID=" + product_ids + "\"><div class=\"listMessages\">" +
                                 "    <img\n" +
                                 "            class=\"img\"\n" +
-                                "            src=\"image.jsp?imgID="+product_ids+"\"\n" +
+                                "            src=\"image.jsp?imgID=" + product_ids + "\"\n" +
                                 "    />\n" +
                                 "   <div class=\"data\">\n" +
                                 "       <div class=\"top\">\n" +
@@ -83,15 +79,15 @@
 
         </div>
         <div class="messageContainer">
-            <%if(request.getParameter("Product_ID")!=null) {
-                int product_id = Integer.parseInt(request.getParameter("Product_ID").toString());
-                Producto producto = gestion.getProductoPorID(product_id);
-                Usuario usuarioVendedor = gestion.getUsuarioPorId(producto.getIdUsuario());
-                out.print("<div class=\"user\">\n" +
-                        usuarioVendedor.getNombre() +
-                        "                <a class=\"buttonDeleteConvo\" style=\"color:black;text-align: right;\" href=\"#popup1\"><i class=\"fas fa-ellipsis-v\"></i></a>\n" +
-                        "            </div>");
-
+            <%
+                if (request.getParameter("Product_ID") != null) {
+                    int product_id = Integer.parseInt(request.getParameter("Product_ID").toString());
+                    Producto producto = gestion.getProductoPorID(product_id);
+                    Usuario usuarioVendedor = gestion.getUsuarioPorId(producto.getIdUsuario());
+                    out.print("<div class=\"user\">\n" +
+                            usuarioVendedor.getNombre() +
+                            "                <a class=\"buttonDeleteConvo\" style=\"color:black;text-align: right;\" href=\"#popup1\"><i class=\"fas fa-ellipsis-v\"></i></a>\n" +
+                            "            </div>");
 
 
                 }
@@ -116,18 +112,19 @@
 
 
                         ArrayList<Message> messages = gestion.getAllMessages(loggedInUser.getId(), product_id);
-                        if(messages.size()>1) {
+                        if (messages.size() > 1) {
                             for (Message message : messages) {
-
                                 if (message.getID_User_Reciever() == loggedInUser.getId()) {
                                     out.print("<p class=\"messageContentOther\">" + message.getMessage() + "</p><br>");
-                                    message.setMessage_Read(1);
-                                    gestion.updateMessage(message);
+                                    if(message.isMessage_Read()==0){
+                                        message.setMessage_Read(1);
+                                        gestion.updateMessage(message);
+                                    }
                                 } else {
                                     if (message.isMessage_Read() == 1) {
-                                        out.print((message.getMessage().equals("")?"":"<p class=\"messageContent\">" + message.getMessage() + "  </p><i style=\"color:#4e9133\" class=\"fas fa-check-double\"></i><br>"));
+                                        out.print((message.getMessage().equals("") ? "" : "<p class=\"messageContent\">" + message.getMessage() + "  </p><i style=\"color:#4e9133\" class=\"fas fa-check-double\"></i><br>"));
                                     } else {
-                                        out.print((message.getMessage().equals("")?"":"<p class=\"messageContent\">" + message.getMessage() + "  </p><i style=\"color:#262626\" class=\"fas fa-check\"></i><br>"));
+                                        out.print((message.getMessage().equals("") ? "" : "<p class=\"messageContent\">" + message.getMessage() + "  </p><i style=\"color:#262626\" class=\"fas fa-check\"></i><br>"));
                                     }
                                 }
 

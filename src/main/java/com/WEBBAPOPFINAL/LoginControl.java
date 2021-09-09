@@ -1,5 +1,7 @@
 package com.WEBBAPOPFINAL;
 
+import Modelo.GestionAPP;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -32,7 +34,9 @@ public class LoginControl extends HttpServlet {
         String pass = request.getParameter("password");
 
         if (UserDAO.validate(email, pass, request)) {
+            GestionAPP gestion = new GestionAPP();
             request.getSession().setAttribute("loggedInUser", email);
+            request.getSession().setAttribute("gestion", gestion);
 
             RequestDispatcher rd = request.getRequestDispatcher("/home.jsp");
             rd.forward(request, response);
