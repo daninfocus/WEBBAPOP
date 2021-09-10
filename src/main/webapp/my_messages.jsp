@@ -36,6 +36,7 @@
         <div class="containerList">
             <%
                 for (Integer product_ids : gestion.getAllChatsProductID(loggedInUser.getId())) {
+
                     ArrayList<Message> messages = gestion.getAllMessages(loggedInUser.getId(), product_ids);
 
                     Producto producto = gestion.getProductoPorID(product_ids);
@@ -57,22 +58,39 @@
                                 tick = "  <i style=\"color:#404040\" class=\"fas fa-check\"></i>";
                             }
                         }
-
-                        out.print("<a class=\"aList\" href=\"/Profile?Product_ID=" + product_ids + "\"><div class=\"listMessages\">" +
-                                "    <img\n" +
-                                "            class=\"img\"\n" +
-                                "            src=\"image.jsp?imgID=" + product_ids + "\"\n" +
-                                "    />\n" +
-                                "   <div class=\"data\">\n" +
-                                "       <div class=\"top\">\n" +
-                                "           <div class=\"name\">" + usuarioOtro.getNombre() + "</div>\n" +
-                                "           <div class=\"dateLastMessage\">" + (messages.size() > 1 ? messages.get(messages.size() - 1).getSent_Date() : "") + "</div>\n" +
-                                "       </div>\n" +
-                                "       <div class=\"productName\">" + gestion.getProductoPorID(product_ids).getNombre() + "</div>\n" +
-                                "       <div class=\"lastMessage\">" + lastMessage.getMessage() + " " + (messages.size() > 1 ? tick : "") + "</div>\n" +
-                                "   </div>" +
-                                "</div></a>");
-
+                        out.print("<a class=\"aList\" href=\"/Profile?Product_ID=" + product_ids + "\"><div class=\"listMessages\">");
+                        if (gestion.getProductoPorID(product_ids).getVendido() == 1) {
+                            out.print("   <div class=\"imgContainer\">" +
+                                    "       <img\n" +
+                                    "               class=\"img\"\n" +
+                                    "               src=\"image.jsp?imgID=" + product_ids + "\"\n" +
+                                    "       />\n" +
+                                    "       <div class=\"sold\"> <i class=\"far fa-handshake\"></i></div>" +
+                                    "   </div>" +
+                                    "   <div class=\"data\">\n" +
+                                    "       <div class=\"top\">\n" +
+                                    "           <div class=\"name\">" + usuarioOtro.getNombre() + "</div>\n" +
+                                    "           <div class=\"dateLastMessage\">" + (messages.size() > 1 ? messages.get(messages.size() - 1).getSent_Date() : "") + "</div>\n" +
+                                    "       </div>\n" +
+                                    "       <div class=\"productName\">" + gestion.getProductoPorID(product_ids).getNombre() + "</div>\n" +
+                                    "       <div class=\"lastMessage\">" + lastMessage.getMessage() + " " + (messages.size() > 1 ? tick : "") + "</div>\n" +
+                                    "   </div>" +
+                                    "</div></a>");
+                        } else {
+                            out.print("       <img\n" +
+                                    "               class=\"img\"\n" +
+                                    "               src=\"image.jsp?imgID=" + product_ids + "\"\n" +
+                                    "       />\n" +
+                                    "   <div class=\"data\">\n" +
+                                    "       <div class=\"top\">\n" +
+                                    "           <div class=\"name\">" + usuarioOtro.getNombre() + "</div>\n" +
+                                    "           <div class=\"dateLastMessage\">" + (messages.size() > 1 ? messages.get(messages.size() - 1).getSent_Date() : "") + "</div>\n" +
+                                    "       </div>\n" +
+                                    "       <div class=\"productName\">" + gestion.getProductoPorID(product_ids).getNombre() + "</div>\n" +
+                                    "       <div class=\"lastMessage\">" + lastMessage.getMessage() + " " + (messages.size() > 1 ? tick : "") + "</div>\n" +
+                                    "   </div>" +
+                                    "</div></a>");
+                        }
                     }
                 }
             %>
@@ -84,10 +102,17 @@
                     int product_id = Integer.parseInt(request.getParameter("Product_ID").toString());
                     Producto producto = gestion.getProductoPorID(product_id);
                     Usuario usuarioVendedor = gestion.getUsuarioPorId(producto.getIdUsuario());
+                    Usuario usuarioOtro = null;
+                    ArrayList<Message> messages = gestion.getAllMessages(loggedInUser.getId(), product_id);
+                    if (loggedInUser.getId() == producto.getIdUsuario()) {
+                        usuarioOtro = gestion.getUsuarioPorId(messages.get(0).getID_User_Sender());
+                    } else {
+                        usuarioOtro = gestion.getUsuarioPorId(producto.getIdUsuario());
+                    }
                     out.print("<div class=\"user\">\n" +
-                            usuarioVendedor.getNombre() +
-                            "                <a class=\"buttonDeleteConvo\" style=\"color:black;text-align: right;\" href=\"#popup1\"><i class=\"fas fa-ellipsis-v\"></i></a>\n" +
-                            "            </div>");
+                            usuarioOtro.getNombre() +
+                            "      <a class=\"buttonDeleteConvo\" style=\"color:black;\" href=\"#popup1\"><i class=\"fas fa-ellipsis-v\"></i></a>\n" +
+                            "  </div>");
 
 
                 }
@@ -116,7 +141,7 @@
                             for (Message message : messages) {
                                 if (message.getID_User_Reciever() == loggedInUser.getId()) {
                                     out.print("<p class=\"messageContentOther\">" + message.getMessage() + "</p><br>");
-                                    if(message.isMessage_Read()==0){
+                                    if (message.isMessage_Read() == 0) {
                                         message.setMessage_Read(1);
                                         gestion.updateMessage(message);
                                     }
@@ -151,7 +176,12 @@
                                 "</form>");
 
                     } else {
-                        out.print("<p style=\"text-align: center;margin-top:50px; color:white;font-size:25px\" ><i class=\"far fa-hand-point-left\"></i> Selecciona un chat <i class=\"fas fa-exclamation\"></i></p>");
+                        ArrayList<Integer> mess = gestion.getAllChatsProductID(loggedInUser.getId());
+                        if (mess.size() == 0) {
+                            out.print("<p style=\"text-align: center;margin-top:50px; color:white;font-size:25px\" >No tienes chats abiertos <i style=\"position: inherit;right: inherit;margin-top: inherit;\" class=\"fas fa-exclamation \"></i></p>");
+                        } else {
+                            out.print("<p style=\"text-align: center;margin-top:50px; color:white;font-size:25px\" ><i style=\"position: inherit;right: inherit;margin-top: inherit;\" class=\"far fa-hand-point-left excl\"></i> Selecciona un chat <i style=\"position: inherit;right: inherit;margin-top: inherit;\" class=\"fas fa-exclamation \"></i></p>");
+                        }
                     }
                 %>
             </div>

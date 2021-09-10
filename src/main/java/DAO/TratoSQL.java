@@ -8,23 +8,20 @@ import java.util.ArrayList;
 public class TratoSQL implements DaoTrato {
     @Override
     public boolean insert(Trato trato, DAOManager dao) {
-        String sentencia;
-        Connection conn = dao.getConn();
+        int result = 0;
         try {
-            Statement st = conn.createStatement();
-            sentencia = "INSERT INTO Trato(id,tipoTrato,idUsuario,emailOtroUser,idProducto,fecha,precio,comentario,puntuacion,completado) VALUES ('"
-                    + trato.getId() + "','"
-                    + trato.getTipoTrato() + "','"
-                    + trato.getIdUsuario() + "','"
-                    + trato.getEmailOtroUsuario() + "','"
-                    + trato.getIdProducto() + "','"
-                    + trato.getFecha() + "','"
-                    + trato.getPrecio() + "','"
-                    + trato.getComentario() + "','"
-                    + trato.getPuntuacion() + "','"
-                    + trato.getCompletado() + "');";
-
-            st.executeUpdate(sentencia);
+            PreparedStatement ps = dao.getConn().prepareStatement("INSERT INTO Trato VALUES (?,?,?,?,?,?,?,?,?,?)");
+            ps.setInt(1,trato.getId());
+            ps.setString(2,trato.getTipoTrato());
+            ps.setString(3,trato.getEmailUsuarioTrato());
+            ps.setString(4, trato.getEmailUsuarioOtro());
+            ps.setInt(5,trato.getIdProducto());
+            ps.setString(6,trato.getFecha());
+            ps.setFloat(7,trato.getPrecio());
+            ps.setString(8,trato.getComentario());
+            ps.setInt(9,trato.getPuntuacion());
+            ps.setInt(10,trato.getCompletado());
+            result = ps.executeUpdate();
         } catch (Exception e) {
             System.err.println(e.getMessage());
             return false;
@@ -73,8 +70,8 @@ public class TratoSQL implements DaoTrato {
                     trato = new Trato(
                             rs.getInt("id"),
                             rs.getString("tipoTrato"),
-                            rs.getInt("idUsuario"),
-                            rs.getString("emailOtroUsuario"),
+                            rs.getString("emailUsuarioTrato"),
+                            rs.getString("emailUsuarioOtro"),
                             rs.getInt("idProducto"),
                             rs.getString("fecha"),
                             rs.getFloat("precio"),
@@ -91,14 +88,14 @@ public class TratoSQL implements DaoTrato {
     }
 
     @Override
-    public ArrayList<Trato> readPendiente(int idUsuario, DAOManager dao) {
+    public ArrayList<Trato> readPendiente(int idUsuarioVendedor, DAOManager dao) {
         Trato trato = null;
         String sentencia;
         ArrayList<Trato> tratos = new ArrayList<>();
-        sentencia = "select * from Trato where idUsuario = ? and tipoTrato like 'Compra'";
+        sentencia = "select * from Trato where idUsuarioVendedor = ? and tipoTrato like 'Compra'";
         try {
             PreparedStatement ps = dao.getConn().prepareStatement(sentencia);
-            ps.setString(1, String.valueOf(idUsuario));
+            ps.setString(1, String.valueOf(idUsuarioVendedor));
 
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
@@ -106,8 +103,8 @@ public class TratoSQL implements DaoTrato {
                     trato = new Trato(
                             rs.getInt("id"),
                             rs.getString("tipoTrato"),
-                            rs.getInt("idUsuario"),
-                            rs.getString("emailOtroUsuario"),
+                            rs.getString("emailUsuarioTrato"),
+                            rs.getString("emailUsuarioOtro"),
                             rs.getInt("idProducto"),
                             rs.getString("fecha"),
                             rs.getFloat("precio"),
@@ -124,14 +121,14 @@ public class TratoSQL implements DaoTrato {
     }
 
     @Override
-    public ArrayList<Trato> getAll(int idUsuario, DAOManager dao) {
+    public ArrayList<Trato> getAll(String emailUsuarioTrato, DAOManager dao) {
         Trato trato = null;
         String sentencia;
         ArrayList<Trato> tratos = new ArrayList<>();
-        sentencia = "select * from Trato where idUsuario = ?";
+        sentencia = "select * from Trato where emailUsuarioTrato = ?";
         try {
             PreparedStatement ps = dao.getConn().prepareStatement(sentencia);
-            ps.setString(1, String.valueOf(idUsuario));
+            ps.setString(1, String.valueOf(emailUsuarioTrato));
 
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
@@ -139,8 +136,8 @@ public class TratoSQL implements DaoTrato {
                     trato = new Trato(
                             rs.getInt("id"),
                             rs.getString("tipoTrato"),
-                            rs.getInt("idUsuario"),
-                            rs.getString("emailOtroUsuario"),
+                            rs.getString("emailUsuarioTrato"),
+                            rs.getString("emailUsuarioOtro"),
                             rs.getInt("idProducto"),
                             rs.getString("fecha"),
                             rs.getFloat("precio"),

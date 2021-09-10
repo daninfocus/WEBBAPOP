@@ -376,6 +376,7 @@ input[type="radio"] {
     align-items: center;
     justify-content: space-between;
     height: 32px;
+    margin-right: 40px;
 }
 .logout{
     margin-right: 40px;

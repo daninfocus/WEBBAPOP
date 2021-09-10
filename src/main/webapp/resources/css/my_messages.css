@@ -105,9 +105,8 @@ h4 {
     margin-right: 15px;
     width: 30px;
     border-radius: 5px;
+    text-align: center;
 }
-
-
 
 .buttonDeleteConvo:hover {
     background: #06D85F;
@@ -197,25 +196,28 @@ h4 {
 }
 .messageContent{
     color: #c6c6c6;
-    margin: 5px 20px 5px 15px;
-    border: 2px solid #4d7458;
+    margin: 5px 20px 5px 100px;;
+    border: none;
     border-radius: 5px;
     right: 20px;
     word-wrap: break-word;
     text-align: right;
     padding: 5px;
     font-weight: bold ;
+    background-color: #364427;
+    box-shadow: #0e090e;
 }
 .messageContentOther{
-    color: #c6c6c6;
-    margin: 5px 20px 5px 15px;
-    border: 2px solid rgba(8, 97, 23, 0.56);
+    color: #000000;
+    margin: 5px 100px 5px 15px;
+    border: none;
     border-radius: 5px;
     right: 20px;
     word-wrap: break-word;
     text-align: left;
     padding: 5px;
     font-weight: bold ;
+    background-color: #aaaaaa;
 }
 .messages1 i{
     position: absolute;
@@ -341,4 +343,23 @@ textarea:focus {
     .listMessages {
         width: auto;
     }
+}
+.imgContainer{
+    position: relative;
+}
+.img{
+    display: block;
+}
+.sold{
+    position: absolute;
+    bottom: 0;
+    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.5); /* Black see-through */
+    width: 100%;
+    transition: .5s ease;
+    opacity:1;
+    color: #a51a1a;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 5px;
 }

@@ -32,11 +32,12 @@
 
             console.log(option);
             console.log(message);
-            if(message == "null") {
+            if (message == "null") {
                 document.querySelector('.my-profile-page').style.display = 'none';
                 document.querySelector('.my-product-page').style.display = 'none';
                 document.querySelector('.my-messages-page').style.display = 'none';
                 document.querySelector('.my-favorites-page').style.display = 'none';
+                document.querySelector('.my-reviews-page').style.display = 'none';
                 document.querySelector('.my-reviews-page').style.display = 'none';
                 if (option.localeCompare("profile") == 0) {
                     console.log("profile");
@@ -53,12 +54,16 @@
                             if (option.localeCompare("zone") == 0) {
                                 myZone();
                             } else {
-                                myProducts();
+                                if (option.localeCompare("reviews") == 0) {
+                                    myReviews()
+                                } else {
+                                    myProducts();
+                                }
                             }
                         }
                     }
                 }
-            }else{
+            } else {
                 document.querySelector('.my-profile-page').style.display = 'none';
                 document.querySelector('.my-product-page').style.display = 'none';
                 document.querySelector('.my-messages-page').style.display = 'contents';
@@ -81,6 +86,8 @@
                 document.querySelector('.messages').style.color = '#818181';
                 document.querySelector('.zone').style.color = '#818181';
                 document.querySelector('.messagesClick').style.color = '#818181';
+                document.querySelector('.my-reviews-page').style.display = 'none';
+                document.querySelector('.reviews').style.color = '#818181';
             }
 
         }
@@ -98,13 +105,15 @@
                 document.querySelector('.messages').style.color = '#818181';
                 document.querySelector('.zone').style.color = '#818181';
                 document.querySelector('.messagesClick').style.color = '#818181';
+                document.querySelector('.my-reviews-page').style.display = 'none';
+                document.querySelector('.reviews').style.color = '#818181';
 
             }
 
         }
 
 
-        function myMessages(){
+        function myMessages() {
             let messages = document.querySelector('.my-messages-page').style.display;
 
 
@@ -119,11 +128,12 @@
                 document.querySelector('.my-profile-page').style.display = 'none';
                 document.querySelector('.profile').style.color = '#818181';
                 document.querySelector('.zone').style.color = '#818181';
+                document.querySelector('.my-reviews-page').style.display = 'none';
+                document.querySelector('.reviews').style.color = '#818181';
 
             }
 
         }
-
 
 
         function myZone() {
@@ -137,10 +147,31 @@
                 document.querySelector('.my-messages-page').style.display = 'none';
                 document.querySelector('.messages').style.color = '#818181';
                 document.querySelector('.messagesClick').style.color = '#818181';
+                document.querySelector('.my-reviews-page').style.display = 'none';
+                document.querySelector('.reviews').style.color = '#818181';
             }
 
 
+        }
 
+        function myReviews(){
+            let reviews = document.querySelector('.my-reviews-page').style.display;
+
+
+            if (reviews.localeCompare("none") == 0) {
+                document.querySelector('.my-reviews-page').style.display = 'contents';
+                document.querySelector('.reviews').style.color = 'white';
+
+
+                document.querySelector('.my-product-page').style.display = 'none';
+                document.querySelector('.products').style.color = '#818181';
+                document.querySelector('.my-profile-page').style.display = 'none';
+                document.querySelector('.profile').style.color = '#818181';
+                document.querySelector('.zone').style.color = '#818181';
+                document.querySelector('.my-messages-page').style.display = 'none';
+                document.querySelector('.messages').style.color = '#818181';
+
+            }
         }
     </script>
 
@@ -199,7 +230,9 @@
         <jsp:include page="my_messages.jsp"/>
     </div>
     <div class="my-favorites-page"></div>
-    <div class="my-reviews-page"></div>
+    <div class="my-reviews-page">
+        <jsp:include page="my_reviews.jsp"/>
+    </div>
     <% } %>
 </div>
 <div class="sidenav">
@@ -209,19 +242,29 @@
         }
     %> onClick="myProfile()"><i style="font-size: 30px; padding: 10px" class="fa fa-user"
                                 aria-hidden="true"></i>Perfil</a>
+
     <a class="products"  <%
         if (request.getParameter("newProduct") != null) {
             out.print("href=\"/Profile?Option=products\"");
         }
     %> onClick="myProducts()"><i style="font-size: 30px; padding: 10px" class="fa fa-list"
                                  aria-hidden="true"></i>Productos</a>
+
     <a class="messages"  <%
         if (request.getParameter("newProduct") != null) {
             out.print("href=\"/Profile?Option=messages\"");
         }
     %> onClick="myMessages()"><i style="font-size: 30px; padding: 10px" class="fa fa-comment" aria-hidden="true"></i>Mensajes</a>
+
+
     <a href="#favourites"><i style="font-size: 30px; padding: 10px" class="fa fa-heart" aria-hidden="true"></i>Favoritos</a>
-    <a href="#opinions"><i style="font-size: 30px; padding: 10px" class="fa fa-star" aria-hidden="true"></i>Opiniones</a>
+
+
+    <a class="reviews"  <%
+        if (request.getParameter("newProduct") != null) {
+            out.print("href=\"/Profile?Option=reviews\"");
+        }
+    %> onClick="myReviews()"><i style="font-size: 30px; padding: 10px" class="fa fa-star" aria-hidden="true"></i>Opiniones</a>
 
 </div>
 
@@ -235,7 +278,8 @@
         if (request.getParameter("newProduct") != null) {
             out.print("href=\"/Profile?Option=messages\"");
         }
-    %> onClick="myMessages()"><i class="fa fa-comment" aria-hidden="true"></i><p>Mensajes</p></a>
+    %> onClick="myMessages()"><i class="fa fa-comment" aria-hidden="true"></i>
+        <p>Mensajes</p></a>
     <a class="zone"  <%
         if (request.getParameter("newProduct") != null) {
             out.print("href=\"/Profile?Option=zone\"");

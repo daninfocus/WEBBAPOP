@@ -58,6 +58,29 @@
     <!--.....................................-->
 
     <servlet>
+        <servlet-name>UpdateUser</servlet-name>
+        <servlet-class>com.WEBBAPOPFINAL.UpdateUser</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>UpdateUser</servlet-name>
+        <url-pattern>/UpdateUser</url-pattern>
+    </servlet-mapping>
+
+    <!--.....................................-->
+
+    <servlet>
+        <servlet-name>CreateUser</servlet-name>
+        <servlet-class>com.WEBBAPOPFINAL.CreateUser</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>CreateUser</servlet-name>
+        <url-pattern>/CreateUser</url-pattern>
+    </servlet-mapping>
+
+    <!--.....................................-->
+    <servlet>
         <servlet-name>SaveMessage</servlet-name>
         <servlet-class>com.WEBBAPOPFINAL.SaveMessage</servlet-class>
     </servlet>

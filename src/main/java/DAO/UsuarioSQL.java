@@ -37,21 +37,21 @@ public class UsuarioSQL implements DaoUsuario {
     @Override
     public boolean update(Usuario usuario, DAOManager dao) {
         String sentencia;
+        try {
+            sentencia = "UPDATE Usuario SET nombre = ?, apellidos= ?,direccion= ?,telefono= ?,sexo= ?,email= ?,fecha_nacimiento= ?,password= ?,valoracionesPendientes=0,nota_media=0 WHERE id='"+usuario.getId()+"';";
+            PreparedStatement ps = dao.getConn().prepareStatement(sentencia);
+            ps.setString(1, usuario.getNombre());
+            ps.setString(2, usuario.getPassword());
+            ps.setString(3, usuario.getDireccion());
+            ps.setString(4, usuario.getTelefono());
+            ps.setString(5, usuario.getSexo());
+            ps.setString(6, usuario.getEmail());
+            ps.setString(7, usuario.getFecha_nacimiento());
+            ps.setString(8, usuario.getPassword());
 
-        sentencia = "UPDATE Usuario SET nombre = '"
-                + usuario.getNombre() + "', apellidos = '"
-                + usuario.getApellidos() + "', direccion = '"
-                + usuario.getDireccion() + "', telefono = '"
-                + usuario.getTelefono() + "', sexo = '"
-                + usuario.getSexo() + "', email = '"
-                + usuario.getEmail() + "', fecha_nacimiento = '"
-                + usuario.getFecha_nacimiento() + "', password = '"
-                + usuario.getPassword() + "', nota_media = '"
-                + usuario.getNotaMedia() +"' WHERE id='"+usuario.getId()+"';";
-
-        try (Statement stmt = dao.getConn().createStatement()) {
             // enviar el commando insert
-            stmt.executeUpdate(sentencia);
+            ps.executeUpdate(sentencia);
+            ps.close();
             return true;
         } catch (SQLException ex) {
             ex.printStackTrace();

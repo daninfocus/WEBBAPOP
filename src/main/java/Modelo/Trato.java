@@ -10,8 +10,8 @@ public class Trato implements Comparable<Object>, Serializable {
 
     private int id;
     private String tipoTrato; //Compra o Venta
-    private int idUsuario; //id del usuario que tenga el trato
-    private String emailOtroUsuario;
+    private String emailUsuarioTrato; //id del usuario que tenga el trato
+    private String emailUsuarioOtro;
     //private int idOtroTrato;
     private int idProducto;
     private String fecha;
@@ -21,12 +21,11 @@ public class Trato implements Comparable<Object>, Serializable {
     private int completado;
 
 
-    public Trato(int id, String tipoTrato, int idUsuario,String emailOtroUsuario, int idProducto, String fecha, float precio, String comentario, int puntuacion, int completado) {
+    public Trato(int id, String tipoTrato, String emailUsuarioTrato, String emailUsuarioOtro, int idProducto, String fecha, float precio, String comentario, int puntuacion, int completado) {
         this.id = id;
         this.tipoTrato = tipoTrato;
-        this.emailOtroUsuario=emailOtroUsuario;
-        //this.idOtroTrato = idOtroTrato;
-        this.idUsuario = idUsuario;
+        this.emailUsuarioTrato = emailUsuarioTrato;
+        this.emailUsuarioOtro = emailUsuarioOtro;
         this.idProducto = idProducto;
         this.fecha = fecha;
         this.precio = precio;
@@ -163,12 +162,12 @@ public class Trato implements Comparable<Object>, Serializable {
     }
 
 
-    public int getIdUsuario() {
-        return idUsuario;
+    public String getEmailUsuarioTrato() {
+        return emailUsuarioTrato;
     }
 
-    public void setIdUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setEmailUsuarioTrato(String emailUsuarioTrato) {
+        this.emailUsuarioTrato = emailUsuarioTrato;
     }
 
     public void setIdProducto(int idProducto) {
@@ -191,12 +190,12 @@ public class Trato implements Comparable<Object>, Serializable {
         this.completado = completado;
     }
 
-    public String getEmailOtroUsuario() {
-        return emailOtroUsuario;
+    public String getEmailUsuarioOtro() {
+        return emailUsuarioOtro;
     }
 
-    public void setEmailOtroUsuario(String emailOtroUsuario) {
-        this.emailOtroUsuario = emailOtroUsuario;
+    public void setEmailComprador(String emailComprador) {
+        this.emailUsuarioOtro = emailComprador;
     }
 
     @Override
@@ -206,8 +205,8 @@ public class Trato implements Comparable<Object>, Serializable {
         String apariencia = "\n■■■■■■■■■■ DATOS DEL TRATO ■■■■■■■■■■\n\n" +
                 "▲ Identificador: " + id + "\n" +
                 "▲ Tipo: " + tipoTrato + "\n" +
-                ((tipoTrato.equalsIgnoreCase("Compra")) ? "▲ Vendedor: " +emailOtroUsuario :
-                        "▲ Comprador: "+emailOtroUsuario) + "\n\n" +
+                ((tipoTrato.equalsIgnoreCase("Compra")) ? "▲ Vendedor: " + emailUsuarioOtro :
+                        "▲ Comprador: "+ emailUsuarioOtro) + "\n\n" +
                 "▲ idProducto: " + idProducto + "\n" +
                 "▲ Fecha y Hora: " + fecha + "\n" +
                 "▲ Precio: " + precio + "\n" +

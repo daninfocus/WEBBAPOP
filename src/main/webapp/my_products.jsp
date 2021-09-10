@@ -98,11 +98,16 @@
                                         "<br>");
                         num++;
                     }
+
+
+                    if(productos.size()!=0){
+                        out.print("<div style=\"width:100%;display: flex;flex-direction: row;justify-content: space-around\">\n" +
+                                "                <input type=\"hidden\" name=\"userEmail\" value="+session.getAttribute("loggedInUser")+">\n" +
+                                "                <input class=\"checkboxSave\" type=\"submit\" value=\"Borrar producto\" onclick='return confirm(\"Se borrara permanentemente los productos seleccionados\")'>\n" +
+                                "  </div>");
+                    }
                 %>
-                <div style="width:100%;display: flex;flex-direction: row;justify-content: space-around">
-                    <input type="hidden" name="userEmail" value="<%=session.getAttribute("loggedInUser")%>">
-                    <input class="checkboxSave" type="submit" value="Borrar producto" onclick='return confirm("Se borrara permanentemente los productos seleccionados")'>
-                </div>
+
             </form>
         </div>
 

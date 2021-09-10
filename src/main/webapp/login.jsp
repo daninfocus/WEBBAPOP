@@ -11,6 +11,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+            rel="shortcut icon"
+            type="img/favicon.ico"
+            href="resources/img/logo512circle.png"
+    />
     <title>Signin to Webbapop | Webbapop</title>
     <link href="https://fonts.googleapis.com/css2?family=Muli:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="resources/css/login.css">
@@ -58,7 +63,7 @@
 
         <div class="form-footer">
             <div>
-                <span>Don't have an account?</span> <a href="">Sign Up</a>
+                <span>¿Don't have an account?</span> <a href="/Signup">Sign Up</a>
             </div>
         </div><!-- FORM FOOTER -->
 

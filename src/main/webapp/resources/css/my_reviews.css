@@ -1,0 +1,123 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+html,
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    background: #181818;
+    margin-top: 60px;
+}
+h2 {
+    color: white;
+}
+h4 {
+    font-weight: normal;
+    color: rgb(156, 156, 156);
+}
+.parent {
+    margin-left: 223px;
+}
+.listReview {
+    margin-right: 40px;
+    margin-bottom: 20px;
+    padding: 30px;
+    background: #404040;
+    border-radius: 5px;
+    justify-content: space-between;
+}
+
+.countReviews {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.points {
+    color: white;
+}
+
+.review {
+    color: rgb(212, 212, 212);
+    display: flex;
+    margin-right: 40px;
+    margin-bottom: 20px;
+    padding: 10px;
+    background: #404040;
+    border-radius: 5px;
+    justify-content: flex-start;
+}
+.imgReview {
+    margin-right: 10px;
+    height: 120px;
+    border-radius: 5px;
+}
+.stars {
+    font-size: 15px;
+}
+.text-container {
+    display: flex;
+    flex-direction: column;
+    align-content: flex-start;
+}
+.productName {
+    font-weight: bold;
+    font-size: 20px;
+}
+.reviewMessage {
+    margin-top: 5px;
+}
+.footerReview {
+    margin-top: 5px;
+    display: flex;
+    font-size: 13px;
+}
+
+.footerReview a {
+    text-decoration: none;
+    color: white;
+}
+
+.footerReview a:hover {
+    text-decoration: underline;
+}
+
+@media screen and (max-width: 1049px) {
+}
+
+@media screen and (max-width: 500px) {
+    .wrapper {
+        position: relative;
+        text-align: left;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+    }
+    .wrapper .option {
+        justify-content: flex-start;
+        margin-top: 10px;
+    }
+    .save {
+        transition: all 0.3s ease;
+        margin-top: 100px;
+    }
+}
+
+@media screen and (max-width: 370px) {
+    .radio-buttons {
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 950px) {
+    .parent {
+        margin-left: 40px;
+    }
+}
+
+.titlecontainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}

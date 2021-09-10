@@ -31,7 +31,7 @@ public class MessageSQL implements DaoMessage {
     @Override
     public boolean update(Message message, DAOManager dao) {
         String sentencia;
-
+        Connection conn = dao.getConn();
         sentencia = "UPDATE Messages SET ID_Message='"+ message.getID_Message() +"', ID_User_Sender = '"
                 + message.getID_User_Sender() + "', ID_User_Reciever = '"
                 + message.getID_User_Reciever()+ "', ID_Product = '"
@@ -42,9 +42,10 @@ public class MessageSQL implements DaoMessage {
                 + message.isMessage_Read() + "', Message_Deleted = '"
                 + message.isMessage_Deleted() + "' WHERE ID_Message='"+message.getID_Message()+"';";
 
-        try (Statement stmt = dao.getConn().createStatement()) {
+        try (PreparedStatement stmt = conn.prepareStatement(sentencia)) {
             // enviar el commando insert
             stmt.executeUpdate(sentencia);
+            conn.commit();
             return true;
         } catch (SQLException ex) {
             ex.printStackTrace();

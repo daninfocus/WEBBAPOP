@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.Statement;
+import java.io.InputStream;
+import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -51,11 +51,16 @@ public class Sold extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+
+
+        response.setContentType("text/html;charset=UTF-8");
+
         int productID = Integer.parseInt(request.getParameter("Product_ID"));
 
         if (request.getParameter("FormComplete") != null || request.getParameter("Outside") != null) {
             HttpSession session = request.getSession(false);
-            GestionAPP gestion = (GestionAPP) session.getAttribute("gestion");
+            GestionAPP gestion = new GestionAPP();
 
             if (request.getParameter("FormComplete") != null) {
                 Usuario usuarioVendedor = gestion.getUsuarioPorEmail(session.getAttribute("loggedInUser").toString());
@@ -65,34 +70,13 @@ public class Sold extends HttpServlet {
                 int price = Integer.parseInt(request.getParameter("price"));
                 int points = Integer.parseInt(request.getParameter("points"));
                 String review = request.getParameter("reviewContent");
-                Trato tratoCompra = new Trato(0, "Compra", usuarioComprador.getId(), usuarioVendedor.getEmail(),productID,"",price,"",0,0 );
-                Trato tratoVenta = new Trato(0, "Venta", usuarioVendedor.getId(), buyerEmail,productID,LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString(),price,review,points,0 );
+                Trato tratoCompra = new Trato(0, "Compra", usuarioComprador.getEmail(), usuarioVendedor.getEmail(),productID,LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString(),price,review,points,0 );
+                Trato tratoVenta = new Trato(0, "Venta", usuarioVendedor.getEmail(), buyerEmail,productID,"",price,"",0,0 );
 
                 gestion.addTrato(tratoCompra);
                 gestion.addTrato(tratoVenta);
                 gestion.sellProduct(productID);
 
-                String sentencia;
-                Connection conn = gestion.getConn();
-                try {
-                    Statement st = conn.createStatement();
-                    sentencia = "INSERT INTO Trato(id,tipoTrato,idUsuario,emailOtroUser,idProducto,fecha,precio,comentario,puntuacion,completado) VALUES ('"
-                            + tratoCompra.getId() + "','"
-                            + tratoCompra.getTipoTrato() + "','"
-                            + tratoCompra.getIdUsuario() + "','"
-                            + tratoCompra.getEmailOtroUsuario() + "','"
-                            + tratoCompra.getIdProducto() + "','"
-                            + tratoCompra.getFecha() + "','"
-                            + tratoCompra.getPrecio() + "','"
-                            + tratoCompra.getComentario() + "','"
-                            + tratoCompra.getPuntuacion() + "','"
-                            + tratoCompra.getCompletado() + "');";
-
-                    st.executeUpdate(sentencia);
-                } catch (Exception e) {
-                    System.out.println("no");
-                }
-                System.out.println("yes");
 
 
                 response.sendRedirect("/Profile");

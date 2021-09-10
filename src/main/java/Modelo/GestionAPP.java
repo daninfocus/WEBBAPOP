@@ -19,7 +19,7 @@ public class GestionAPP implements Serializable {
     static final DAOManager dao = DAOManager.getSinglentonInstance();
     static final UsuarioSQL daoUsuarioSQL = new UsuarioSQL();
     static final ProductoSQL daoProductoSQL = new ProductoSQL();
-    static final TratoSQL tratoSQL = new TratoSQL();
+    static final TratoSQL daotratoSQL = new TratoSQL();
     static final MessageSQL daoMessageSQL = new MessageSQL();
     private File propertiesFile;
     private Properties props;
@@ -94,7 +94,7 @@ public class GestionAPP implements Serializable {
     }
 
     public ArrayList<Trato> getValoracionesPendientes(Usuario usuario) {
-        ArrayList<Trato> tratos = tratoSQL.readPendiente(usuario.getId(), dao);
+        ArrayList<Trato> tratos = daotratoSQL.readPendiente(usuario.getId(), dao);
         ArrayList<Trato> temp = new ArrayList<>();
         for (Trato trato : tratos) {
             if (trato.getCompletado() == 0) {
@@ -106,12 +106,16 @@ public class GestionAPP implements Serializable {
 
     //Trato
 
+    public ArrayList<Trato> getAllTrato(String emailUsuarioTrato){
+        return daotratoSQL.getAll(emailUsuarioTrato,dao);
+    }
+
     public Trato buscaTratoId(int id) {
-        return tratoSQL.read(id, dao);
+        return daotratoSQL.read(id, dao);
     }
 
     public boolean updateTrato(Trato trato) {
-        return tratoSQL.update(trato, dao);
+        return daotratoSQL.update(trato, dao);
     }
 
     public int generaIdTrato() {
@@ -119,12 +123,12 @@ public class GestionAPP implements Serializable {
         int id = (int) (Math.random() * 8999 + 1000);
 
         for (Usuario usuario : daoUsuarioSQL.getAll(dao)) {
-            for (Trato compra : getCompras(usuario.getId())) {
+            for (Trato compra : getCompras(usuario.getEmail())) {
                 if (compra.getId() == id) {
                     id = (int) (Math.random() * 8999 + 1000);
                 }
             }
-            for (Trato venta : getVentas(usuario.getId())) {
+            for (Trato venta : getVentas(usuario.getEmail())) {
                 if (venta.getId() == id) {
                     id = (int) (Math.random() * 8999 + 1000);
                 }
@@ -135,13 +139,39 @@ public class GestionAPP implements Serializable {
     }
 
     public boolean addTrato(Trato trato) {
-        return tratoSQL.insert(trato, dao);
+        return daotratoSQL.insert(trato, dao);
+    }
+
+    public double notaMedia(String email) {
+        float total = 0;
+        int contador = 0;
+
+        Usuario userTemp = getUsuarioPorEmail(email);
+
+        for (Trato v : getVentas(email)) {
+            if (v.getPuntuacion() >= 1) {
+                total += v.getPuntuacion();
+                contador++;
+            }
+        }
+
+        for (Trato c : getCompras(email)) {
+            if (c.getPuntuacion() >= 1) {
+                total += c.getPuntuacion();
+                contador++;
+            }
+        }
+
+        if (contador == 0) return 0;
+        double media = total / contador;
+        userTemp.setNotaMedia(media);
+        return media;
     }
 
     //Compras y ventas
 
-    public ArrayList<Trato> getCompras(int idUsuario) {
-        ArrayList<Trato> tratos = tratoSQL.getAll(idUsuario, dao);
+    public ArrayList<Trato> getCompras(String emailUsuarioTrato) {
+        ArrayList<Trato> tratos = daotratoSQL.getAll(emailUsuarioTrato, dao);
         ArrayList<Trato> compras = new ArrayList<>();
         for (Trato trato : tratos) {
             if (trato.getTipoTrato().equals("Compra")) compras.add(trato);
@@ -149,8 +179,8 @@ public class GestionAPP implements Serializable {
         return compras;
     }
 
-    public ArrayList<Trato> getVentas(int idUsuario) {
-        ArrayList<Trato> tratos = tratoSQL.getAll(idUsuario, dao);
+    public ArrayList<Trato> getVentas(String emailUsuarioTrato) {
+        ArrayList<Trato> tratos = daotratoSQL.getAll(emailUsuarioTrato, dao);
         ArrayList<Trato> ventas = new ArrayList<>();
         for (Trato trato : tratos) {
             if (trato.getTipoTrato().equals("Venta")) ventas.add(trato);
@@ -257,32 +287,7 @@ public class GestionAPP implements Serializable {
 
     //Other
 
-    public double notaMedia(String email) {
-        float total = 0;
-        int contador = 0;
 
-        Usuario userTemp = getUsuarioPorEmail(email);
-        int idUsuario = userTemp.getId();
-
-        for (Trato v : getVentas(idUsuario)) {
-            if (v.getPuntuacion() >= 0) {
-                total += v.getPuntuacion();
-                contador++;
-            }
-        }
-
-        for (Trato c : getCompras(idUsuario)) {
-            if (c.getPuntuacion() >= 0) {
-                total += c.getPuntuacion();
-                contador++;
-            }
-        }
-
-        if (contador == 0) return 0;
-        double media = total / contador;
-        userTemp.setNotaMedia(media);
-        return media;
-    }
 
     public Connection getConn(){
         return dao.getConn();

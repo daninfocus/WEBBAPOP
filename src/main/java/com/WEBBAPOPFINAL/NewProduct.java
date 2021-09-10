@@ -76,7 +76,6 @@ public class NewProduct extends HttpServlet {
                 {
                     String fieldName = uploadItem.getFieldName();
                     String value = uploadItem.getString();
-                    System.out.println(value);
                     if(fieldName.equals("make")) producto.setNombre(value);
                     if(fieldName.equals("description")) producto.setDescripcion(value);
                     if(fieldName.equals("category")) producto.setCategoria(value);
