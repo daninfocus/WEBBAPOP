@@ -27,23 +27,47 @@ public class UpdateUser extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 
-        //private info
-        String birthday = request.getParameter("date");
-        String sex = request.getParameter("sexo");
-        String email = request.getParameter("email");
-        GestionAPP gestionAPP = new GestionAPP();
-        Usuario user = gestionAPP.getUsuarioPorEmail(email);
-        gestionAPP.updateUsuario(user);
+        String option = request.getParameter("option");
 
-        request.getSession().setAttribute("loggedInUser", email);
-        request.getSession().setAttribute("gestion", gestionAPP);
-        RequestDispatcher rd = request.getRequestDispatcher("/Home");
-        rd.forward(request, response);
-        //public info
-        String location = request.getParameter("location");
-        String name = request.getParameter("name");
-        String surname = request.getParameter("surname");
+        if (option != null) {
+            GestionAPP gestionAPP = new GestionAPP();
+            String email = request.getParameter("email");
+            Usuario user = gestionAPP.getUsuarioPorEmail(email);
 
 
+            if (option.equals("firstOption")) {
+                //private info
+                String birthday = request.getParameter("date");
+                String sex = request.getParameter("sexo");
+
+                user.setFecha_nacimiento(birthday);
+                user.setSexo(sex);
+                gestionAPP.updateUsuario(user);
+
+                request.getSession().setAttribute("loggedInUser", email);
+                request.getSession().setAttribute("gestion", gestionAPP);
+                request.setAttribute("password",user.getPassword());
+                RequestDispatcher rd = request.getRequestDispatcher("/user.jsp");
+                rd.forward(request, response);
+            }
+
+            if (option.equals("secondOption")) {
+                //public info
+                String location = request.getParameter("location");
+                String name = request.getParameter("username");
+                String surname = request.getParameter("surname");
+
+                user.setDireccion(location);
+                user.setNombre(name);
+                user.setApellidos(surname);
+                gestionAPP.updateUsuario(user);
+
+                request.getSession().setAttribute("loggedInUser", email);
+                request.getSession().setAttribute("gestion", gestionAPP);
+                RequestDispatcher rd = request.getRequestDispatcher("/user.jsp");
+                rd.forward(request, response);
+
+            }
+        }
     }
 }

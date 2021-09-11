@@ -46,11 +46,7 @@
                 <div class="date"><input type="date" id="date" name="date" value="<%
                     String date = user.getFecha_nacimiento();
                     if(!date.equals("")){
-                      String day = date.substring(0,2);
-                      String month = date.substring(3,5);
-                      String year = date.substring(6,10);
-                      String formattedDate= year+"-"+month+"-"+day;
-                      out.print(formattedDate);
+                      out.print(date);
                     }else{
                        out.print("yyyy-MM-dd");
                     }
@@ -61,7 +57,7 @@
                 <label class="sexo">Sexo</label>
                 <div class="wrapper">
 
-                    <input type="radio" name="sexo" id="option-1" <%
+                    <input type="radio" name="sexo" id="option-1" value="Hombre"<%
                         if (user.getSexo().equals("Hombre")) {
                             out.print("checked");
                         }
@@ -72,7 +68,7 @@
                         <span>&nbsp;Hombre</span>
                     </label>
 
-                    <input type="radio" name="sexo" id="option-2"  <%
+                    <input type="radio" name="sexo" id="option-2" value="Mujer" <%
                         if (user.getSexo().equals("Mujer")) {
                             out.print("checked");
                         } else {
@@ -85,7 +81,7 @@
                         <span>&nbsp;Mujer</span>
                     </label>
 
-                    <input type="radio" name="sexo" id="option-3" <%
+                    <input type="radio" name="sexo" id="option-3" value="Otro" <%
                         if (user.getSexo().equals("Otro")) {
                             out.print("checked");
                         }
@@ -96,6 +92,7 @@
                         <span>&nbsp;Otro</span>
                     </label>
                 </div>
+                <input type="hidden" name="option" value="firstOption">
                 <div class="save">
                     <button type="submit">Guardar</button>
                 </div>
@@ -105,34 +102,35 @@
     <div class="listProfile2">
         <h4 class="cat2">Información publica</h4>
         <div class="container2">
-            <label for="username" class="username">Nombre</label>
-            <div class="usernameProfile">
-                <input type="text" placeholder="usuario" id="username" name="username" value="<%
+            <form action="/UpdateUser" method="post">
+                <label for="username" class="username">Nombre</label>
+                <div class="usernameProfile">
+                    <input type="text" placeholder="usuario" id="username" name="username" value="<%
 
-        out.print(user.getNombre());
+                out.print(user.getNombre());
 
-        %>">
-            </div>
-            <label for="surname">Apellidos</label>
-            <div class="surname"><input type="text" placeholder="Apellidos" id="surname" name="surname" value="<%
+                %>">
+                </div>
+                <label for="surname">Apellidos</label>
+                <div class="surname"><input type="text" placeholder="Apellidos" id="surname" name="surname" value="<%
 
-        out.print(user.getApellidos());
+                out.print(user.getApellidos());
 
-        %>"></div>
+                %>"></div>
+                <label for="location">Ubicación</label>
+                <div class="location">
+                    <input type="text" id="location" name="location" placeholder="Ubicación" value="<%
 
+                out.print(user.getDireccion());
 
-            <label for="location">Ubicación</label>
-            <div class="location">
-                <input type="text" id="location" name="location" placeholder="Ubicación" value="<%
-
-        out.print(user.getDireccion());
-
-        %>">
-            </div>
-            <input type="hidden" name="email" value="<%=user.getEmail()%>">
-            <div class="save2">
-                <button type="submit">Guardar</button>
-            </div>
+                %>">
+                </div>
+                <input type="hidden" name="email" value="<%=user.getEmail()%>">
+                <input type="hidden" name="option" value="secondOption">
+                <div class="save2">
+                    <button type="submit">Guardar</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
