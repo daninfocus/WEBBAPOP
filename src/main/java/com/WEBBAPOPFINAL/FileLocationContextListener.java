@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebListener;
 public class FileLocationContextListener implements ServletContextListener {
 
     public void contextInitialized(ServletContextEvent servletContextEvent) {
+
         String rootPath = System.getProperty("catalina.home");
         ServletContext ctx = servletContextEvent.getServletContext();
         String relativePath = ctx.getInitParameter("tempfile.dir");

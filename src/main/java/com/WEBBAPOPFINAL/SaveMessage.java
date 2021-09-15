@@ -21,6 +21,8 @@ public class SaveMessage extends HttpServlet {
 
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
         String messageContent = request.getParameter("message");
         int idSender = Integer.parseInt(request.getParameter("userId"));
         int idProduct = Integer.parseInt(request.getParameter("productId"));

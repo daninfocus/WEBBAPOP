@@ -1,0 +1,159 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+.boxDad {
+    margin-top: 60px;
+    margin-left: 230px;
+}
+.flexContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #404040;
+    margin-right: 40px;
+    border-radius: 5px;
+}
+.flexChild {
+    z-index: 1;
+    font-size: 22px;
+    color: rgb(143, 143, 143);
+    text-decoration: none;
+    padding: 20px;
+    background-color: #404040;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: none;
+    border-radius: 5px;
+}
+
+.page-visible {
+    display: contents;
+    margin-left: 40px;
+}
+
+.page-invisible {
+    display: none;
+    margin-left: 40px;
+}
+
+@media screen and (max-width: 730px) {
+    .flexContainer {
+        flex-direction: column;
+    }
+}
+@media screen and (max-width: 950px) {
+    .boxDad {
+        margin-left: 40px;
+    }
+}
+
+form {
+    margin-right: 40px;
+}
+.form-contents {
+    color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+.form div {
+    padding: 10px;
+}
+.form input {
+    width: 100%;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    font-size: 20px;
+    color: rgb(146, 146, 146);
+}
+
+.form input:focus {
+    transition: all 0.1s ease-in-out;
+    box-shadow: 0px 0px #30ab53;
+    -moz-box-shadow: 0 0 0 5px #30ab53;
+    -webkit-box-shadow: 0 0 0 5px #30ab53;
+    -o-box-shadow: 0 0 0 5px #30ab53;
+}
+.form input[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+}
+
+.form select {
+    width: 100%;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    font-size: 20px;
+    color: rgb(146, 146, 146);
+}
+
+.form option {
+    width: 100%;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    font-size: 20px;
+    color: rgb(146, 146, 146);
+}
+
+.form select:focus {
+    transition: all 0.1s ease-in-out;
+    box-shadow: 0px 0px #30ab53;
+    -moz-box-shadow: 0 0 0 5px #30ab53;
+    -webkit-box-shadow: 0 0 0 5px #30ab53;
+    -o-box-shadow: 0 0 0 5px #30ab53;
+}
+.form select[type="date"]::-webkit-calendar-picker-indicator {
+    display: none;
+    -webkit-appearance: none;
+}
+
+
+textarea {
+    width: 100%;
+    overflow: auto;
+    resize: vertical;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    font-size: 20px;
+    color: rgb(146, 146, 146);
+}
+textarea:focus {
+    box-shadow: 0px 0px #30ab53;
+    -moz-box-shadow: 0 0 0 5px #30ab53;
+    -webkit-box-shadow: 0 0 0 5px #30ab53;
+    -o-box-shadow: 0 0 0 5px #30ab53;
+}
+.description {
+    width: 100%;
+}
+
+.save {
+    transition: all 0.3s ease;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 20px 0 100px 0;
+}
+
+.save button {
+    border: none;
+    color: rgb(255, 255, 255);
+    text-align: center;
+    padding: 10px;
+    font-size: 13px;
+    line-height: 10px;
+    border-radius: 20px;
+    background-color: #30ab53;
+}
+.save button:hover {
+    background-color: #268841;
+}

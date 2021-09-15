@@ -20,32 +20,43 @@ public class LoginControl extends HttpServlet {
     private static final long serialVersionUID = 1L;
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
         RequestDispatcher rd = request.getRequestDispatcher("home.jsp");
         rd.forward(request, response);
     }
 
     public void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html");
         PrintWriter out = response.getWriter();
 
         String email = request.getParameter("email");
         String pass = request.getParameter("password");
 
-        if (UserDAO.validate(email, pass, request)) {
+        if(email!=null && pass!=null){
             GestionAPP gestion = new GestionAPP();
-            request.getSession().setAttribute("loggedInUser", email);
-            request.getSession().setAttribute("gestion", gestion);
 
-            RequestDispatcher rd = request.getRequestDispatcher("/home.jsp");
-            rd.forward(request, response);
+            if (gestion.login(email, pass)) {
 
-        } else {
-            request.setAttribute("error", "Invalid Username or Password");
-            RequestDispatcher rd = request.getRequestDispatcher("login.jsp");
-            rd.include(request, response);
+                request.getSession().setAttribute("loggedInUser", email);
+                request.getSession().setAttribute("gestion", gestion);
+                request.getSession().setAttribute("name", gestion.getUsuarioPorEmail(email).getNombre());
+
+                RequestDispatcher rd = request.getRequestDispatcher("/home.jsp");
+                rd.forward(request, response);
+
+            } else {
+                request.setAttribute("error", "Invalid Username or Password");
+                RequestDispatcher rd = request.getRequestDispatcher("/Login");
+                rd.include(request, response);
+            }
+        }else{
+            response.sendRedirect("/Login");
         }
+
 
         out.close();
     }

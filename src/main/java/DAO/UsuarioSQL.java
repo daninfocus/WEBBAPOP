@@ -27,6 +27,8 @@ public class UsuarioSQL implements DaoUsuario {
                     + usuario.getNotaMedia() + "');";
 
             st.executeUpdate(sentencia);
+            st.close();
+            conn.close();
         } catch (Exception e) {
             System.err.println(e.getMessage());
             return false;
@@ -85,6 +87,7 @@ public class UsuarioSQL implements DaoUsuario {
                             rs.getString("password"),
                             rs.getDouble("nota_media"));
                 }
+                ps.close();
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -116,6 +119,7 @@ public class UsuarioSQL implements DaoUsuario {
                             rs.getString("password"),
                             rs.getDouble("nota_media"));
                 }
+                ps.close();
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -131,6 +135,7 @@ public class UsuarioSQL implements DaoUsuario {
         try (Statement stmt = dao.getConn().createStatement()) {
             // enviar el commando delete
             stmt.executeUpdate(sentencia);
+            stmt.close();
             return true;
         } catch (SQLException ex) {
             return false;
@@ -160,6 +165,7 @@ public class UsuarioSQL implements DaoUsuario {
                             rs.getDouble("nota_media"));
                     usuarios.add(usuario);
                 }
+                ps.close();
             }
         } catch (SQLException ex) {
             ex.printStackTrace();

@@ -1,19 +1,7 @@
-html {
-    background-image: url("../img/cover.png");
-    margin: 0;
-}
 
-h2 {
-    color: white;
-}
-
-h4 {
-    font-weight: normal;
-    color: rgb(156, 156, 156);
-}
 
 .globalContainer {
-    margin-left: 230px;
+    margin-left: 223px;
     margin-top: 60px;
     height: 80%;
     border-radius: 5px;
@@ -70,7 +58,7 @@ h4 {
     color: black;
     height: 30px;
     overflow: hidden;
-    width: 200px;
+    width: 160px;
     font-weight: bold;
     font-size: 18px;
     line-height: 28px;

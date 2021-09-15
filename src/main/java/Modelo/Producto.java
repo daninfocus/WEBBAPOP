@@ -14,6 +14,7 @@ public class Producto implements Comparable<Object>, Serializable {
     private String nombre; // Nombre que va a tener tu producto cuando esté en venta. El que va a ver todos los usuarios
     private String descripcion; // Breve explicacion de que es tu producto
     private String categoria; // Categoria a la que pertenece el producto (Coche, Moto, Vivienda, etc)
+    private String extraInfo; //Para el modelo del coche, o tipo de vivienda, tipo de ropa etc
     private float precio; // Precio que tiene el producto
     private String fecha; // Esta fecha es la fecha en la que el producto se pone en venta
     private String estado; // Estado en el que se encuentra el producto (Nuevo, Casi nuevo, etc)
@@ -33,11 +34,12 @@ public class Producto implements Comparable<Object>, Serializable {
      * @param estado      the estado
      */
     // Constructor con los atributos de la clase Producto
-    public Producto(int id, String nombre, String descripcion, String categoria, float precio, String fecha, String estado, int idUsuario, int vendido, int deleted, int reserved, String image) {
+    public Producto(int id, String nombre, String descripcion, String categoria, String extraInfo, float precio, String fecha, String estado, int idUsuario, int vendido, int deleted, int reserved, String image) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.categoria = categoria;
+        this.extraInfo = extraInfo;
         this.precio = precio;
         this.fecha = fecha;
         this.estado = estado;
@@ -145,6 +147,14 @@ public class Producto implements Comparable<Object>, Serializable {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public String getExtraInfo() {
+        return extraInfo;
+    }
+
+    public void setExtraInfo(String infoExtra) {
+        this.extraInfo = infoExtra;
     }
 
     @Override

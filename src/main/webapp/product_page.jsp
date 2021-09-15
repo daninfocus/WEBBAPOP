@@ -1,6 +1,7 @@
 <%@ page import="Modelo.GestionAPP" %>
 <%@ page import="Modelo.Producto" %>
-<%@ page import="Modelo.Usuario" %><%--
+<%@ page import="Modelo.Usuario" %>
+<%@ page import="java.text.DecimalFormat" %><%--
   Created by IntelliJ IDEA.
   User: Dan
   Date: 04/09/2021
@@ -8,6 +9,14 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%
+  String userEmail = (String) session.getAttribute("loggedInUser");
+  if (userEmail == null) {
+    response.sendRedirect("/login.jsp");
+    return; //the return is important; forces redirect to go now
+  }
+%>
 <!DOCTYPE html>
 <head>
   <link
@@ -61,19 +70,20 @@
   Producto product = gestion.getProductoPorID(idProd);
   Usuario loggedInUser = gestion.getUsuarioPorEmail(session.getAttribute("loggedInUser").toString());
   Usuario seller = gestion.getUsuarioPorId(product.getIdUsuario());
+  DecimalFormat df = new DecimalFormat("#,##0.##");
   if(product.getIdUsuario()!=loggedInUser.getId()){
     out.print("\n" +
             "<div class=\"containerProduct\">\n" +
             "  <div class=\"userContainer\">\n" +
             "    <div class=\"userName\">\n" +
             "      <i class=\"far fa-user\"></i>\n" +
-            "      <h4>"+seller.getNombre()+"</h4>\n" +
+            "      <div style=\"font-size:16px;font-weight:bold;width: 350px;margin-left: 20px;\" >"+seller.getNombre()+"</div>\n" +
             "    </div>\n" +
             "    <div class=\"rating\">\n" +
             "      <div class=\"stars\">"+ seller.getNotaMedia()+"</div>\n" +
             "      <div class=\"numRatings\">"+seller.getNotaMedia()+"</div>\n" +
             "    </div>\n" +
-            "   <a class=\"add\" href=\"/Profile?Product_ID="+product.getid()+"\"><button class=\"addButton\">Add&nbsp;&nbsp;<i class=\"fa fa-heart\"></i></button></a>\n" +
+            "   <a class=\"add\" href=\"/SaveProduct?Product_ID="+product.getid()+"&User_ID="+loggedInUser.getId()+"\"><button class=\"addButton\">Add&nbsp;&nbsp;<i class=\"fa fa-heart\"></i></button></a>\n" +
             "   <a class=\"message\" href=\"/Profile?Product_ID="+product.getid()+"\"><button class=\"messageButton\">Chat&nbsp;&nbsp;<i class=\"far fa-comment-dots\"></i></button></a>\n" +
             "  </div>\n" +
             "  <div class=\"image\">\n" +
@@ -84,7 +94,7 @@
             "  </div>\n" +
             "  <div class=\"productInfo\">\n" +
             "    <h2 class=\"price\">\n" +
-            "      "+product.getPrecio()+" <i class=\"fa fa-euro-sign\" aria-hidden=\"true\"></i>\n" +
+            "      "+df.format(product.getPrecio())+" <i class=\"fa fa-euro-sign\" aria-hidden=\"true\"></i>\n" +
             "    </h2>\n" +
             "    <h1 class=\"productName\">"+product.getNombre()+"</h1>\n" +
             "    <hr />\n" +
@@ -112,7 +122,7 @@
             "  <div class=\"userContainer\">\n" +
             "    <div class=\"userName\">\n" +
             "      <i class=\"far fa-user\"></i>\n" +
-            "      <h4>"+seller.getNombre()+"</h4>\n" +
+            "      <div style=\"font-size:16px;font-weight:bold;width: 350px;margin-left: 20px;\" >"+seller.getNombre()+"</div>\n" +
             "    </div>\n" +
             "      <div class=\"buttons\">\n" +
             (product.getVendido()==0?"          <button onclick=\"window.location.href='/Sold?Product_ID="+product.getid()+"';\" type=\"button\" title=\"Marcar como vendido\" class=\"sell\">\n" +
@@ -121,7 +131,7 @@
                     "          <button onclick=\"window.location.href='/Reserved?Product_ID="+product.getid()+"';\" type=\"button\" title=\"Marcar como reservado\" class=\"reserve\">\n" +
                     "              <i class=\"far fa-bookmark\"></i>\n" +
                     "          </button>\n" +
-                    "          <button onclick=\"window.location.href='/Edit?Product_ID="+product.getid()+"';\" type=\"button\" title=\"Editar\"class=\"edit\"><i class=\"far fa-edit\"></i></button>\n"
+                    "          <button onclick=\"window.location.href='/Profile?editProduct="+product.getid()+"';\" type=\"button\" title=\"Editar\"class=\"edit\"><i class=\"far fa-edit\"></i></button>\n"
             :"")
 
             +

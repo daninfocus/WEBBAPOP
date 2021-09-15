@@ -25,7 +25,8 @@ public class UpdateUser extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
 
         String option = request.getParameter("option");
 
@@ -39,9 +40,11 @@ public class UpdateUser extends HttpServlet {
                 //private info
                 String birthday = request.getParameter("date");
                 String sex = request.getParameter("sexo");
+                String telephone = request.getParameter("telephone");
 
                 user.setFecha_nacimiento(birthday);
                 user.setSexo(sex);
+                user.setTelefono(telephone);
                 gestionAPP.updateUsuario(user);
 
                 request.getSession().setAttribute("loggedInUser", email);

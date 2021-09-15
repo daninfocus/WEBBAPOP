@@ -22,6 +22,7 @@ public class TratoSQL implements DaoTrato {
             ps.setInt(9,trato.getPuntuacion());
             ps.setInt(10,trato.getCompletado());
             result = ps.executeUpdate();
+            ps.close();
         } catch (Exception e) {
             System.err.println(e.getMessage());
             return false;
@@ -42,6 +43,7 @@ public class TratoSQL implements DaoTrato {
         try (Statement stmt = dao.getConn().createStatement()) {
             // enviar el commando insert
             stmt.executeUpdate(sentencia);
+            stmt.close();
             return true;
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -80,6 +82,7 @@ public class TratoSQL implements DaoTrato {
                             rs.getInt("completado"));
 
                 }
+                ps.close();
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -113,6 +116,7 @@ public class TratoSQL implements DaoTrato {
                             rs.getInt("completado"));
                     tratos.add(trato);
                 }
+                ps.close();
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -146,6 +150,7 @@ public class TratoSQL implements DaoTrato {
                             rs.getInt("completado"));
                     tratos.add(trato);
                 }
+                ps.close();
             }
         } catch (SQLException ex) {
             ex.printStackTrace();

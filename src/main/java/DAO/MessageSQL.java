@@ -13,14 +13,19 @@ public class MessageSQL implements DaoMessage {
         Connection conn = dao.getConn();
         try {
             Statement st = conn.createStatement();
-            sentencia = "INSERT INTO Messages (ID_User_Sender,ID_User_Reciever,ID_Product,Message,Sent_Date) VALUES ('"
+            sentencia = "INSERT INTO Messages (ID_User_Sender,ID_User_Reciever,ID_Product,Message,Sent_Date,Recieved_Date,Message_Read,Message_Deleted) VALUES ('"
                     + message.getID_User_Sender() + "','"
                     + message.getID_User_Reciever() + "','"
                     + message.getID_Product() + "','"
                     + message.getMessage() + "','"
-                    + message.getSent_Date() + "');";
+                    + message.getSent_Date()+ "','"
+                    + message.getRecieved_Date()+ "','"
+                    + message.isMessage_Read()+ "','"
+                    + message.isMessage_Deleted() + "');";
 
             st.executeUpdate(sentencia);
+            st.close();
+            conn.close();
         } catch (Exception e) {
             System.err.println(e.getMessage());
             return false;
@@ -45,7 +50,8 @@ public class MessageSQL implements DaoMessage {
         try (PreparedStatement stmt = conn.prepareStatement(sentencia)) {
             // enviar el commando insert
             stmt.executeUpdate(sentencia);
-            conn.commit();
+            conn.close();
+            stmt.close();
             return true;
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -61,6 +67,7 @@ public class MessageSQL implements DaoMessage {
         try (Statement stmt = dao.getConn().createStatement()) {
             // enviar el commando delete
             stmt.executeUpdate(sentencia);
+            stmt.close();
             return true;
         } catch (SQLException ex) {
             return false;
@@ -93,6 +100,8 @@ public class MessageSQL implements DaoMessage {
                             rs.getInt("Message_Deleted"));
                     messages.add(message);
                 }
+                ps.close();
+
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -116,6 +125,7 @@ public class MessageSQL implements DaoMessage {
                         product_ids.add(rs.getInt("ID_Product"));
                     }
                 }
+                ps.close();
             }
         } catch (SQLException ex) {
             ex.printStackTrace();

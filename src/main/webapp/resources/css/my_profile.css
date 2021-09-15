@@ -10,7 +10,7 @@ h4 {
     margin-top: 60px;
 }
 .listProfile1 {
-    height: 320px;
+    height: 400px;
     margin-right: 40px;
     margin-bottom: 20px;
     padding: 30px;
@@ -26,7 +26,7 @@ h4 {
     border: none;
     outline: none;
     font-size: 20px;
-    color:black;
+    color:rgb(146, 146, 146);
 }
 
 #email:focus {
@@ -58,6 +58,31 @@ h4 {
     margin-bottom: 10px;
     margin-right: 10px;
     margin-top: 10px;
+}
+
+.telephone {
+    position: relative;
+    margin-left: 15px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+#telephone{
+    width: 100%;
+    transition: all 0.1s ease-in-out;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    font-size: 20px;
+}
+#telephone:focus {
+    transition: all 0.1s ease-in-out;
+    box-shadow: 0px 0px #30ab53;
+    -moz-box-shadow: 0 0 0 5px #30ab53;
+    -webkit-box-shadow: 0 0 0 5px #30ab53;
+    -o-box-shadow: 0 0 0 5px #30ab53;
 }
 #date {
     width: 100%;

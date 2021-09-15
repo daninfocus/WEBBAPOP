@@ -31,9 +31,9 @@
         out.print("<div class=\"flex-container\">");
 
         for (Producto producto : gestion.getProductos()) {
-            if (producto.getVendido() == 0) {
+            if (producto.getVendido() == 0 && producto.getDeleted()==0) {
 
-                out.print("<a target=\"_blank\" href=\"/Product?Product_ID=" + producto.getid() + "\">\n" +
+                out.print("<a href=\"/Product?Product_ID=" + producto.getid() + "\">\n" +
                         "<div class=\"child-container\">\n" +
                         "    <div class=\"images\">\n" +
                         "        <img class=\"img\" src=\"image.jsp?imgID="+producto.getid()+"\"/>\n" +

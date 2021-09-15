@@ -19,6 +19,8 @@ public class DeleteProduct extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
         GestionAPP gestionAPP = new GestionAPP();
         String userEmail = request.getParameter("userEmail");
         Usuario user = gestionAPP.getUsuarioPorEmail(userEmail);

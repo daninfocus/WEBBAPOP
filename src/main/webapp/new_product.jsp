@@ -8,32 +8,37 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    GestionAPP gestion = (GestionAPP)session.getAttribute("gestion");
+    GestionAPP gestion = (GestionAPP) session.getAttribute("gestion");
     Usuario user = gestion.getUsuarioPorEmail(session.getAttribute("loggedInUser").toString());
-
+    response.setCharacterEncoding("UTF-8");
+    request.setCharacterEncoding("UTF-8");
 %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link href="./resources/FontAwesome/css/all.css" rel="stylesheet" />
-    <!--load all styles -->
-    <link rel="stylesheet" href="./resources/css/new_product.css" />
-    <script language="JavaScript" src="<%=request.getContextPath()%>./resources/js/user.js"></script>
+    meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="./resources/css/new_product.css"/>
+    <link href="./resources/FontAwesome/css/all.css" rel="stylesheet"/>
+    <title>Webbapop | Products</title>
 </head>
 <body>
 <div class="boxDad">
     <h2 style="color:white">Producto nuevo</h2>
     <h4 style="color: rgb(156, 156, 156);font-weight: normal">Aquí puedes registrar un producto nuevo</h4>
     <div class="flexContainer">
-        <button class="flexChild" id="motor"  onclick="clickMotor()">
+        <button class="flexChild" id="motor" onclick="clickMotor()">
             <i class="fas fa-car-side"></i>
             Motor
         </button>
         <button class="flexChild" id="properties" onclick="clickProp()">
             <i class="fas fa-home"></i>
             Propiedad
+        </button>
+        <button class="flexChild" id="technology" onclick="clickTechnology()">
+            <i class="fas fa-tv"></i>
+            Informática
         </button>
         <button class="flexChild" id="fashion" onclick="clickFashion()">
             <i class="fas fa-tshirt"></i>
@@ -48,140 +53,189 @@
     <div class="page-invisible" id="motor-form">
         <form action="/Save" method="post" class="form" enctype="multipart/form-data">
             <div class="form-contents">
-                <div class="tittle">
-                    <div><label for="title1">Título</label></div>
-                    <input type="text" id="title1" name="title" placeholder="  Titulo del anuncio" />
-                </div>
                 <div class="make">
-                    <div><label for="make">Marca</label></div>
-                    <input type="text" id="make" name="make" placeholder="  Ej: Volkswagen" />
+                    <div><label for="name">Marca</label></div>
+                    <input type="text" id="name" name="name" placeholder="  Ej: Volkswagen" required/>
                 </div>
                 <div class="model">
                     <div><label for="model">Modelo&emsp;</label></div>
-                    <input type="text" id="model" name="model" placeholder="  Ej: Golf 4" />
+                    <input type="text" id="model" name="model" placeholder="  Ej: Golf 4" required/>
                 </div>
                 <div class="price">
                     <div><label for="price">Precio&emsp;</label></div>
-                    <input style="width: 100%" name="price" placeholder="  Con cabeza..."/>
+                    <input style="width: 100%" name="price" placeholder="  Con cabeza..." required/>
                 </div>
                 <div class="state">
                     <div><label for="model">Estado&emsp;</label></div>
-                    <input type="text" id="state" name="state" placeholder="  Honestidad..." />
+                    <input type="text" id="state" name="state" placeholder="  Honestidad..." required/>
                 </div>
-                <div class="km">
+                <!--<div class="km">
                     <div><label for="km">Kilómetros&emsp;</label></div>
-                    <input type="text" id="km" name="km" placeholder="  Kilómetros actuales"/>
-                </div>
+                    <input type="text" id="km" name="km" placeholder="  Kilómetros actuales" required/>
+                </div>-->
                 <div class="description">
-                    <div><label for="descriptionCar">Descripcion&emsp;</label></div>
-                    <textarea id="descriptionCar" name="descriptionCar" placeholder="  Una breve descripcion de su vehiculo" ></textarea>
+                    <div><label for="description">Descripcion&emsp;</label></div>
+                    <textarea name="description" placeholder="  Una breve descripcion de su vehiculo"
+                              required></textarea>
                 </div>
-                Select File to Upload:<input type="file" name="fileName">
-                <input type="hidden" name="category" value="Motor" />
-                <input type="hidden" name="userId" value="<%=user.getId()%>" />
-                <input type="hidden" name="sold" value="no" />
+                Selecciona una foto:<input type="file" name="fileName" required>
+                <input type="hidden" name="category" value="Motor"/>
+                <input type="hidden" name="userId" value="<%=user.getId()%>"/>
+                <input type="hidden" name="sold" value="no"/>
             </div>
-            <div class="save"><button type="submit">Guardar</button></div>
+            <div class="save">
+                <button type="submit">Guardar</button>
+            </div>
         </form>
     </div>
 
     <div class="page-invisible" id="prop-form">
-        <form action="/Save" method="POST" class="form">
+        <form action="/Save" method="POST" class="form" enctype="multipart/form-data">
             <div class="form-contents">
                 <div class="tittle">
-                    <div><label for="tittle">Título</label></div>
-                    <input type="text" id="title" name="tittle" placeholder="  Titulo del anuncio" />
+                    <div><label for="name">Título</label></div>
+                    <input type="text" name="name" placeholder="  Titulo del anuncio" required/>
                 </div>
                 <div class="type">
                     <div><label for="type">Tipo</label></div>
-                    <input type="text" name="type" placeholder="  Ej: Cochera, Cortijo" />
+                    <input type="text" name="extraInfo" placeholder="  Ej: Cochera, Cortijo" required/>
                 </div>
-                <div class="suface">
+                <!--<div class="suface">
                     <div><label for="suface">Superfície m2&emsp;</label></div>
-                    <input type="text" id="suface" name="suface" placeholder="  m2" />
-                </div>
+                    <input type="text" id="suface" name="suface" placeholder="  m2" required/>
+                </div>-->
                 <div class="price">
                     <div><label for="price">Precio&emsp;</label></div>
-                    <input style="width: 100%" name="price" placeholder="  Con cabeza..."/>
+                    <input style="width: 100%" name="price" placeholder="  Con cabeza..." required/>
                 </div>
                 <div class="state">
                     <div><label for="model">Estado&emsp;</label></div>
-                    <input type="text" name="state" placeholder="  Ej: Obra nueva, Reformar..." />
+                    <input type="text" name="state" placeholder="  Ej: Obra nueva, Reformar..." required/>
                 </div>
-                <div class="rent-sale">
+                <!--<div class="rent-sale">
                     <div><label for="rent-sale">Alquiler o Venta&emsp;</label></div>
-                    <select name="rent-sale" id="rent-sale">
+                    <select name="rent-sale" id="rent-sale" required>
                         <option value="Alquiler">Alquiler</option>
                         <option value="Venta">Venta</option>
                     </select>
+                </div>-->
+                <div class="description">
+                    <div><label for="description">Descripcion&emsp;</label></div>
+                    <textarea name="description" placeholder="  Una breve descripcion de su propiedad"
+                              required></textarea>
+                </div>
+                Selecciona una foto:<input type="file" name="fileName" required>
+                <input type="hidden" name="category" value="Property"/>
+                <input type="hidden" name="userId" value="<%=user.getId()%>"/>
+                <input type="hidden" name="sold" value="no"/>
+            </div>
+            <div class="save">
+                <button type="submit">Guardar</button>
+            </div>
+        </form>
+    </div>
+
+    <div class="page-visible" id="technology-form">
+        <form action="/Save" method="POST" class="form" enctype="multipart/form-data">
+            <div class="form-contents">
+                <div class="tittle">
+                    <div><label for="name">Título</label></div>
+                    <input type="text" name="name" placeholder=" Titulo del anuncio">
+                </div>
+                <div class="type">
+                    <div><label for="type">Tipo</label></div>
+                    <input type="text" name="extraInfo" placeholder="  Ej: Portatil, Telefono" required>
+                </div>
+                <div class="price">
+                    <div><label for="price">Precio&emsp;</label></div>
+                    <input style="width: 100%" name="price" placeholder="  Con cabeza..." required>
+                </div>
+                <div class="state">
+                    <div><label for="model">Estado&emsp;</label></div>
+                    <input type="text" name="state" placeholder="  Ej: Como nuevo.." required>
                 </div>
                 <div class="description">
-                    <div><label for="descriptionProp">Descripcion&emsp;</label></div>
-                    <textarea id="descriptionProp" name="descriptionProp" placeholder="  Una breve descripcion de su propiedad" ></textarea>
+                    <div><label for="description">Descripcion&emsp;</label></div>
+                    <textarea name="description" placeholder="  Una breve descripcion de su producto"
+                              required></textarea>
                 </div>
-                <input type="hidden" name="category" value="Property" />
-                <input type="hidden" name="userId" value="<%=user.getId()%>" />
-                <input type="hidden" name="sold" value="no" />
+                Selecciona una foto:<input type="file" name="fileName">
+                <input type="hidden" name="category" value="Informática"/>
+                <input type="hidden" name="userId" value="<%=user.getId()%>"/>
+                <input type="hidden" name="sold" value="no"/>
             </div>
-            <div class="save"><button type="submit">Guardar</button></div>
+            <div class="save">
+                <button type="submit">Guardar</button>
+            </div>
         </form>
     </div>
 
     <div class="page-invisible" id="fashion-form">
-        <form action="/Save" method="POST" class="form">
+        <form action="/Save" method="POST" class="form" enctype="multipart/form-data">
             <div class="form-contents">
                 <div class="tittle">
-                    <div><label for="title">Título</label></div>
-                    <input type="text" name="tittle" placeholder="  Titulo del anuncio" />
+                    <div><label for="name">Título</label></div>
+                    <input type="text" name="name" placeholder="  Titulo del anuncio" required/>
                 </div>
                 <div class="type">
                     <div><label for="type">Tipo</label></div>
-                    <input type="text"  name="type" placeholder="  Ej: Camiseta, Pantalones" />
+                    <input type="text" name="extraInfo" placeholder="  Ej: Camiseta, Pantalones" required/>
                 </div>
                 <div class="price">
                     <div><label for="price">Precio&emsp;</label></div>
-                    <input style="width: 100%" name="price" placeholder="  Con cabeza..."/>
+                    <input style="width: 100%" name="price" placeholder="  Con cabeza..." required/>
                 </div>
                 <div class="state">
                     <div><label for="model">Estado&emsp;</label></div>
-                    <input type="text"  name="state" placeholder="  Ej: Como nuevo.." />
+                    <input type="text" name="state" placeholder="  Ej: Como nuevo.." required/>
                 </div>
                 <div class="description">
-                    <div><label for="descriptionFashion">Descripcion&emsp;</label></div>
-                    <textarea  id="descriptionFashion" name="descriptionFashion" placeholder="  Una breve descripcion de su propiedad" ></textarea>
+                    <div><label for="description">Descripcion&emsp;</label></div>
+                    <textarea id="description" name="description"
+                              placeholder="  Una breve descripcion de su producto"
+                              required></textarea>
                 </div>
-                <input type="hidden" name="category" value="Property" />
-                <input type="hidden" name="userId" value="<%=user.getId()%>" />
-                <input type="hidden" name="sold" value="no" />
+                Selecciona una foto:<input type="file" name="fileName" required>
+                <input type="hidden" name="category" value="Moda"/>
+                <input type="hidden" name="userId" value="<%=user.getId()%>"/>
+                <input type="hidden" name="sold" value="no"/>
             </div>
-            <div class="save"><button type="submit">Guardar</button></div>
+            <div class="save">
+                <button type="submit">Guardar</button>
+            </div>
         </form>
     </div>
 
+
     <div class="page-invisible" id="other-form">
-        <form action="/Save" method="POST" class="form">
+        <form action="/Save" method="POST" class="form" enctype="multipart/form-data">
             <div class="form-contents">
-                <div class="tittle">
-                    <div><label for="tittle">Título</label></div>
-                    <input type="text" id="tittle" name="tittle" placeholder="  Titulo del anuncio" />
+                <div class="title">
+                    <div><label for="name">Título</label></div>
+                    <input type="text" name="name" placeholder="  Titulo del anuncio" required/>
                 </div>
                 <div class="type">
                     <div><label for="type">Tipo</label></div>
-                    <input type="text" id="type" name="type" placeholder="  Ej: Servicios, Hogar..." />
+                    <input type="text" id="type" name="extraInfo" placeholder="  Ej: Servicios, Hogar..."
+                           required/>
                 </div>
                 <div class="price">
                     <div><label for="model">Precio&emsp;</label></div>
-                    <input style="width: 100%" id="price" name="price" placeholder="  Con cabeza..."/>
+                    <input style="width: 100%" id="price" name="price" placeholder="  Con cabeza..." required/>
                 </div>
                 <div class="description">
-                    <div><label for="descriptionOther">Descripcion&emsp;</label></div>
-                    <textarea id="descriptionOther" name="descriptionOther" placeholder="  Una breve descripcion de su propiedad" ></textarea>
+                    <div><label for="description">Descripcion&emsp;</label></div>
+                    <textarea name="description" placeholder="  Una breve descripcion de su propiedad"
+                              required></textarea>
                 </div>
-                <input type="hidden" name="category" value="Property" />
-                <input type="hidden" name="userId" value="<%=user.getId()%>" />
-                <input type="hidden" name="sold" value="no" />
+                Selecciona una foto:<input type="file" name="fileName" required>
+                <input type="hidden" name="category" value="Other"/>
+                <input type="hidden" name="userId" value="<%=user.getId()%>"/>
+                <input type="hidden" name="sold" value="no"/>
             </div>
-            <div class="save"><button type="submit">Guardar</button></div>
+            <div class="save">
+                <button type="submit">Guardar</button>
+            </div>
         </form>
     </div>
 </div>
@@ -190,11 +244,13 @@
         document.getElementById("motor-form").removeAttribute("class");
         document.getElementById("prop-form").removeAttribute("class");
         document.getElementById("fashion-form").removeAttribute("class");
+        document.getElementById("technology-form").removeAttribute("class");
         document.getElementById("other-form").removeAttribute("class");
 
         document.getElementById("motor-form").classList.add("page-visible");
         document.getElementById("prop-form").classList.add("page-invisible");
         document.getElementById("fashion-form").classList.add("page-invisible");
+        document.getElementById("technology-form").classList.add("page-invisible");
         document.getElementById("other-form").classList.add("page-invisible");
     }
 
@@ -202,11 +258,13 @@
         document.getElementById("motor-form").removeAttribute("class");
         document.getElementById("prop-form").removeAttribute("class");
         document.getElementById("fashion-form").removeAttribute("class");
+        document.getElementById("technology-form").removeAttribute("class");
         document.getElementById("other-form").removeAttribute("class");
 
         document.getElementById("motor-form").classList.add("page-invisible");
         document.getElementById("prop-form").classList.add("page-invisible");
         document.getElementById("fashion-form").classList.add("page-visible");
+        document.getElementById("technology-form").classList.add("page-invisible");
         document.getElementById("other-form").classList.add("page-invisible");
     }
 
@@ -214,11 +272,14 @@
         document.getElementById("motor-form").removeAttribute("class");
         document.getElementById("prop-form").removeAttribute("class");
         document.getElementById("fashion-form").removeAttribute("class");
+        document.getElementById("technology-form").removeAttribute("class");
         document.getElementById("other-form").removeAttribute("class");
+
 
         document.getElementById("motor-form").classList.add("page-invisible");
         document.getElementById("prop-form").classList.add("page-visible");
         document.getElementById("fashion-form").classList.add("page-invisible");
+        document.getElementById("technology-form").classList.add("page-invisible");
         document.getElementById("other-form").classList.add("page-invisible");
     }
 
@@ -226,15 +287,29 @@
         document.getElementById("motor-form").removeAttribute("class");
         document.getElementById("prop-form").removeAttribute("class");
         document.getElementById("fashion-form").removeAttribute("class");
+        document.getElementById("technology-form").removeAttribute("class");
         document.getElementById("other-form").removeAttribute("class");
 
         document.getElementById("motor-form").classList.add("page-invisible");
         document.getElementById("prop-form").classList.add("page-invisible");
         document.getElementById("fashion-form").classList.add("page-invisible");
+        document.getElementById("technology-form").classList.add("page-invisible");
         document.getElementById("other-form").classList.add("page-visible");
     }
-</script>
 
+    function clickTechnology() {
+        document.getElementById("motor-form").removeAttribute("class");
+        document.getElementById("prop-form").removeAttribute("class");
+        document.getElementById("fashion-form").removeAttribute("class");
+        document.getElementById("technology-form").removeAttribute("class");
+        document.getElementById("other-form").removeAttribute("class");
+
+        document.getElementById("motor-form").classList.add("page-invisible");
+        document.getElementById("prop-form").classList.add("page-invisible");
+        document.getElementById("fashion-form").classList.add("page-invisible");
+        document.getElementById("technology-form").classList.add("page-visible");
+        document.getElementById("other-form").classList.add("page-invisible");
+    }
+</script>
 </body>
 </html>
-

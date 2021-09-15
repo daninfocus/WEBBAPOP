@@ -8,6 +8,16 @@
         <param-value>tmpfiles</param-value>
     </context-param>
 
+    <!--.....................................-->
+
+    <jsp-config>
+        <jsp-property-group>
+            <url-pattern>*.jsp</url-pattern>
+            <page-encoding>UTF-8</page-encoding>
+        </jsp-property-group>
+    </jsp-config>
+
+    <!--.....................................-->
 
     <servlet>
         <servlet-name>login</servlet-name>
@@ -41,6 +51,30 @@
     <servlet-mapping>
         <servlet-name>Product</servlet-name>
         <url-pattern>/Product</url-pattern>
+    </servlet-mapping>
+
+    <!--.....................................-->
+
+    <servlet>
+        <servlet-name>SaveProduct</servlet-name>
+        <servlet-class>com.WEBBAPOPFINAL.SaveProduct</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>SaveProduct</servlet-name>
+        <url-pattern>/SaveProduct</url-pattern>
+    </servlet-mapping>
+
+    <!--.....................................-->
+
+    <servlet>
+        <servlet-name>Search</servlet-name>
+        <servlet-class>com.WEBBAPOPFINAL.Search</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>Search</servlet-name>
+        <url-pattern>/Search</url-pattern>
     </servlet-mapping>
 
     <!--.....................................-->

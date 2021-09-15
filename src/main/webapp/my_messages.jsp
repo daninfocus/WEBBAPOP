@@ -58,7 +58,15 @@
                                 tick = "  <i style=\"color:#404040\" class=\"fas fa-check\"></i>";
                             }
                         }
-                        out.print("<a class=\"aList\" href=\"/Profile?Product_ID=" + product_ids + "\"><div class=\"listMessages\">");
+                        if(request.getParameter("Product_ID")!=null){
+                            if(Integer.parseInt(request.getParameter("Product_ID"))==producto.getid()){
+                                out.print("<a class=\"aList\" href=\"/Profile?Product_ID=" + product_ids + "\"><div style=\"background-color: rgb(206 206 206);\" class=\"listMessages\">");
+                            }else {
+                                out.print("<a class=\"aList\" href=\"/Profile?Product_ID=" + product_ids + "\"><div style=\"background-color: rgb(100, 100, 100);\" class=\"listMessages\">");
+                            }
+                        }else {
+                            out.print("<a class=\"aList\" href=\"/Profile?Product_ID=" + product_ids + "\"><div style=\"background-color: rgb(100, 100, 100);\" class=\"listMessages\">");
+                        }
                         if (gestion.getProductoPorID(product_ids).getVendido() == 1) {
                             out.print("   <div class=\"imgContainer\">" +
                                     "       <img\n" +
@@ -139,17 +147,19 @@
                         ArrayList<Message> messages = gestion.getAllMessages(loggedInUser.getId(), product_id);
                         if (messages.size() > 1) {
                             for (Message message : messages) {
-                                if (message.getID_User_Reciever() == loggedInUser.getId()) {
+                                if (message.getID_User_Reciever() == loggedInUser.getId() && !message.getMessage().equals("")) {
                                     out.print("<p class=\"messageContentOther\">" + message.getMessage() + "</p><br>");
                                     if (message.isMessage_Read() == 0) {
                                         message.setMessage_Read(1);
                                         gestion.updateMessage(message);
                                     }
                                 } else {
-                                    if (message.isMessage_Read() == 1) {
-                                        out.print((message.getMessage().equals("") ? "" : "<p class=\"messageContent\">" + message.getMessage() + "  </p><i style=\"color:#4e9133\" class=\"fas fa-check-double\"></i><br>"));
-                                    } else {
-                                        out.print((message.getMessage().equals("") ? "" : "<p class=\"messageContent\">" + message.getMessage() + "  </p><i style=\"color:#262626\" class=\"fas fa-check\"></i><br>"));
+                                    if (message.getID_User_Sender() == loggedInUser.getId() && !message.getMessage().equals("")) {
+                                        if (message.isMessage_Read() == 1) {
+                                            out.print((message.getMessage().equals("") ? "" : "<p class=\"messageContent\">" + message.getMessage() + "  </p><i style=\"color:#4e9133\" class=\"fas fa-check-double\"></i><br>"));
+                                        } else {
+                                            out.print((message.getMessage().equals("") ? "" : "<p class=\"messageContent\">" + message.getMessage() + "  </p><i style=\"color:#262626\" class=\"fas fa-check\"></i><br>"));
+                                        }
                                     }
                                 }
 
@@ -165,8 +175,6 @@
 
                         if (request.getParameter("Product_ID") != null) {
                             if (producto.getIdUsuario() == loggedInUser.getId()) {
-
-
                                 out.print("<input type=\"hidden\" name=\"idUserReciever\" value=" + messages.get(0).getID_User_Sender() + ">");
                             } else {
                                 out.print("<input type=\"hidden\" name=\"idUserReciever\" value=" + producto.getIdUsuario() + ">");

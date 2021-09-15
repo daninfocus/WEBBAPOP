@@ -4,3 +4,7 @@ admin=daniel.webb@fernando3martos.com
 log=./src/main/resources/log.log
 invitado=false
 lastAccess=./src/main/resources/LastAccess.prop
+host = SSL0.OVH.NET
+user = dam5@carlosprofe.es
+pass = Olivo.2021
+emisor = dam5@carlosprofe.es

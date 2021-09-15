@@ -92,6 +92,17 @@
                         <span>&nbsp;Otro</span>
                     </label>
                 </div>
+
+                <label for="telephone">Telefono</label>
+
+                <div class="telephone">
+                    <input type="tel" id="telephone" name="telephone" pattern="^34 ?(?:6[0-9]{2}|7[1-9][0-9])(?: ?[0-9]{3}){2}\r?$" value="<%
+                    String telephone = user.getTelefono();
+                    if(!telephone.equals("")){
+                      out.print(telephone);
+                    }
+                    %>" placeholder="(34 123 456 789)">
+                </div>
                 <input type="hidden" name="option" value="firstOption">
                 <div class="save">
                     <button type="submit">Guardar</button>

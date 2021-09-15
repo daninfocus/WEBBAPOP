@@ -68,7 +68,7 @@
                     for (Producto producto : productos) {
                         out.print(
                                 "<input type=\"checkbox\" class=\"checkbox\" name=\"checkbox"+num+"\" value="+producto.getid()+">\n" +
-                                        "<a class=\"list\" target=\"_blank\" href=\"/Product?Product_ID=" + producto.getid() + "\">\n" +
+                                        "<a class=\"list\" href=\"/Product?Product_ID=" + producto.getid() + "\">\n" +
                                         "    <img\n" +
                                         "            class=\"img\"\n" +
                                         "            src=\"image.jsp?imgID="+producto.getid()+"\"\n" +
@@ -92,7 +92,7 @@
                                         "        <button onclick=\"window.location.href='/Reserved?Product_ID="+producto.getid()+"';\" type=\"button\" title=\"Marcar como reservado\" class=\"reserve\">\n" +
                                         "            <i class=\"far fa-bookmark\"></i>\n" +
                                         "        </button>\n" +
-                                        "        <button onclick=\"window.location.href='/Edit?Product_ID="+producto.getid()+"';\" type=\"button\" title=\"Editar\"class=\"edit\"><i class=\"far fa-edit\"></i></button>\n" +
+                                        "        <button onclick=\"window.location.href='/Profile?editProduct="+producto.getid()+"';\" type=\"button\" title=\"Editar\"class=\"edit\"><i class=\"far fa-edit\"></i></button>\n" +
                                         "    </div>\n" +
                                         "</a>" +
                                         "<br>");
@@ -125,7 +125,7 @@
                     for (Producto producto : productosVendidos) {
                         out.print(
                                 "<input type=\"checkbox\" class=\"checkbox\" name=\"checkbox"+num+"\" value="+producto.getid()+">\n" +
-                                        "<a class=\"list\" target=\"_blank\" href=\"/Product?Product_ID=" + producto.getid() + "\">\n" +
+                                        "<a class=\"list\" href=\"/Product?Product_ID=" + producto.getid() + "\">\n" +
                                         "    <img\n" +
                                         "            class=\"img\"\n" +
                                         "            src=\"image.jsp?imgID="+producto.getid()+"\"\n" +
@@ -146,11 +146,17 @@
                                         "<br>");
                         num++;
                     }
+                    if(productosVendidos.size()!=0){
+                        out.print("<div style=\"width:100%;display: flex;flex-direction: row;justify-content: space-around\">\n" +
+                                "                <input type=\"hidden\" name=\"userEmail\" value="+session.getAttribute("loggedInUser")+">\n" +
+                                "                <input class=\"checkboxSave\" type=\"submit\" value=\"Borrar producto\" onclick='return confirm(\"Se borrara permanentemente los productos seleccionados\")'>\n" +
+                                "  </div>");
+                    }
                 %>
-                <div style="width:100%;display: flex;flex-direction: row;justify-content: space-around">
-                    <input type="hidden" name="userEmail" value="<%=session.getAttribute("loggedInUser")%>">
-                    <input class="checkboxSave" type="submit" value="Borrar producto" onclick='return confirm("Se borrara permanentemente los productos seleccionados")'>
-                </div>
+
+
+
+
             </form>
         </div>
     </div>

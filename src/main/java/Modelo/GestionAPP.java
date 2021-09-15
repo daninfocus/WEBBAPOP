@@ -8,6 +8,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
 import java.io.*;
+import java.sql.Array;
 import java.sql.Connection;
 import java.util.*;
 
@@ -21,6 +22,7 @@ public class GestionAPP implements Serializable {
     static final ProductoSQL daoProductoSQL = new ProductoSQL();
     static final TratoSQL daotratoSQL = new TratoSQL();
     static final MessageSQL daoMessageSQL = new MessageSQL();
+    static final SavedProductSQL daoSavedProductSQL = new SavedProductSQL();
     private File propertiesFile;
     private Properties props;
 
@@ -77,6 +79,21 @@ public class GestionAPP implements Serializable {
 
     //Messages
 
+    public ArrayList<Message> getUnreadMessages(int idUser) {
+        ArrayList<Integer> chats = daoMessageSQL.getAllChats(idUser, dao);
+
+        ArrayList<Message> unReadMessages = new ArrayList<>();
+        for (Integer product_id : chats) {
+            ArrayList<Message> messages = daoMessageSQL.readMessages(idUser, product_id, dao);
+            for (Message message : messages) {
+                if (message.getID_User_Reciever() == idUser && message.isMessage_Read() == 0 && !message.getMessage().equals("")) {
+                    unReadMessages.add(message);
+                }
+            }
+        }
+        return unReadMessages;
+    }
+
     public boolean updateMessage(Message message) {
         return daoMessageSQL.update(message, dao);
     }
@@ -106,8 +123,8 @@ public class GestionAPP implements Serializable {
 
     //Trato
 
-    public ArrayList<Trato> getAllTrato(String emailUsuarioTrato){
-        return daotratoSQL.getAll(emailUsuarioTrato,dao);
+    public ArrayList<Trato> getAllTrato(String emailUsuarioTrato) {
+        return daotratoSQL.getAll(emailUsuarioTrato, dao);
     }
 
     public Trato buscaTratoId(int id) {
@@ -189,24 +206,28 @@ public class GestionAPP implements Serializable {
     }
 
     //Productos
+    public boolean deleteSavedProduct(SavedProducts products){
+        return daoSavedProductSQL.delete(products,dao);
+    }
+
+    public boolean insertSavedProduct(SavedProducts products){
+        return  daoSavedProductSQL.insert(products,dao);
+    }
+
+    public ArrayList<SavedProducts> getSavedProducts(int idUser) {
+        return daoSavedProductSQL.read(idUser, dao);
+    }
 
     public boolean sellProduct(int productID) {
         return daoProductoSQL.sell(productID, dao);
     }
 
-    public ArrayList<Producto> buscaProductoTexto(String nombreProducto) {
-        ArrayList<Producto> productos = getProductos();
-        ArrayList<Producto> temp = new ArrayList<>();
-        for (Producto producto : productos) {
-            if (producto.getNombre().toLowerCase().contains(nombreProducto.toLowerCase())) {
-                temp.add(producto);
-            }
-        }
-        return temp;
+    public ArrayList<Producto> buscaProductoTexto(String search) {
+        return daoProductoSQL.searchByText(search,dao);
     }
 
-    public void addProducto(Producto producto) {
-        daoProductoSQL.insert(producto, dao);
+    public boolean addProducto(Producto producto,InputStream blob) {
+       return daoProductoSQL.insert(producto,blob, dao);
     }
 
     public boolean updateProducto(Producto producto) {
@@ -276,20 +297,19 @@ public class GestionAPP implements Serializable {
         return null;
     }
 
-    public Usuario login(String email, String password) {
+    public boolean login(String email, String password) {
         Usuario u = daoUsuarioSQL.read(email, dao);
         if (u != null) {
-            if (u.getPassword().equals(password)) return u;
+            if (u.getPassword().equals(password)) return true;
         }
-        return null;
+        return false;
     }
 
 
     //Other
 
 
-
-    public Connection getConn(){
+    public Connection getConn() {
         return dao.getConn();
     }
 

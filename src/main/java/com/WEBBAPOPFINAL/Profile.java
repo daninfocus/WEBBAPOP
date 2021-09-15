@@ -24,10 +24,11 @@ public class Profile extends HttpServlet {
 
     public void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
         HttpSession session = request.getSession(false);
 
-        if( session != null || session.getAttribute("loggedInUser")!=null) {
+        if( session != null && session.getAttribute("loggedInUser")!=null) {
             String userEmail = session.getAttribute("loggedInUser").toString();
             GestionAPP gestionAPP = new GestionAPP();
             Usuario user = gestionAPP.getUsuarioPorEmail(userEmail.toString());
@@ -36,7 +37,7 @@ public class Profile extends HttpServlet {
                 int idProd = Integer.parseInt(request.getParameter("Product_ID"));
                 ArrayList<Message> messages = gestionAPP.getAllMessages(user.getId(), idProd);
                 if(messages.size()==0){
-                    Message message = new Message(0,user.getId(),gestionAPP.getProductoPorID(idProd).getid(),idProd,"00/00/0000","00/00/0000","",0,0);
+                    Message message = new Message(0,user.getId(),gestionAPP.getProductoPorID(idProd).getIdUsuario(),idProd,"","","",0,0);
                     gestionAPP.saveMessage(message);
                 }
             }

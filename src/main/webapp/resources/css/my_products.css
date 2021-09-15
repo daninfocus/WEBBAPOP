@@ -7,7 +7,7 @@ h4 {
 }
 
 .parentProduct{
-    margin-left: 230px;
+    margin-left: 223px;
     margin-top: 60px;
 }
 
@@ -33,7 +33,6 @@ h4 {
     border-radius: 5px;
 }
 .list .price {
-    margin-top: 20px;
     font-size: 20px;
     font-weight: bold;
 }
@@ -233,11 +232,15 @@ h4 {
 }
 
 .tabs {
+    border-radius: 5px;
     display: flex;
     flex-wrap: wrap;
+    margin-bottom: 100px;
 }
 
 .tabs label {
+    border-radius: 10px 10px 10px 10px;
+    margin-bottom: 5px;
     order: 1;
     display: flex;
     justify-content: center;
@@ -251,6 +254,7 @@ h4 {
 }
 
 .tabs .tab {
+    border-radius: 5px 50px;
     order: 9;
     flex-grow: 1;
     width: 100%;

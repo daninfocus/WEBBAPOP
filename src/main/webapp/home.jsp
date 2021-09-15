@@ -1,4 +1,7 @@
-<%--
+<%@ page import="Modelo.Usuario" %>
+<%@ page import="Modelo.GestionAPP" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="Modelo.Message" %><%--
   Created by IntelliJ IDEA.
   User: Dan
   Date: 03/08/2021
@@ -7,10 +10,11 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    if (session.getAttribute("loggedInUser") == null)
-    {
-        response.sendRedirect("/Login");
-    }else{
+    String userEmail = (String) session.getAttribute("loggedInUser");
+    if (userEmail == null) {
+        response.sendRedirect("/login.jsp");
+        return; //the return is important; forces redirect to go now
+    }
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,8 +23,17 @@
         /* Paste this css to your style sheet file or under head tag */
         /* This only works with JavaScript,
         if it's not present, don't show loader */
-        .no-js #loader { display: none;  }
-        .js #loader { display: block; position: absolute; left: 100px; top: 0; }
+        .no-js #loader {
+            display: none;
+        }
+
+        .js #loader {
+            display: block;
+            position: absolute;
+            left: 100px;
+            top: 0;
+        }
+
         .se-pre-con {
             position: fixed;
             left: 0;
@@ -37,9 +50,10 @@
 
         //paste this code under the head tag or in a separate js file.
         // Wait for window load
-        $(window).load(function() {
+        $(window).load(function () {
             // Animate loader off screen
-            $(".se-pre-con").fadeOut("slow");;
+            $(".se-pre-con").fadeOut("slow");
+            ;
         });
     </script>
 
@@ -48,15 +62,15 @@
             type="img/favicon.ico"
             href="resources/img/logo512circle.png"
     />
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="resources/FontAwesome/css/all.css" rel="stylesheet" />
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="resources/FontAwesome/css/all.css" rel="stylesheet"/>
     <!--load all styles -->
-    <link rel="stylesheet" href="resources/css/style.css" />
-    <link rel="manifest" href="manifest.json" />
-    <meta name="theme-color" content="#30ab53" />
-    <link rel="apple-touch-icon" href="resources/img/logo192.png" />
+    <link rel="stylesheet" href="resources/css/home.css"/>
+    <link rel="manifest" href="manifest.json"/>
+    <meta name="theme-color" content="#30ab53"/>
+    <link rel="apple-touch-icon" href="resources/img/logo192.png"/>
     <title>Webbapop</title>
 
 </head>
@@ -67,24 +81,27 @@
     <!-----------------------------------------------------------------------------------------------------------------SearchBAR -->
     <a href="${pageContext.request.contextPath}/Home" class="logo"><i class="fab fa-weebly"></i>ebbaPop</a
     ><!--Webbapop logo -->
+    <form action="/Search" method="get">
+        <div class="wrap">
+            <!-----------------------------------------------------------SearchBAR -->
+            <div class="search">
 
-    <div class="wrap">
-        <!-----------------------------------------------------------SearchBAR -->
-        <div class="search">
-            <input type="text" class="searchTerm" placeholder=" Search" />
-            <button type="submit" class="searchButton">
-                <i class="fa fa-search"></i>
-            </button>
+                <input type="text" class="searchTerm" name="search" placeholder=" Search"/>
+                <button type="submit" class="searchButton">
+                    <i class="fa fa-search"></i>
+                </button>
+
+            </div>
         </div>
-    </div>
+    </form>
     <div class="se-pre-con"></div>
     <div class="header-right">
         <!-----------------------------------------Header right options -->
         <%
-            if(request.getSession().getAttribute("loggedInUser")==null){
+            if (request.getSession().getAttribute("loggedInUser") == null) {
 
-            }else{
-                out.print("<a class=\"option1\" href=\"Profile\"><i  class=\"far fa-user fa-lg\"></i>&nbsp;&nbsp;"+ request.getSession().getAttribute("name")+"</a>");
+            } else {
+                out.print("<a class=\"option1\" href=\"Profile\"><i  class=\"far fa-user fa-lg\"></i>&nbsp;&nbsp;" + request.getSession().getAttribute("name") + "</a>");
                 out.print("<a class=\"option2\" href=\"/Profile?newProduct=true\"><i class=\"fa fa-plus-square\" ></i><div class=\"addProduct\">&nbsp;&nbsp;Subir un producto</div></a>");
 
                 session.setAttribute("user", request.getAttribute("name"));      //set attribute in session
@@ -98,9 +115,33 @@
 
 <div class="home-title">¿Qué buscas hoy?</div>
 
-<jsp:include page="all_products.jsp" />
+<jsp:include page="all_products.jsp"/>
 
 <!--<div class="content"></div>-->
+
+<%
+    GestionAPP gestion = (GestionAPP) session.getAttribute("gestion");
+    Usuario loggedInUser = gestion.getUsuarioPorEmail(session.getAttribute("loggedInUser").toString());
+    ArrayList<Message> messages = gestion.getUnreadMessages(loggedInUser.getId());
+    if (!messages.isEmpty()) {
+        out.print("<a href=\"/Profile?Option=messages&Product_ID=" + messages.get(0).getID_Product() + "\" title=\"Tienes un mensaje nuevo\">\n" +
+                "    <div class=\"notification-box\">\n" +
+                "        <span class=\"notification-count\">" + messages.size() + "</span>\n" +
+                "\n" +
+                "        <div class=\"notification-bell\">\n" +
+                "            <span class=\"bell-top\"></span>\n" +
+                "            <span class=\"bell-middle\"></span>\n" +
+                "            <span class=\"bell-bottom\"></span>\n" +
+                "            <span class=\"bell-rad\"></span>\n" +
+                "        </div>\n" +
+                "    </div>\n" +
+                "</a>");
+
+    }
+
+%>
+
+
 <div class="footer">
     <p>
         <a href="https://github.com/daninfocus" target="_blank"
@@ -118,5 +159,3 @@
 <script src="resources/js/index.js"></script>
 </body>
 </html>
-
-<%}%>

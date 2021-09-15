@@ -25,7 +25,7 @@
 <div class="main-container">
     <div class="form-container">
 
-        <div class="source"><a title="Contratame" href="https://www.github.com/daninfocus/CV" target="_blank">Webbapop</a></div>
+        <div class="source"><a title="Contratame" href="https://github.com/daninfocus/WEBBAPOP" target="_blank">Webbapop</a></div>
 
         <div class="form-body">
             <h2 class="title">Log in with</h2>

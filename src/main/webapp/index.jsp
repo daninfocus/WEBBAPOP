@@ -12,7 +12,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="resources/FontAwesome/css/all.css" rel="stylesheet" />
     <!--load all styles -->
-    <link rel="stylesheet" href="resources/css/style.css" />
+    <link rel="stylesheet" href="resources/css/home.css" />
     <link rel="manifest" href="manifest.json" />
     <meta name="theme-color" content="#30ab53" />
     <link rel="apple-touch-icon" href="resources/img/logo192.png" />
@@ -23,16 +23,19 @@
     <!-----------------------------------------------------------------------------------------------------------------SearchBAR -->
     <a href="${pageContext.request.contextPath}/" class="logo"><i class="fab fa-weebly"></i>ebbaPop</a
     ><!--Webbapop logo -->
+    <form action="/Search" method="get">
+        <div class="wrap">
+            <!-----------------------------------------------------------SearchBAR -->
+            <div class="search">
 
-    <div class="wrap">
-        <!-----------------------------------------------------------SearchBAR -->
-        <div class="search">
-            <input type="text" class="searchTerm" placeholder=" Search" />
-            <button type="submit" class="searchButton">
-                <i class="fa fa-search"></i>
-            </button>
+                <input type="text" class="searchTerm" name="search" placeholder=" Search"/>
+                <button type="submit" class="searchButton">
+                    <i class="fa fa-search"></i>
+                </button>
+
+            </div>
         </div>
-    </div>
+    </form>
 
     <div class="header-right">
         <!-----------------------------------------Header right options -->

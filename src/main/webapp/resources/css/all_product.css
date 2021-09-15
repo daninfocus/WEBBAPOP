@@ -27,6 +27,8 @@
 }
 
 .p {
+    height: 80px;
+    overflow: hidden;
     font-size: 0.8em;
     color: #868686;
     letter-spacing: 1px;

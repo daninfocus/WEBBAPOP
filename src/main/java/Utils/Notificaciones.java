@@ -46,7 +46,7 @@ public class Notificaciones {
         }
     }
 
-    public static Boolean enviaTokenRegistro(String destino, String token) {
+    public static Boolean enviaTokenRegistro(String destino, int token) {
         String asunto = "Confirmación de registro de nuevo usuario. ";
         boolean resultado;
         resultado = false;

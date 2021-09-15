@@ -6,6 +6,14 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%
+    String userEmail = (String)session.getAttribute("loggedInUser");
+    if(userEmail==null)
+    {
+        response.sendRedirect("/login.jsp");
+        return; //the return is important; forces redirect to go now
+    }
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -85,9 +93,12 @@
                 document.querySelector('.my-messages-page').style.display = 'none';
                 document.querySelector('.messages').style.color = '#818181';
                 document.querySelector('.zone').style.color = '#818181';
-                document.querySelector('.messagesClick').style.color = '#818181';
+                document.querySelector('.messagesBottomNav').style.color = '#818181';
+                document.querySelector('.favouritesBottomNav').style.color = '#818181';
                 document.querySelector('.my-reviews-page').style.display = 'none';
                 document.querySelector('.reviews').style.color = '#818181';
+                document.querySelector('.my-favorites-page').style.display = 'none';
+                document.querySelector('.favourites').style.color = '#818181';
             }
 
         }
@@ -104,9 +115,12 @@
                 document.querySelector('.my-messages-page').style.display = 'none';
                 document.querySelector('.messages').style.color = '#818181';
                 document.querySelector('.zone').style.color = '#818181';
-                document.querySelector('.messagesClick').style.color = '#818181';
+                document.querySelector('.messagesBottomNav').style.color = '#818181';
+                document.querySelector('.favouritesBottomNav').style.color = '#818181';
                 document.querySelector('.my-reviews-page').style.display = 'none';
                 document.querySelector('.reviews').style.color = '#818181';
+                document.querySelector('.my-favorites-page').style.display = 'none';
+                document.querySelector('.favourites').style.color = '#818181';
 
             }
 
@@ -120,9 +134,8 @@
             if (messages.localeCompare("none") == 0) {
                 document.querySelector('.my-messages-page').style.display = 'contents';
                 document.querySelector('.messages').style.color = 'white';
-                document.querySelector('.messagesClick').style.color = 'white';
-
-
+                document.querySelector('.messagesBottomNav').style.color = 'white';
+                document.querySelector('.favouritesBottomNav').style.color = '#818181';
                 document.querySelector('.my-product-page').style.display = 'none';
                 document.querySelector('.products').style.color = '#818181';
                 document.querySelector('.my-profile-page').style.display = 'none';
@@ -130,6 +143,8 @@
                 document.querySelector('.zone').style.color = '#818181';
                 document.querySelector('.my-reviews-page').style.display = 'none';
                 document.querySelector('.reviews').style.color = '#818181';
+                document.querySelector('.my-favorites-page').style.display = 'none';
+                document.querySelector('.favourites').style.color = '#818181';
 
             }
 
@@ -146,15 +161,18 @@
                 document.querySelector('.zone').style.color = 'white';
                 document.querySelector('.my-messages-page').style.display = 'none';
                 document.querySelector('.messages').style.color = '#818181';
-                document.querySelector('.messagesClick').style.color = '#818181';
+                document.querySelector('.messagesBottomNav').style.color = '#818181';
+                document.querySelector('.favouritesBottomNav').style.color = '#818181';
                 document.querySelector('.my-reviews-page').style.display = 'none';
                 document.querySelector('.reviews').style.color = '#818181';
+                document.querySelector('.my-favorites-page').style.display = 'none';
+                document.querySelector('.favourites').style.color = '#818181';
             }
 
 
         }
 
-        function myReviews(){
+        function myReviews() {
             let reviews = document.querySelector('.my-reviews-page').style.display;
 
 
@@ -170,6 +188,33 @@
                 document.querySelector('.zone').style.color = '#818181';
                 document.querySelector('.my-messages-page').style.display = 'none';
                 document.querySelector('.messages').style.color = '#818181';
+                document.querySelector('.my-favorites-page').style.display = 'none';
+                document.querySelector('.favourites').style.color = '#818181';
+                document.querySelector('.favouritesBottomNav').style.color = '#818181';
+                document.querySelector('.messagesBottomNav').style.color = '#818181';
+
+            }
+        }
+
+        function myFavs() {
+            let favs = document.querySelector('.my-favorites-page').style.display;
+
+
+            if (favs.localeCompare("none") == 0) {
+                document.querySelector('.my-favorites-page').style.display = 'contents';
+                document.querySelector('.favourites').style.color = 'white';
+                document.querySelector('.favouritesBottomNav').style.color = 'white';
+                document.querySelector('.my-reviews-page').style.display = 'none';
+                document.querySelector('.reviews').style.color = '#818181';
+                document.querySelector('.my-product-page').style.display = 'none';
+                document.querySelector('.products').style.color = '#818181';
+                document.querySelector('.my-profile-page').style.display = 'none';
+                document.querySelector('.profile').style.color = '#818181';
+                document.querySelector('.zone').style.color = '#818181';
+                document.querySelector('.my-messages-page').style.display = 'none';
+                document.querySelector('.messages').style.color = '#818181';
+                document.querySelector('.messagesBottomNav').style.color = '#818181';
+
 
             }
         }
@@ -183,15 +228,19 @@
     <a href="/Home" class="logo"><i class="fab fa-weebly"></i>ebbaPop</a
     ><!--Webbapop logo -->
 
-    <div class="wrap">
-        <!-----------------------------------------------------------SearchBAR -->
-        <div class="search">
-            <input type="text" class="searchTerm" placeholder=" Search"/>
-            <button type="submit" class="searchButton">
-                <i class="fa fa-search"></i>
-            </button>
+    <form action="/Search" method="get">
+        <div class="wrap">
+            <!-----------------------------------------------------------SearchBAR -->
+            <div class="search">
+
+                <input type="text" class="searchTerm" name="search" placeholder=" Search"/>
+                <button type="submit" class="searchButton">
+                    <i class="fa fa-search"></i>
+                </button>
+
+            </div>
         </div>
-    </div>
+    </form>
     <div class="header-right">
         <!-----------------------------------------Header right options -->
 
@@ -216,9 +265,13 @@
 
     <% if (request.getParameter("newProduct") != null && request.getParameter("newProduct").equals("true")) {%>
 
-    <jsp:include page="new_product.jsp"/>
+        <jsp:include page="new_product.jsp"/>
 
-    <%} else {%>
+    <%} else {
+        if (request.getParameter("editProduct") != null){
+            String prod_id = request.getParameter("editProduct");%>
+            <jsp:include page="edit_product.jsp"/>
+        <%}else{%>
 
     <div class="my-profile-page">
         <jsp:include page="my_profile.jsp"/>
@@ -229,11 +282,13 @@
     <div class="my-messages-page">
         <jsp:include page="my_messages.jsp"/>
     </div>
-    <div class="my-favorites-page"></div>
+    <div class="my-favorites-page">
+        <jsp:include page="saved_products.jsp"/>
+    </div>
     <div class="my-reviews-page">
         <jsp:include page="my_reviews.jsp"/>
     </div>
-    <% } %>
+    <% }} %>
 </div>
 <div class="sidenav">
     <a class="profile" <%
@@ -257,7 +312,11 @@
     %> onClick="myMessages()"><i style="font-size: 30px; padding: 10px" class="fa fa-comment" aria-hidden="true"></i>Mensajes</a>
 
 
-    <a href="#favourites"><i style="font-size: 30px; padding: 10px" class="fa fa-heart" aria-hidden="true"></i>Favoritos</a>
+    <a class="favourites"  <%
+        if (request.getParameter("newProduct") != null) {
+            out.print("href=\"/Profile?Option=favourites\"");
+        }
+    %> onClick="myFavs()"><i style="font-size: 30px; padding: 10px" class="fa fa-heart" aria-hidden="true"></i>Favoritos</a>
 
 
     <a class="reviews"  <%
@@ -269,23 +328,35 @@
 </div>
 
 <div class="bottomnav">
-    <a class="products" href="#products"><i class="fa fa-list" aria-hidden="true"></i>
+    <a class="products" href="/Home"><i class="fa fa-list" aria-hidden="true"></i>
         <p>Inicio</p></a>
-    <a href="#favourites"><i class="fa fa-heart" aria-hidden="true"></i>
-        <p>Favoritos</p></a>
+
+
+    <a class="favouritesBottomNav" <%
+        if (request.getParameter("newProduct") != null) {
+            out.print("href=\"/Profile?Option=favourites\"");
+        }
+    %> onClick="myFavs()"><i class="fa fa-heart" aria-hidden="true"></i><p>Favoritos</p></a>
+
+
     <a href="/Profile?newProduct=true"><i class="fa fa-plus-square"></i></a>
-    <a class="messagesClick"  <%
+
+
+    <a class="messagesBottomNav"  <%
         if (request.getParameter("newProduct") != null) {
             out.print("href=\"/Profile?Option=messages\"");
         }
-    %> onClick="myMessages()"><i class="fa fa-comment" aria-hidden="true"></i>
-        <p>Mensajes</p></a>
+    %> onClick="myMessages()"><i class="fa fa-comment" aria-hidden="true"></i><p>Mensajes</p></a>
+
+
     <a class="zone"  <%
         if (request.getParameter("newProduct") != null) {
             out.print("href=\"/Profile?Option=zone\"");
         }
     %> onClick="myZone()"><i class="fa fa-user" aria-hidden="true"></i>
         <p>Tu zona</p></a>
+
+
 </div>
 </body>
 </html>
