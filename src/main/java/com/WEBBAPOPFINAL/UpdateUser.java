@@ -2,6 +2,7 @@ package com.WEBBAPOPFINAL;
 
 import Modelo.GestionAPP;
 import Modelo.Usuario;
+import Utils.Notificaciones;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -30,8 +31,11 @@ public class UpdateUser extends HttpServlet {
 
         String option = request.getParameter("option");
 
+        GestionAPP gestionAPP = new GestionAPP();
+
+
         if (option != null) {
-            GestionAPP gestionAPP = new GestionAPP();
+
             String email = request.getParameter("email");
             Usuario user = gestionAPP.getUsuarioPorEmail(email);
 
@@ -41,6 +45,22 @@ public class UpdateUser extends HttpServlet {
                 String birthday = request.getParameter("date");
                 String sex = request.getParameter("sexo");
                 String telephone = request.getParameter("telephone");
+                String password = request.getParameter("password");
+
+                if(!password.equals("secret")){
+                    if(!user.getPassword().equals(password)){
+                        int token = (int) ((Math.random() * 8999) + 1000);
+
+                        request.getSession().setAttribute("token",token);
+                        Notificaciones notificaciones = new Notificaciones();
+
+                        Notificaciones.enviaTokenRegistro(gestionAPP.getUsuarioPorEmail(request.getSession().getAttribute("loggedInUser").toString()).getEmail(), token);
+                        request.setAttribute("password",password);
+                        request.setAttribute("Change",user);
+                        RequestDispatcher rd = request.getRequestDispatcher("/signup_code.jsp");
+                        rd.forward(request, response);
+                    }
+                }
 
                 user.setFecha_nacimiento(birthday);
                 user.setSexo(sex);

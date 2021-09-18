@@ -35,10 +35,7 @@
             <form action="/UpdateUser" method="post">
                 <label for="email" class="email">Email</label>
                 <div class="emailProfile">
-                    <input type="email" placeholder="email" id="email" name="email" value="<%
-                    out.print(user.getEmail());
-
-                    %>">
+                    <input type="email" id="email" name="email" value="<%=user.getEmail()%>">
                 </div>
 
                 <label for="date">Fecha de nacimiento</label>
@@ -103,6 +100,7 @@
                     }
                     %>" placeholder="(34 123 456 789)">
                 </div>
+
                 <input type="hidden" name="option" value="firstOption">
                 <div class="save">
                     <button type="submit">Guardar</button>

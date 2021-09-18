@@ -278,14 +278,19 @@ h4 {
     display: block;
 }
 
-@media (max-width: 465px) {
-    .tabs .tab,
-    .tabs label {
-        order: initial;
-    }
-
-    .tabs label {
-        width: 100%;
-        margin-left: 50px;
-    }
+.imgContainer{
+    position: relative;
+}
+.reserved{
+    position: absolute;
+    bottom: 0;
+    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.5); /* Black see-through */
+    width: 100%;
+    transition: .5s ease;
+    opacity:1;
+    color: #118df8;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 5px;
 }

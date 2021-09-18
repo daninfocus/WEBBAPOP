@@ -148,6 +148,31 @@
         <url-pattern>/deleteProduct</url-pattern>
     </servlet-mapping>
 
+
+    <!--.....................................-->
+
+    <servlet>
+        <servlet-name>OpenChat</servlet-name>
+        <servlet-class>com.WEBBAPOPFINAL.OpenChat</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>OpenChat</servlet-name>
+        <url-pattern>/OpenChat</url-pattern>
+    </servlet-mapping>
+
+    <!--.....................................-->
+
+    <servlet>
+        <servlet-name>DeleteMessage</servlet-name>
+        <servlet-class>com.WEBBAPOPFINAL.DeleteMessage</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>DeleteMessage</servlet-name>
+        <url-pattern>/DeleteMessage</url-pattern>
+    </servlet-mapping>
+
     <!--.....................................-->
 
     <servlet>
@@ -175,13 +200,13 @@
     <!--.....................................-->
 
     <servlet>
-        <servlet-name>SellMenu</servlet-name>
-        <jsp-file>/sell.jsp</jsp-file>
+        <servlet-name>ReviewPage</servlet-name>
+        <jsp-file>/review_page.jsp</jsp-file>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>SellMenu</servlet-name>
-        <url-pattern>/SellMenu</url-pattern>
+        <servlet-name>ReviewPage</servlet-name>
+        <url-pattern>/ReviewPage</url-pattern>
     </servlet-mapping>
 
     <!--.....................................-->

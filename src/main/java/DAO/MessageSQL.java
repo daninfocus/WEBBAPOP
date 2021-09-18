@@ -13,14 +13,15 @@ public class MessageSQL implements DaoMessage {
         Connection conn = dao.getConn();
         try {
             Statement st = conn.createStatement();
-            sentencia = "INSERT INTO Messages (ID_User_Sender,ID_User_Reciever,ID_Product,Message,Sent_Date,Recieved_Date,Message_Read,Message_Deleted) VALUES ('"
+            sentencia = "INSERT INTO Messages (ID_User_Sender,ID_User_Reciever,ID_Product,ID_Chat,Message,Sent_Date,Recieved_Date,Message_Read,Message_Deleted) VALUES ('"
                     + message.getID_User_Sender() + "','"
                     + message.getID_User_Reciever() + "','"
                     + message.getID_Product() + "','"
+                    + message.getID_Chat() + "','"
                     + message.getMessage() + "','"
-                    + message.getSent_Date()+ "','"
-                    + message.getRecieved_Date()+ "','"
-                    + message.isMessage_Read()+ "','"
+                    + message.getSent_Date() + "','"
+                    + message.getRecieved_Date() + "','"
+                    + message.isMessage_Read() + "','"
                     + message.isMessage_Deleted() + "');";
 
             st.executeUpdate(sentencia);
@@ -37,15 +38,16 @@ public class MessageSQL implements DaoMessage {
     public boolean update(Message message, DAOManager dao) {
         String sentencia;
         Connection conn = dao.getConn();
-        sentencia = "UPDATE Messages SET ID_Message='"+ message.getID_Message() +"', ID_User_Sender = '"
+        sentencia = "UPDATE Messages SET ID_Message='" + message.getID_Message() + "', ID_User_Sender = '"
                 + message.getID_User_Sender() + "', ID_User_Reciever = '"
-                + message.getID_User_Reciever()+ "', ID_Product = '"
-                + message.getID_Product() + "', Message = '"
+                + message.getID_User_Reciever() + "', ID_Product = '"
+                + message.getID_Product() + "', ID_Chat = '"
+                + message.getID_Chat() + "', Message = '"
                 + message.getMessage() + "', Sent_Date = '"
-                + message.getSent_Date()+ "', Recieved_Date = '"
+                + message.getSent_Date() + "', Recieved_Date = '"
                 + message.getRecieved_Date() + "', Message_Read = '"
                 + message.isMessage_Read() + "', Message_Deleted = '"
-                + message.isMessage_Deleted() + "' WHERE ID_Message='"+message.getID_Message()+"';";
+                + message.isMessage_Deleted() + "' WHERE ID_Message='" + message.getID_Message() + "';";
 
         try (PreparedStatement stmt = conn.prepareStatement(sentencia)) {
             // enviar el commando insert
@@ -62,14 +64,16 @@ public class MessageSQL implements DaoMessage {
     @Override
     public boolean delete(int ID_Message, DAOManager dao) {
 
-        String sentencia = "DELETE FROM Message WHERE ID_Message = '" + ID_Message + "';";
+        try {
+            PreparedStatement ps = dao.getConn().prepareStatement("UPDATE Messages SET Message_Deleted = 1 WHERE ID_Message = ?");
+            ps.setInt(1, ID_Message);
 
-        try (Statement stmt = dao.getConn().createStatement()) {
-            // enviar el commando delete
-            stmt.executeUpdate(sentencia);
-            stmt.close();
+            // enviar el commando insert
+            ps.executeUpdate();
+            ps.close();
             return true;
         } catch (SQLException ex) {
+            ex.printStackTrace();
             return false;
         }
     }
@@ -79,10 +83,12 @@ public class MessageSQL implements DaoMessage {
         Message message = null;
         ArrayList<Message> messages = new ArrayList<>();
         String sentencia;
-        sentencia = "SELECT * from Messages where ID_Product = ?";
+        sentencia = "SELECT * from Messages where ID_Product = ? and ID_User_Sender = ? or ID_User_Reciever = ?";
         try {
             PreparedStatement ps = dao.getConn().prepareStatement(sentencia);
             ps.setInt(1, ID_Product);
+            ps.setInt(2, ID_User);
+            ps.setInt(3, ID_User);
 
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
@@ -93,6 +99,7 @@ public class MessageSQL implements DaoMessage {
                             rs.getInt("ID_User_Sender"),
                             rs.getInt("ID_User_Reciever"),
                             rs.getInt("ID_Product"),
+                            rs.getInt("ID_Chat"),
                             rs.getString("Sent_Date"),
                             rs.getString("Recieved_Date"),
                             rs.getString("message"),
@@ -121,7 +128,7 @@ public class MessageSQL implements DaoMessage {
 
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    if(!product_ids.contains(rs.getInt("ID_Product"))) {
+                    if (!product_ids.contains(rs.getInt("ID_Product"))) {
                         product_ids.add(rs.getInt("ID_Product"));
                     }
                 }
@@ -131,6 +138,77 @@ public class MessageSQL implements DaoMessage {
             ex.printStackTrace();
         }
         return product_ids;
+    }
+
+    @Override
+    public ArrayList<Message> getAllMessagesFromChat(int ID_Chat, DAOManager dao) {
+        String sentencia = "SELECT * FROM Messages WHERE ID_Chat = " + ID_Chat;
+
+        ArrayList<Message> messages = new ArrayList<>();
+
+        try {
+            PreparedStatement ps = dao.getConn().prepareStatement(sentencia);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Message message = new Message(
+                            rs.getInt("ID_Message"),
+                            rs.getInt("ID_User_Sender"),
+                            rs.getInt("ID_User_Reciever"),
+                            rs.getInt("ID_Product"),
+                            rs.getInt("ID_Chat"),
+                            rs.getString("Sent_Date"),
+                            rs.getString("Recieved_Date"),
+                            rs.getString("Message"),
+                            rs.getInt("Message_Read"),
+                            rs.getInt("Message_Deleted")
+
+                    );
+                    if(messages!=null) {
+                        messages.add(message);
+                    }
+
+                }
+                ps.close();
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return messages;
+    }
+
+
+    @Override
+    public ArrayList<Message> getAll( DAOManager dao) {
+        String sentencia = "SELECT * FROM Messages";
+
+        ArrayList<Message> messages = new ArrayList<>();
+
+        try {
+            PreparedStatement ps = dao.getConn().prepareStatement(sentencia);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Message message = new Message(
+                            rs.getInt("ID_Message"),
+                            rs.getInt("ID_User_Sender"),
+                            rs.getInt("ID_User_Reciever"),
+                            rs.getInt("ID_Product"),
+                            rs.getInt("ID_Chat"),
+                            rs.getString("Sent_Date"),
+                            rs.getString("Recieved_Date"),
+                            rs.getString("Message"),
+                            rs.getInt("Message_Read"),
+                            rs.getInt("Message_Deleted")
+                    );
+                    messages.add(message);
+                }
+                ps.close();
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return messages;
     }
 }
 

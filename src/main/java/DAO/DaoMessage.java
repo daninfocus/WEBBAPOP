@@ -15,4 +15,8 @@ public interface DaoMessage {
     public ArrayList<Message> readMessages(int ID_User, int ID_Product, DAOManager dao);
 
     public ArrayList<Integer> getAllChats(int ID_User,DAOManager dao);
+
+    public ArrayList<Message> getAllMessagesFromChat(int ID_Chat, DAOManager dao);
+
+    public ArrayList<Message> getAll( DAOManager dao);
 }

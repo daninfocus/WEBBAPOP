@@ -40,11 +40,11 @@ public class Sold extends HttpServlet {
         ArrayList<Message> messages = gestion.getAllMessages(idLoggedInUser, product_id);
         if (messages.size() == 0) {
             request.setAttribute("OpenChats", "No");
-            RequestDispatcher rd = request.getRequestDispatcher("/SellMenu");
+            RequestDispatcher rd = request.getRequestDispatcher("/ReviewPage");
             rd.forward(request, response);
         } else {
             request.setAttribute("OpenChats", "Yes");
-            RequestDispatcher rd = request.getRequestDispatcher("/SellMenu");
+            RequestDispatcher rd = request.getRequestDispatcher("/ReviewPage");
             rd.forward(request, response);
         }
 
@@ -59,25 +59,34 @@ public class Sold extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         int productID = Integer.parseInt(request.getParameter("Product_ID"));
+        GestionAPP gestion = new GestionAPP();
 
         if (request.getParameter("FormComplete") != null || request.getParameter("Outside") != null) {
             HttpSession session = request.getSession(false);
-            GestionAPP gestion = new GestionAPP();
+
 
             if (request.getParameter("FormComplete") != null) {
-                Usuario usuarioVendedor = gestion.getUsuarioPorEmail(session.getAttribute("loggedInUser").toString());
+                Usuario usuarioLogeado = gestion.getUsuarioPorEmail(session.getAttribute("loggedInUser").toString());
                 String buyerEmail = request.getParameter("buyerEmail");
-                Usuario usuarioComprador = gestion.getUsuarioPorEmail(buyerEmail);
+                Usuario usuarioOtro = gestion.getUsuarioPorEmail(buyerEmail);
 
                 int price = Integer.parseInt(request.getParameter("price"));
                 int points = Integer.parseInt(request.getParameter("points"));
                 String review = request.getParameter("reviewContent");
-                Trato tratoCompra = new Trato(0, "Compra", usuarioComprador.getEmail(), usuarioVendedor.getEmail(),productID,LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString(),price,review,points,0 );
-                Trato tratoVenta = new Trato(0, "Venta", usuarioVendedor.getEmail(), buyerEmail,productID,"",price,"",0,0 );
 
-                gestion.addTrato(tratoCompra);
-                gestion.addTrato(tratoVenta);
-                gestion.sellProduct(productID);
+
+                if(request.getParameter("Tipo")!=null) {
+                    Trato tratoVenta = new Trato(0, "Venta", usuarioOtro.getEmail(), usuarioLogeado.getEmail(), productID, LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString(), price, review, points, 1);
+                    Trato tratoCompra = new Trato(0, "Compra", usuarioLogeado.getEmail(), usuarioOtro.getEmail(), productID,"", 0,"",0, 1);
+                    gestion.updateTrato(tratoVenta);
+                    gestion.updateTrato(tratoCompra);
+                }else{
+                    Trato tratoVenta = new Trato(0, "Venta", usuarioLogeado.getEmail(), buyerEmail, productID, "", price, "", 0, 0);
+                    Trato tratoCompra = new Trato(0, "Compra", usuarioOtro.getEmail(), usuarioLogeado.getEmail(), productID, LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString(), price, review, points, 1);
+                    gestion.addTrato(tratoCompra);
+                    gestion.addTrato(tratoVenta);
+                    gestion.sellProduct(productID);
+                }
 
 
 
@@ -89,5 +98,6 @@ public class Sold extends HttpServlet {
                 gestion.sellProduct(productID);
             }
         }
+
     }
 }

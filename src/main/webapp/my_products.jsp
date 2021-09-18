@@ -69,11 +69,12 @@
                         out.print(
                                 "<input type=\"checkbox\" class=\"checkbox\" name=\"checkbox"+num+"\" value="+producto.getid()+">\n" +
                                         "<a class=\"list\" href=\"/Product?Product_ID=" + producto.getid() + "\">\n" +
-                                        "    <img\n" +
+                                        "    <div class=\"imgContainer\"><img\n" +
                                         "            class=\"img\"\n" +
                                         "            src=\"image.jsp?imgID="+producto.getid()+"\"\n" +
                                         "    />\n" +
-                                        "    <div class=\"text-container\">\n" +
+                                        (producto.getReserved()==1?"    <div class=\"reserved\"> <i class=\"far fa-bookmark\"></i></div>":"") +
+                                        "    </div><div class=\"text-container\">\n" +
                                         "        <div class=\"price\">"+df.format(producto.getPrecio())+"<i class=\"fa fa-euro-sign\" aria-hidden=\"true\"></i></div>\n" +
                                         "        <div style=\"overflow:hidden;white-space: nowrap;\" class=\"name"+num+"\">"+producto.getNombre()+"</div>\n" +
                                         "    </div>\n" +
@@ -89,7 +90,7 @@
                                         "        <button onclick=\"window.location.href='/Sold?Product_ID="+producto.getid()+"';\" type=\"button\" title=\"Marcar como vendido\" class=\"sell\">\n" +
                                         "            <i class=\"far fa-handshake\"></i>\n" +
                                         "        </button>\n" +
-                                        "        <button onclick=\"window.location.href='/Reserved?Product_ID="+producto.getid()+"';\" type=\"button\" title=\"Marcar como reservado\" class=\"reserve\">\n" +
+                                        "        <button onclick=\"window.location.href='/ReserveProduct?Product_ID="+producto.getid()+"';\" type=\"button\" title=\"Marcar como reservado\" class=\"reserve\">\n" +
                                         "            <i class=\"far fa-bookmark\"></i>\n" +
                                         "        </button>\n" +
                                         "        <button onclick=\"window.location.href='/Profile?editProduct="+producto.getid()+"';\" type=\"button\" title=\"Editar\"class=\"edit\"><i class=\"far fa-edit\"></i></button>\n" +
@@ -126,11 +127,12 @@
                         out.print(
                                 "<input type=\"checkbox\" class=\"checkbox\" name=\"checkbox"+num+"\" value="+producto.getid()+">\n" +
                                         "<a class=\"list\" href=\"/Product?Product_ID=" + producto.getid() + "\">\n" +
-                                        "    <img\n" +
+                                        "    <div class=\"imgContainer\"><img\n" +
                                         "            class=\"img\"\n" +
                                         "            src=\"image.jsp?imgID="+producto.getid()+"\"\n" +
                                         "    />\n" +
-                                        "    <div class=\"text-container\">\n" +
+                                        (producto.getVendido()==1? "    <div class=\"sold\"> <i class=\"far fa-handshake\"></i></div>":"") +
+                                        "    </div><div class=\"text-container\">\n" +
                                         "        <div class=\"price\">"+df.format(producto.getPrecio())+"<i class=\"fa fa-euro-sign\" aria-hidden=\"true\"></i></div>\n" +
                                         "        <div style=\"overflow:hidden;white-space: nowrap;\" class=\"name"+num+"\">"+producto.getNombre()+"</div>\n" +
                                         "    </div>\n" +
@@ -142,6 +144,7 @@
                                         "        <div class=\"text\">Modify</div>\n" +
                                         "        <div class=\"modifyDate\">15/08/2021</div>\n" +
                                         "    </div>\n" +
+                                        "</a>" +
                                         "</a>" +
                                         "<br>");
                         num++;

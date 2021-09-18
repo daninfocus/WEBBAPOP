@@ -84,14 +84,16 @@
             "      <div class=\"numRatings\">"+seller.getNotaMedia()+"</div>\n" +
             "    </div>\n" +
             "   <a class=\"add\" href=\"/SaveProduct?Product_ID="+product.getid()+"&User_ID="+loggedInUser.getId()+"\"><button class=\"addButton\">Add&nbsp;&nbsp;<i class=\"fa fa-heart\"></i></button></a>\n" +
-            "   <a class=\"message\" href=\"/Profile?Product_ID="+product.getid()+"\"><button class=\"messageButton\">Chat&nbsp;&nbsp;<i class=\"far fa-comment-dots\"></i></button></a>\n" +
+            "   <a class=\"message\" href=\"/OpenChat?ID_User="+loggedInUser.getId()+"&Product_ID="+idProd+"\"><button class=\"messageButton\">Chat&nbsp;&nbsp;<i class=\"far fa-comment-dots\"></i></button></a>\n" +
             "  </div>\n" +
             "  <div class=\"image\">\n" +
             "    <img\n" +
             "            class=\"img\"\n" +
             "            src=\"image.jsp?imgID="+idProd+"\"\n" +
             "    />\n" +
+            (product.getReserved()==1?"<div class=\"reserved\"> <i class=\"far fa-bookmark\"></i></div>" :"")+
             "  </div>\n" +
+
             "  <div class=\"productInfo\">\n" +
             "    <h2 class=\"price\">\n" +
             "      "+df.format(product.getPrecio())+" <i class=\"fa fa-euro-sign\" aria-hidden=\"true\"></i>\n" +
@@ -128,7 +130,7 @@
             (product.getVendido()==0?"          <button onclick=\"window.location.href='/Sold?Product_ID="+product.getid()+"';\" type=\"button\" title=\"Marcar como vendido\" class=\"sell\">\n" +
                     "              <i class=\"far fa-handshake\"></i>\n" +
                     "          </button>\n" +
-                    "          <button onclick=\"window.location.href='/Reserved?Product_ID="+product.getid()+"';\" type=\"button\" title=\"Marcar como reservado\" class=\"reserve\">\n" +
+                    "          <button onclick=\"window.location.href='/ReserveProduct?Product_ID="+product.getid()+"';\" type=\"button\" title=\"Marcar como reservado\" class=\"reserve\">\n" +
                     "              <i class=\"far fa-bookmark\"></i>\n" +
                     "          </button>\n" +
                     "          <button onclick=\"window.location.href='/Profile?editProduct="+product.getid()+"';\" type=\"button\" title=\"Editar\"class=\"edit\"><i class=\"far fa-edit\"></i></button>\n"
@@ -136,7 +138,7 @@
 
             +
 
-            "          <button onclick=\"window.location.href='/Delete?Product_ID="+product.getid()+"';\" type=\"button\" title=\"BORRAR\" class=\"delete\">\n" +
+            "          <button onclick=\"window.location.href='/deleteProduct?Product_ID="+product.getid()+"&userEmail="+session.getAttribute("loggedInUser")+"';\" type=\"button\" title=\"BORRAR\" class=\"delete\">\n" +
             "              <i class=\"far fa-trash-alt\"></i>\n" +
             "          </button>\n" +
             "      </div>\n" +
@@ -146,6 +148,7 @@
             "            class=\"img\"\n" +
             "            src=\"image.jsp?imgID="+idProd+"\"\n" +
             "    />\n" +
+            (product.getReserved()==1?"<div class=\"reserved\"> <i class=\"far fa-bookmark\"></i></div>" :"")+
             "  </div>\n" +
             "  <div class=\"productInfo\">\n" +
             "    <h2 class=\"price\">\n" +

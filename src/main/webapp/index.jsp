@@ -21,7 +21,7 @@
 <body>
 <div class="header">
     <!-----------------------------------------------------------------------------------------------------------------SearchBAR -->
-    <a href="${pageContext.request.contextPath}/" class="logo"><i class="fab fa-weebly"></i>ebbaPop</a
+    <a href="${pageContext.request.contextPath}/Home" class="logo"><i class="fab fa-weebly"></i>ebbaPop</a
     ><!--Webbapop logo -->
     <form action="/Search" method="get">
         <div class="wrap">
@@ -39,9 +39,18 @@
 
     <div class="header-right">
         <!-----------------------------------------Header right options -->
-        <a class="option1" href="/Login">Sign in</a>
-        <a class="option2" href="/Signup">Sign up</a>
+        <%
+            if (request.getSession().getAttribute("loggedInUser") == null) {
+                out.print("        <a class=\"option1\" href=\"/Login\">Sign in</a>\n" +
+                        "        <a class=\"option2\" href=\"/Signup\">Sign up</a>");
+            } else {
+                out.print("<a class=\"option1\" href=\"Profile\"><i  class=\"far fa-user fa-lg\"></i>&nbsp;&nbsp;" + request.getSession().getAttribute("name") + "</a>");
+                out.print("<a class=\"option2\" href=\"/Profile?newProduct=true\"><i class=\"fa fa-plus-square\" ></i><div class=\"addProduct\">&nbsp;&nbsp;Subir un producto</div></a>");
 
+                session.setAttribute("user", request.getAttribute("name"));      //set attribute in session
+                session.setAttribute("email", request.getAttribute("email"));
+            }
+        %>
         <!--<a href="hello-servlet">Hello Servlet</a>-->
     </div>
 </div>

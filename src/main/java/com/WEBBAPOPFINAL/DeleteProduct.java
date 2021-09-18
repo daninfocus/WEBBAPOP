@@ -3,6 +3,8 @@ package com.WEBBAPOPFINAL;
 import Modelo.GestionAPP;
 import Modelo.Producto;
 import Modelo.Usuario;
+import org.springframework.security.core.parameters.P;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +16,13 @@ import java.util.ArrayList;
 public class DeleteProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+        response.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding("UTF-8");
+        GestionAPP gestionAPP = new GestionAPP();
+        String userEmail = request.getParameter("userEmail");
+        String ProdId = request.getParameter("Product_ID");
+        gestionAPP.deleteProduct(Integer.parseInt(ProdId));
+        response.sendRedirect("/Profile");
     }
 
     @Override

@@ -1,6 +1,7 @@
 package Modelo;
 
 import DAO.*;
+import org.apache.commons.math3.stat.descriptive.summary.Product;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -23,6 +24,7 @@ public class GestionAPP implements Serializable {
     static final TratoSQL daotratoSQL = new TratoSQL();
     static final MessageSQL daoMessageSQL = new MessageSQL();
     static final SavedProductSQL daoSavedProductSQL = new SavedProductSQL();
+    static final ChatSQL daoChatSQL = new ChatSQL();
     private File propertiesFile;
     private Properties props;
 
@@ -79,6 +81,90 @@ public class GestionAPP implements Serializable {
 
     //Messages
 
+    public Usuario getOtherUserFromChat(int iduser,int chat_id){
+        Usuario usuario = null;
+        for (Chat chat : daoChatSQL.getChat(chat_id,dao)) {
+            if(chat.getID_User()!=iduser){
+                usuario = getUsuarioPorId(chat.getID_User());
+            }
+        }
+        return usuario;
+    }
+
+    public ArrayList<Message> getChatMessages(int ID_Chat) {
+        return daoMessageSQL.getAllMessagesFromChat(ID_Chat, dao);
+    }
+
+    public int doesChatExist(int id_user, int id_user2) {
+        ArrayList<Chat> allChats = getAllChats();
+        ArrayList<Chat> user1Chats = daoChatSQL.read(id_user, dao);
+        ArrayList<Chat> user2Chats = daoChatSQL.read(id_user2, dao);
+        for (Chat user1Chat : user1Chats) {
+            for (Chat user2Chat : user2Chats) {
+                if (user1Chat.getID_Chat() == user2Chat.getID_Chat()) {
+                    return user1Chat.getID_Chat();
+                }
+            }
+        }
+        return -1;
+    }
+
+    public ArrayList<Chat> getChat(int chatid) {
+        return daoChatSQL.getChat(chatid, dao);
+    }
+
+    public ArrayList<Chat> getAllChats() {
+        return daoChatSQL.getAll(dao);
+    }
+
+    public int addChat(int ID_User, int ID_User_2, int ID_Product) {
+        ArrayList<Chat> chats = getAllChats();
+        int chatID = 0;
+        for (Chat chat : chats) {
+            if (chat.getID_Chat() > chatID) {
+                chatID = chat.getID_Chat();
+            }
+        }
+        chatID++;
+        if (daoChatSQL.insert(chatID, ID_User,ID_Product, dao) && daoChatSQL.insert(chatID, ID_User_2, ID_Product, dao)) {
+            return chatID;
+        }
+        return -1;
+    }
+
+    public ArrayList<Chat> getUserChats(int iduser) {
+        return daoChatSQL.read(iduser, dao);
+    }
+
+    public int generateChatID(int userIDSender, int userIDReciever, int productID) {
+        ArrayList<Usuario> usuarios = getUsuarios();
+        ArrayList<Producto> productos = getProductos();
+        ArrayList<Message> messages = daoMessageSQL.getAll(dao);
+
+        for (Usuario usuarioReciever : usuarios) {
+            if (usuarioReciever.getId() == userIDReciever) {
+                for (Usuario usuarioSender : usuarios) {
+                    if (usuarioSender.getId() == userIDSender) {
+                        for (Producto producto : productos) {
+                            if (producto.getid() == productID) {
+                                for (Message message : messages) {
+                                    if ((usuarioSender.getId() == message.getID_User_Sender() || usuarioSender.getId() == message.getID_User_Reciever() && usuarioReciever.getId() == message.getID_User_Reciever() || usuarioReciever.getId() == message.getID_User_Sender()) && producto.getid() == message.getID_Product()) {
+                                        System.out.println(message.getID_Message());
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return 0;
+    }
+
+    public boolean deleteMessage(int id) {
+        return daoMessageSQL.delete(id, dao);
+    }
+
     public ArrayList<Message> getUnreadMessages(int idUser) {
         ArrayList<Integer> chats = daoMessageSQL.getAllChats(idUser, dao);
 
@@ -122,6 +208,16 @@ public class GestionAPP implements Serializable {
     }
 
     //Trato
+
+    public Trato getNotFinishedTrato(String emailUsuarioTrato) {
+        ArrayList<Trato> tratos = getAllTrato(emailUsuarioTrato);
+        for (Trato trato : tratos) {
+            if (trato.getCompletado() == 0) {
+                return trato;
+            }
+        }
+        return null;
+    }
 
     public ArrayList<Trato> getAllTrato(String emailUsuarioTrato) {
         return daotratoSQL.getAll(emailUsuarioTrato, dao);
@@ -206,12 +302,12 @@ public class GestionAPP implements Serializable {
     }
 
     //Productos
-    public boolean deleteSavedProduct(SavedProducts products){
-        return daoSavedProductSQL.delete(products,dao);
+    public boolean deleteSavedProduct(SavedProducts products) {
+        return daoSavedProductSQL.delete(products, dao);
     }
 
-    public boolean insertSavedProduct(SavedProducts products){
-        return  daoSavedProductSQL.insert(products,dao);
+    public boolean insertSavedProduct(SavedProducts products) {
+        return daoSavedProductSQL.insert(products, dao);
     }
 
     public ArrayList<SavedProducts> getSavedProducts(int idUser) {
@@ -223,11 +319,11 @@ public class GestionAPP implements Serializable {
     }
 
     public ArrayList<Producto> buscaProductoTexto(String search) {
-        return daoProductoSQL.searchByText(search,dao);
+        return daoProductoSQL.searchByText(search, dao);
     }
 
-    public boolean addProducto(Producto producto,InputStream blob) {
-       return daoProductoSQL.insert(producto,blob, dao);
+    public boolean addProducto(Producto producto, InputStream blob) {
+        return daoProductoSQL.insert(producto, blob, dao);
     }
 
     public boolean updateProducto(Producto producto) {

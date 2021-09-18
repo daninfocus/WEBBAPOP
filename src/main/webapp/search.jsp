@@ -30,7 +30,7 @@
 <body>
 <div class="header">
     <!-----------------------------------------------------------------------------------------------------------------SearchBAR -->
-    <a href="${pageContext.request.contextPath}/" class="logo"><i class="fab fa-weebly"></i>ebbaPop</a
+    <a href="${pageContext.request.contextPath}/Home" class="logo"><i class="fab fa-weebly"></i>ebbaPop</a
     ><!--Webbapop logo -->
 
     <form action="/Search" method="get">
@@ -78,7 +78,7 @@
             for (Producto producto : productos) {
                 if (producto.getVendido() == 0 && producto.getDeleted()==0) {
 
-                    out.print("<a target=\"_blank\" href=\"/Product?Product_ID=" + producto.getid() + "\">\n" +
+                    out.print("<a href=\"/Product?Product_ID=" + producto.getid() + "\">\n" +
                             "<div class=\"child-container\">\n" +
                             "    <div class=\"images\">\n" +
                             "        <img class=\"img\" src=\"image.jsp?imgID="+producto.getid()+"\"/>\n" +

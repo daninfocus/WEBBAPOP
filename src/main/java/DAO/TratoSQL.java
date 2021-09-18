@@ -35,11 +35,16 @@ public class TratoSQL implements DaoTrato {
 
         String sentencia;
 
-        sentencia = "UPDATE Trato SET comentario = '"
-                + trato.getComentario() + "', puntuacion = '"
-                + trato.getPuntuacion() + "', completado = '"
-                + trato.getCompletado() + "' WHERE id='"+trato.getId()+"';";
-
+        if(trato.getTipoTrato().equals("Compra")){
+            sentencia = "UPDATE Trato SET completado = '"
+                    +  trato.getCompletado() + "' WHERE emailUsuarioTrato='"+trato.getEmailUsuarioTrato()+"'and idProducto="+trato.getIdProducto()+";";
+        }else {
+            sentencia = "UPDATE Trato SET fecha = '"
+                    + trato.getFecha() + "', comentario = '"
+                    + trato.getComentario() + "', puntuacion = '"
+                    + trato.getPuntuacion() + "', completado = '"
+                    + trato.getCompletado() + "' WHERE emailUsuarioTrato='" + trato.getEmailUsuarioTrato() + "'and idProducto=" + trato.getIdProducto() + ";";
+        }
         try (Statement stmt = dao.getConn().createStatement()) {
             // enviar el commando insert
             stmt.executeUpdate(sentencia);
@@ -49,6 +54,7 @@ public class TratoSQL implements DaoTrato {
             ex.printStackTrace();
             return false;
         }
+
     }
 
     @Override

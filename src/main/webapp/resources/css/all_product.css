@@ -8,6 +8,7 @@
 }
 
 .child-container {
+    display: flex;
     transition: all 0.1s ease-in-out;
     margin: 10px;
     padding: 10px;
@@ -57,6 +58,7 @@ hr {
     margin-right: 10px;
 }
 .images{
+    position: relative;
     height: 175px;
 }
 
@@ -165,4 +167,17 @@ hr {
 .focus {
     background: #ba7e7e;
     color: #f5f5f5;
+}
+.reserved{
+    position: absolute;
+    bottom: 0;
+    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.5); /* Black see-through */
+    width: 100%;
+    transition: .5s ease;
+    opacity:1;
+    color: #118df8;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 10px;
 }

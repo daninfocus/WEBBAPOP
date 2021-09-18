@@ -35,9 +35,13 @@
 
                 out.print("<a href=\"/Product?Product_ID=" + producto.getid() + "\">\n" +
                         "<div class=\"child-container\">\n" +
-                        "    <div class=\"images\">\n" +
-                        "        <img class=\"img\" src=\"image.jsp?imgID="+producto.getid()+"\"/>\n" +
-                        "    </div>\n" +
+                        "  <div class=\"images\">\n" +
+                        "    <img\n" +
+                        "            class=\"img\"\n" +
+                        "            src=\"image.jsp?imgID="+producto.getid()+"\"\n" +
+                        "    />\n" +
+                        (producto.getReserved()==1?"<div class=\"reserved\"> <i class=\"far fa-bookmark\"></i></div>" :"")+
+                        "  </div>\n" +
                         "    <div class=\"product\">\n" +
                         "        <h2 class=\"price\">" + df.format(producto.getPrecio()) + " <i class=\"fa fa-euro-sign\" aria-hidden=\"true\"></i></h2 >\n" +
                         "        <h1 class=\"h1\">" + producto.getNombre() + "</h1>\n" +

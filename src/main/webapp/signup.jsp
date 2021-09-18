@@ -49,7 +49,7 @@
                 <input type="email" name="email" id="email" placeholder="Inserta tu email" required>
 
                 <label for="password"> Contraseña</label>
-                <input type="password" name="password" id="password" placeholder="Inserta tu contraseña" required>
+                <input type="password" name="password" id="password" placeholder="8 characteres, 1 mayus, 1 minus y 1 num" required>
 
                 <label for="password2">Repita tu contraseña</label>
                 <input type="password" name="password2" id="password2" placeholder="Repita tu contraseña" required>

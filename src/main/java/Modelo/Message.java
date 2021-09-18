@@ -10,6 +10,7 @@ public class Message implements Comparable<Object>, Serializable {
     private int ID_User_Sender;
     private int ID_User_Reciever;
     private int ID_Product;
+    private int ID_Chat;
     private String Sent_Date;
     private String Recieved_Date;
     private String Message;
@@ -18,11 +19,12 @@ public class Message implements Comparable<Object>, Serializable {
 
     //Constructor
 
-    public Message(int ID_Message, int ID_User_Sender, int ID_User_Reciever, int ID_Product, String sent_Date, String recieved_Date, String message, int message_Read, int message_Deleted) {
+    public Message(int ID_Message, int ID_User_Sender, int ID_User_Reciever, int ID_Product,int ID_Chat, String sent_Date, String recieved_Date, String message, int message_Read, int message_Deleted) {
         this.ID_Message = ID_Message;
         this.ID_User_Sender = ID_User_Sender;
         this.ID_User_Reciever = ID_User_Reciever;
         this.ID_Product = ID_Product;
+        this.ID_Chat = ID_Chat;
         Sent_Date = sent_Date;
         Recieved_Date = recieved_Date;
         Message = message;
@@ -103,6 +105,14 @@ public class Message implements Comparable<Object>, Serializable {
 
     public void setMessage_Deleted(int message_Deleted) {
         Message_Deleted = message_Deleted;
+    }
+
+    public int getID_Chat() {
+        return ID_Chat;
+    }
+
+    public void setID_Chat(int ID_Chat) {
+        this.ID_Chat = ID_Chat;
     }
 
     @Override

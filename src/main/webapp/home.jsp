@@ -1,7 +1,8 @@
 <%@ page import="Modelo.Usuario" %>
 <%@ page import="Modelo.GestionAPP" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="Modelo.Message" %><%--
+<%@ page import="Modelo.Message" %>
+<%@ page import="Modelo.Trato" %><%--
   Created by IntelliJ IDEA.
   User: Dan
   Date: 03/08/2021
@@ -123,10 +124,28 @@
     GestionAPP gestion = (GestionAPP) session.getAttribute("gestion");
     Usuario loggedInUser = gestion.getUsuarioPorEmail(session.getAttribute("loggedInUser").toString());
     ArrayList<Message> messages = gestion.getUnreadMessages(loggedInUser.getId());
-    if (!messages.isEmpty()) {
+    if (!messages.isEmpty() || messages.size()>=2) {
         out.print("<a href=\"/Profile?Option=messages&Product_ID=" + messages.get(0).getID_Product() + "\" title=\"Tienes un mensaje nuevo\">\n" +
                 "    <div class=\"notification-box\">\n" +
-                "        <span class=\"notification-count\">" + messages.size() + "</span>\n" +
+                "        <span class=\"notification-count\"><i class=\"far fa-comment-dots\"></i>" + messages.size() + "</span>\n" +
+                "\n" +
+                "        <div class=\"notification-bell\">\n" +
+                "            <span class=\"bell-top\"></span>\n" +
+                "            <span class=\"bell-middle\"></span>\n" +
+                "            <span class=\"bell-bottom\"></span>\n" +
+                "            <span class=\"bell-rad\"></span>\n" +
+                "        </div>\n" +
+                "    </div>\n" +
+                "</a>");
+
+    }
+
+
+    Trato tratos = gestion.getNotFinishedTrato(userEmail);
+    if (tratos != null && tratos.getTipoTrato().equals("Compra")) {
+        out.print("<a href=\"/ReviewPage?Product_ID="+tratos.getIdProducto()+"&OpenChats=Yes\" title=\"Tienes una reseña nueva\">\n" +
+                "    <div class=\"notification-box\">\n" +
+                "        <span class=\"notification-count\"><i class=\"fas fa-star-half-alt\"></i></span>\n" +
                 "\n" +
                 "        <div class=\"notification-bell\">\n" +
                 "            <span class=\"bell-top\"></span>\n" +

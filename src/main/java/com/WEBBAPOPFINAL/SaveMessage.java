@@ -27,6 +27,7 @@ public class SaveMessage extends HttpServlet {
         int idSender = Integer.parseInt(request.getParameter("userId"));
         int idProduct = Integer.parseInt(request.getParameter("productId"));
         int idUserReciever = Integer.parseInt(request.getParameter("idUserReciever"));
+        int chad_id = Integer.parseInt(request.getParameter("Chat_ID"));
 
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -34,9 +35,10 @@ public class SaveMessage extends HttpServlet {
         Calendar cal = new GregorianCalendar();
 
         GestionAPP gestionAPP = new GestionAPP();
-        Message message = new Message(0,idSender, idUserReciever, idProduct, sdf.format(cal.getTime()), "", messageContent, 0, 0);
+        gestionAPP.generateChatID(idSender,idUserReciever,idProduct);
+        Message message = new Message(0,idSender, idUserReciever, idProduct,chad_id , sdf.format(cal.getTime()), "", messageContent, 0, 0);
         gestionAPP.saveMessage(message);
-        response.sendRedirect("/Profile?Product_ID="+idProduct);
+        response.sendRedirect("/Profile?Option=messages&Chat_ID="+chad_id );
 
 
     }

@@ -30,47 +30,59 @@ public class CreateUser extends HttpServlet {
         String pass = request.getParameter("password");
         String pass2 = request.getParameter("password2");
 
-        if (pass.equals(pass2)) {
-            GestionAPP gestion = new GestionAPP();
+        if(pass!=null && pass2!=null && Usuario.validarPassword(pass) && Usuario.validarPassword(pass2)) {
+            if (pass.equals(pass2)) {
+                if(Usuario.validarEmail(email)) {
 
-            if (gestion.getUsuarioPorEmail(email) == null) {
+                    GestionAPP gestion = new GestionAPP();
+                    if (gestion.getUsuarioPorEmail(email) == null) {
 
-                if (request.getParameter("code") == null) {
-                    token = (int) ((Math.random() * 8999) + 1000);
+                        if (request.getParameter("code") == null) {
+                            token = (int) ((Math.random() * 8999) + 1000);
 
-                    request.getSession().setAttribute("token",token);
-                    Notificaciones notificaciones = new Notificaciones();
+                            request.getSession().setAttribute("token", token);
+                            Notificaciones notificaciones = new Notificaciones();
 
-                    Notificaciones.enviaTokenRegistro(email, token);
-                    RequestDispatcher rd = request.getRequestDispatcher("/signup_code.jsp");
-                    rd.forward(request, response);
-                } else {
-                    int code = Integer.parseInt(request.getParameter("code"));
+                            Notificaciones.enviaTokenRegistro(email, token);
+                            RequestDispatcher rd = request.getRequestDispatcher("/signup_code.jsp");
+                            rd.forward(request, response);
+                        } else {
+                            int code = Integer.parseInt(request.getParameter("code"));
 
-                    if(code== Integer.parseInt(request.getSession().getAttribute("token").toString())) {
+                            if (code == Integer.parseInt(request.getSession().getAttribute("token").toString())) {
 
-                        Usuario newUsuario = new Usuario(0, name, surname, "", "", "", email, "", pass, 0);
-                        gestion.addUsuario(newUsuario);
+                                Usuario newUsuario = new Usuario(0, name, surname, "", "", "", email, "", pass, 0);
+                                gestion.addUsuario(newUsuario);
 
-                        request.getSession().setAttribute("loggedInUser", email);
-                        request.getSession().setAttribute("gestion", gestion);
-                        RequestDispatcher rd = request.getRequestDispatcher("/Home");
-                        rd.forward(request, response);
-                    }else{
-                        request.setAttribute("error", "Codigo no corresponde");
-                        RequestDispatcher rd = request.getRequestDispatcher("/signup_code.jsp");
+                                request.getSession().setAttribute("loggedInUser", email);
+                                request.getSession().setAttribute("gestion", gestion);
+                                RequestDispatcher rd = request.getRequestDispatcher("/Home");
+                                rd.forward(request, response);
+                            } else {
+                                request.setAttribute("error", "Codigo no corresponde");
+                                RequestDispatcher rd = request.getRequestDispatcher("/signup_code.jsp");
+                                rd.include(request, response);
+                            }
+                        }
+
+
+                    } else {
+                        request.setAttribute("error", "Email ya existe");
+                        RequestDispatcher rd = request.getRequestDispatcher("/Signup");
                         rd.include(request, response);
                     }
+                }else{
+                    request.setAttribute("error", "Email no es valido");
+                    RequestDispatcher rd = request.getRequestDispatcher("/Signup");
+                    rd.include(request, response);
                 }
-
-
             } else {
-                request.setAttribute("error", "Email ya existe");
+                request.setAttribute("error", "Contraseñas no coinciden");
                 RequestDispatcher rd = request.getRequestDispatcher("/Signup");
                 rd.include(request, response);
             }
-        } else {
-            request.setAttribute("error", "Contraseñas no coinciden");
+        }else{
+            request.setAttribute("error", "Contraseñas no siguen el patron minimo de seguridad");
             RequestDispatcher rd = request.getRequestDispatcher("/Signup");
             rd.include(request, response);
         }

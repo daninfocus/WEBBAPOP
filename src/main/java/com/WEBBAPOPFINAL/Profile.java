@@ -33,13 +33,14 @@ public class Profile extends HttpServlet {
             GestionAPP gestionAPP = new GestionAPP();
             Usuario user = gestionAPP.getUsuarioPorEmail(userEmail.toString());
 
-            if(request.getParameter("Product_ID")!=null){
-                int idProd = Integer.parseInt(request.getParameter("Product_ID"));
-                ArrayList<Message> messages = gestionAPP.getAllMessages(user.getId(), idProd);
-                if(messages.size()==0){
-                    Message message = new Message(0,user.getId(),gestionAPP.getProductoPorID(idProd).getIdUsuario(),idProd,"","","",0,0);
-                    gestionAPP.saveMessage(message);
-                }
+            if(request.getAttribute("Product_ID")!=null){
+                int idProd = Integer.parseInt(request.getAttribute("Product_ID").toString());
+                int chat_id = Integer.parseInt(request.getAttribute("chat_id").toString());
+
+                RequestDispatcher rd = request.getRequestDispatcher("/Profile?Option=messages");
+                rd.forward(request, response);
+
+
             }
             request.getParameter("newProduct");
             RequestDispatcher rd = request.getRequestDispatcher("user.jsp");

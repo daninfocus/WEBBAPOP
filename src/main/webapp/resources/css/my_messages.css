@@ -184,7 +184,7 @@
 }
 .messageContent{
     color: #c6c6c6;
-    margin: 5px 20px 5px 100px;;
+    margin: 5px 50px 5px 100px;;
     border: none;
     border-radius: 5px;
     right: 20px;
@@ -207,11 +207,7 @@
     font-weight: bold ;
     background-color: #aaaaaa;
 }
-.messages1 i{
-    position: absolute;
-    right: 0;
-    margin-top: -24px;
-}
+
 .formDiv {
     bottom: 0;
     position: absolute;
@@ -347,6 +343,31 @@ textarea:focus {
     transition: .5s ease;
     opacity:1;
     color: #a51a1a;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 5px;
+}
+.messages1 a{
+    position: absolute;
+    margin-top: 43px;
+    z-index: 4;
+    color: white;
+    right: 25px;
+}
+.messages1 i{
+    position: absolute;
+    right: 5px;
+    margin-top: -30px;
+}
+.reserved{
+    position: absolute;
+    bottom: 0;
+    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.5); /* Black see-through */
+    width: 100%;
+    transition: .5s ease;
+    opacity:1;
+    color: #118df8;
     font-size: 20px;
     text-align: center;
     border-radius: 5px;

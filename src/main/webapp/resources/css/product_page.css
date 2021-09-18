@@ -347,3 +347,24 @@ body {
         visibility: visible;
     }
 }
+.image{
+    position: relative;
+}
+.reserved{
+    position: absolute;
+    bottom: 4px;
+    background: rgb(0, 0, 0);
+    background: rgba(0, 0, 0, 0.8);
+    width: 100%;
+    transition: .5s ease;
+    opacity: 1;
+    color: #118df8;
+    font-size: 20px;
+    border-radius: 5px;
+    justify-content: center;
+    /* text-align: center; */
+    height: 100%;
+    display: flex;
+    align-content: flex-start;
+    align-items: center;
+}

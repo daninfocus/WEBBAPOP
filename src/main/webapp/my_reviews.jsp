@@ -58,24 +58,26 @@ href="img/logo512circle.png"
     <div class="listReview">
         <%
             for (Trato trato : tratos) {
-                Usuario usuarioOtro = gestion.getUsuarioPorEmail(trato.getEmailUsuarioOtro());
-                Producto producto = gestion.getProductoPorID(trato.getIdProducto());
-                out.print("<div class=\"review\">\n" +
-                        "    <img\n" +
-                        "            class=\"imgReview\"\n" +
-                        "            src=\"image.jsp?imgID=" + producto.getid() + "\"\n" +
-                        "    />\n" +
-                        "            <div class=\"text-container \">\n" +
-                        "                <div class=\"typeTrade\">" + (trato.getTipoTrato().equals("Venta") ? "Vendiste:" : "Compraste:") + "</div>\n" +
-                        "                <div class=\"productName\">" + producto.getNombre() + "</div>\n" +
-                        "                <div id=\"stars\" class=\"stars\">" + trato.getPuntuacion() + "</div>\n" +
-                        "                <div class=\"reviewMessage\">" + (trato.getComentario() == null ? "Esperando opinion..." : trato.getComentario()) + "</div>\n" +
-                        "                <div class=\"footerReview\">Por&nbsp;<a href=\"#Profile\">" + usuarioOtro.getNombre() + "</a>&nbsp;el&nbsp;<div\n" +
-                        "                        class=\"dateReview\">" + trato.getFecha() + "\n" +
-                        "                </div>\n" +
-                        "                </div>\n" +
-                        "            </div>\n" +
-                        "        </div>");
+                if(trato.getCompletado()==1) {
+                    Usuario usuarioOtro = gestion.getUsuarioPorEmail(trato.getEmailUsuarioOtro());
+                    Producto producto = gestion.getProductoPorID(trato.getIdProducto());
+                    out.print("<div class=\"review\">\n" +
+                            "    <img\n" +
+                            "            class=\"imgReview\"\n" +
+                            "            src=\"image.jsp?imgID=" + producto.getid() + "\"\n" +
+                            "    />\n" +
+                            "            <div class=\"text-container \">\n" +
+                            "                <div class=\"typeTrade\">" + (trato.getTipoTrato().equals("Venta") ? "Vendiste:" : "Compraste:") + "</div>\n" +
+                            "                <div class=\"productName\">" + producto.getNombre() + "</div>\n" +
+                            "                <div id=\"stars\" class=\"stars\">" + trato.getPuntuacion() + "</div>\n" +
+                            "                <div class=\"reviewMessage\">" + (trato.getComentario() == null ? "Esperando opinion..." : trato.getComentario()) + "</div>\n" +
+                            "                <div class=\"footerReview\">Por&nbsp;<a href=\"#Profile\">" + usuarioOtro.getNombre() + "</a>&nbsp;el&nbsp;<div\n" +
+                            "                        class=\"dateReview\">" + trato.getFecha() + "\n" +
+                            "                </div>\n" +
+                            "                </div>\n" +
+                            "            </div>\n" +
+                            "        </div>");
+                }
             }
         %>
         <script>
