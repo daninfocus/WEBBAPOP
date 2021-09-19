@@ -1,7 +1,9 @@
 <%@ page import="Modelo.GestionAPP" %>
 <%@ page import="Modelo.Producto" %>
 <%@ page import="Modelo.Usuario" %>
-<%@ page import="java.text.DecimalFormat" %><%--
+<%@ page import="java.text.DecimalFormat" %>
+<%@ page import="Modelo.Trato" %>
+<%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
   User: Dan
   Date: 04/09/2021
@@ -70,6 +72,11 @@
   Producto product = gestion.getProductoPorID(idProd);
   Usuario loggedInUser = gestion.getUsuarioPorEmail(session.getAttribute("loggedInUser").toString());
   Usuario seller = gestion.getUsuarioPorId(product.getIdUsuario());
+
+
+  ArrayList<Trato> tratos = gestion.getAllTrato(loggedInUser.getEmail());
+
+
   DecimalFormat df = new DecimalFormat("#,##0.##");
   if(product.getIdUsuario()!=loggedInUser.getId()){
     out.print("\n" +
@@ -80,8 +87,8 @@
             "      <div style=\"font-size:16px;font-weight:bold;width: 350px;margin-left: 20px;\" >"+seller.getNombre()+"</div>\n" +
             "    </div>\n" +
             "    <div class=\"rating\">\n" +
-            "      <div class=\"stars\">"+ seller.getNotaMedia()+"</div>\n" +
-            "      <div class=\"numRatings\">"+seller.getNotaMedia()+"</div>\n" +
+            "      <div class=\"stars\" id=\"stars\">"+ seller.getNotaMedia()+"</div>\n" +
+            "      <div class=\"numRatings\">"+tratos.size()+" reseñas </div>\n" +
             "    </div>\n" +
             "   <a class=\"add\" href=\"/SaveProduct?Product_ID="+product.getid()+"&User_ID="+loggedInUser.getId()+"\"><button class=\"addButton\">Add&nbsp;&nbsp;<i class=\"fa fa-heart\"></i></button></a>\n" +
             "   <a class=\"message\" href=\"/OpenChat?ID_User="+loggedInUser.getId()+"&Product_ID="+idProd+"\"><button class=\"messageButton\">Chat&nbsp;&nbsp;<i class=\"far fa-comment-dots\"></i></button></a>\n" +
@@ -177,5 +184,28 @@
   }
 
 %>
+
+<script>
+  let stars = document.getElementById("stars");
+
+  if (stars.textContent == 0 ||  stars.textContent == 0.0) {
+    stars.textContent = "✰✰✰✰✰";
+  }
+  if (stars.textContent == 1) {
+    stars.textContent = "⭐✰✰✰✰";
+  }
+  if (stars.textContent == 2) {
+    stars.textContent = "⭐⭐✰✰✰";
+  }
+  if (stars.textContent == 3) {
+    stars.textContent = "⭐⭐⭐✰✰";
+  }
+  if (stars.textContent == 4) {
+    stars.textContent = "⭐⭐⭐⭐✰";
+  }
+  if (stars.textContent == 5) {
+    stars.textContent = "⭐⭐⭐⭐⭐";
+  }
+</script>
 </body>
 </html>

@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Utils.Notificaciones;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.FileUploadException;
@@ -107,9 +108,10 @@ public class NewProduct extends HttpServlet {
 
                 producto.setFecha();
 
-               if(gestionAPP.addProducto(producto,fileContent)){
-                   response.sendRedirect("/Profile");
-               }
+                if (gestionAPP.addProducto(producto, fileContent)) {
+                    Notificaciones.enviaMailProductoRegistrado(gestionAPP.getUsuarioPorId(producto.getIdUsuario()), producto);
+                    response.sendRedirect("/Profile");
+                }
 
 
             } catch (FileUploadException e) {

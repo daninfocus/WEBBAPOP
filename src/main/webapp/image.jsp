@@ -14,6 +14,7 @@
 
     int productID ;
     GestionAPP gestion = (GestionAPP)session.getAttribute("gestion");
+
     Connection conn = gestion.getConn();
 
     if ( request.getParameter("imgID") != null && Integer.parseInt(request.getParameter("imgID"))!=0)

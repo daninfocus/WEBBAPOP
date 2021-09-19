@@ -332,6 +332,11 @@ public class GestionAPP implements Serializable {
 
     }
 
+    public Producto getProductoPorChatId(int chat_id){
+        ArrayList<Chat> chat = daoChatSQL.getChat(chat_id,dao);
+        return getProductoPorID(chat.get(0).getID_Product());
+    }
+
     public boolean quitaProducto(int idProducto) {
         return daoProductoSQL.delete(idProducto, dao);
     }

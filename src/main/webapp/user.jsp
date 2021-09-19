@@ -7,10 +7,9 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
-    String userEmail = (String)session.getAttribute("loggedInUser");
-    if(userEmail==null)
-    {
-        response.sendRedirect("/login.jsp");
+    String userEmail = (String) session.getAttribute("loggedInUser");
+    if (userEmail == null) {
+        response.sendRedirect("/Login");
         return; //the return is important; forces redirect to go now
     }
 %>

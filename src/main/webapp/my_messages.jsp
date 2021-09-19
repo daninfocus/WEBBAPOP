@@ -1,6 +1,9 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="Modelo.*" %>
-<%@ page import="java.util.Locale" %><%--
+<%@ page import="java.util.Locale" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Calendar" %>
+<%@ page import="java.util.GregorianCalendar" %><%--
   Created by IntelliJ IDEA.
   User: Dan
   Date: 27/08/2021
@@ -135,11 +138,6 @@
                         }
                     }
                 }
-
-                for (Integer product_ids : gestion.getAllChatsProductID(loggedInUser.getId())) {
-
-
-                }
             %>
 
         </div>
@@ -148,7 +146,7 @@
                 if (request.getParameter("Chat_ID") != null) {
                     chat_id = Integer.parseInt(request.getParameter("Chat_ID").toString());
 
-                    Producto producto = gestion.getProductoPorID(chat_id);
+                    Producto producto = gestion.getProductoPorChatId(chat_id);
 
                     Usuario usuarioOtro = gestion.getOtherUserFromChat(loggedInUser.getId(),chat_id);
 
@@ -193,6 +191,10 @@
                                     out.print("<p class=\"messageContentOther\">" + message.getMessage() + "</p><br>");
                                     if (message.isMessage_Read() == 0) {
                                         message.setMessage_Read(1);
+                                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+
+                                        Calendar cal = new GregorianCalendar();
+                                        message.setRecieved_Date(sdf.format(cal.getTime()));
                                         gestion.updateMessage(message);
                                     }
                                 } else {
@@ -212,7 +214,10 @@
                                 "                <textarea maxlength=\"150\" id=\"message-box\" name=\"message\" placeholder=\"Escribe algo aqui, maximo 150 characteres\"></textarea>\n" +
                                 "                <input type=\"hidden\" name=\"userId\" value=" + gestion.getUsuarioPorEmail(session.getAttribute("loggedInUser").toString()).getId() + ">");
                         if (request.getParameter("Chat_ID") != null) {
-                            out.print("<input type=\"hidden\" name=\"productId\" value=" + request.getParameter("Chat_ID").toString() + ">");
+                            chat_id = Integer.parseInt(request.getParameter("Chat_ID").toString());
+
+                            Producto productoAux = gestion.getProductoPorChatId(chat_id);
+                            out.print("<input type=\"hidden\" name=\"productId\" value=" + productoAux.getid() + ">");
                         }
 
                         if (request.getParameter("Chat_ID") != null) {

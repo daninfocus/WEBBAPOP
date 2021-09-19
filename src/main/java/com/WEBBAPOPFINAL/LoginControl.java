@@ -49,7 +49,7 @@ public class LoginControl extends HttpServlet {
                 rd.forward(request, response);
 
             } else {
-                request.setAttribute("error", "Invalid Username or Password");
+                request.setAttribute("error", "Contraseña o usuario incorrecto");
                 RequestDispatcher rd = request.getRequestDispatcher("/Login");
                 rd.include(request, response);
             }

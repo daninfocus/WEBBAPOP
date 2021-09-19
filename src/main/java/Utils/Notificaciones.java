@@ -83,12 +83,12 @@ public class Notificaciones {
             // Añadimos el contenido del mensaje
             //message.setText(mensaje);  Si solo mandamos texto
             contenido =
-                    "<div ALIGN=\"center\"> <img src=\"https://i.postimg.cc/hG9Zy2pK/Fernanpop.png\" alt=\"banner de la empresa\" height=\"270\" width=\"750\"></div>\n" +
+                    "<div ALIGN=\"center\"> <img src=\"https://i.postimg.cc/CL8ZxhKm/background.png\" alt=\"banner de la empresa\" height=\"270\" width=\"750\"></div>\n" +
                             "\n" +
                             "    <br> <br> <br>\n" +
-                            "    <div ALIGN=\"center\"><h1 style=\"color: #F5B041; font-family: Arial, Helvetica, sans-serif; text-decoration: underline;\"> <strong> CODIGO DE VERIFICACION </strong> </h1>\n" +
+                            "    <div ALIGN=\"center\"><h1 style=\"color: #05963a; font-family: Arial, Helvetica, sans-serif; text-decoration: underline;\"> <strong> CODIGO DE VERIFICACION </strong> </h1>\n" +
                             "\n" +
-                            "        <h4 style=\"font-family: Arial, Helvetica, sans-serif; line-height: 150%;\"> Bienvenido querido usuario de FERNANPOP. Gracias por utilizar nuestra aplicacion. <br> <br>\n" +
+                            "        <h4 style=\"font-family: Arial, Helvetica, sans-serif; line-height: 150%;\"> Bienvenido querido usuario de Webbapop. Gracias por utilizar nuestra aplicacion. <br> <br>\n" +
                             "    \n" +
                             "            Para terminar su registro tiene que introducir un codigo proporcionado a continuacion. <br> \n" +
                             "    \n" +
@@ -98,7 +98,7 @@ public class Notificaciones {
                             "<div ALIGN=\"center\">\n" +
                             "    <br>\n" +
                             "        <p>\n" +
-                            "            <div style=\"background-color: #F5B041; padding: 15px; margin-right: 30%; margin-left: 30%;\">\n" +
+                            "            <div style=\"background-color: #05963a; padding: 15px; margin-right: 30%; margin-left: 30%;\">\n" +
                             "                <h3 style=\"text-align: center; font-family: Arial, Helvetica, sans-serif;\">\n" +
                             "                    <strong>\n" +
                             "                        <font style=\"color: black; font-size: 40px;\">\n" +
@@ -114,7 +114,7 @@ public class Notificaciones {
                             "        Atentamente el equipo de desarrollo. </h4> </div>\n" +
                             "\n" +
                             "\n" +
-                            "        <h6 style=\"text-align: left; margin-top: 50px;\">Todos los derechos reservados al equipo de desarrollo de Fernanpop © ®</h6>";
+                            "        <h6 style=\"text-align: left; margin-top: 50px;\">Todos los derechos reservados al equipo de desarrollo de Webbapop © ®</h6>";
 
             message.setContent(contenido, "text/html; charset=utf-8");
 
@@ -167,12 +167,12 @@ public class Notificaciones {
             // Añadimos el contenido del mensaje
             //message.setText(mensaje);  Si solo mandamos texto
             contenido =
-                    "<div ALIGN=\"center\"> <img src=\"https://i.postimg.cc/hG9Zy2pK/Fernanpop.png\" alt=\"banner de la empresa\" height=\"270\" width=\"750\"></div>\n" +
+                    "<div ALIGN=\"center\"> <img src=\"https://i.postimg.cc/CL8ZxhKm/background.png\" alt=\"banner de la empresa\" height=\"270\" width=\"750\"></div>\n" +
                             "\n" +
                             "    <br> <br> <br>\n" +
-                            "    <div ALIGN=\"center\"><h1 style=\"color: #F5B041; font-family: Arial, Helvetica, sans-serif; text-decoration: underline;\"> <strong> CÓDIGO DE VERIFICACIÓN </strong> </h1>\n" +
+                            "    <div ALIGN=\"center\"><h1 style=\"color: #05963a; font-family: Arial, Helvetica, sans-serif; text-decoration: underline;\"> <strong> CÓDIGO DE VERIFICACIÓN </strong> </h1>\n" +
                             "\n" +
-                            "        <h4 style=\"font-family: Arial, Helvetica, sans-serif; line-height: 150%;\"> Bienvenido querido usuario de FERNANPOP. Gracias por utilizar nuestra aplicación. <br> <br>\n" +
+                            "        <h4 style=\"font-family: Arial, Helvetica, sans-serif; line-height: 150%;\"> Bienvenido querido usuario de Webbapop. Gracias por utilizar nuestra aplicación. <br> <br>\n" +
                             "    \n" +
                             "            Para terminar su eliminación de su perfil de usuario tiene que introducir un código proporcionado a continuación. <br> \n" +
                             "    \n" +
@@ -182,7 +182,7 @@ public class Notificaciones {
                             "<div ALIGN=\"center\">\n" +
                             "    <br>\n" +
                             "        <p>\n" +
-                            "            <div style=\"background-color: #F5B041; padding: 15px; margin-right: 30%; margin-left: 30%;\">\n" +
+                            "            <div style=\"background-color: #05963a; padding: 15px; margin-right: 30%; margin-left: 30%;\">\n" +
                             "                <h3 style=\"text-align: center; font-family: Arial, Helvetica, sans-serif;\">\n" +
                             "                    <strong>\n" +
                             "                        <font style=\"color: black; font-size: 40px;\">\n" +
@@ -198,7 +198,7 @@ public class Notificaciones {
                             "        Atentamente el equipo de desarrollo. </h4> </div>\n" +
                             "\n" +
                             "\n" +
-                            "        <h6 style=\"text-align: left; margin-top: 50px;\">Todos los derechos reservados al equipo de desarrollo de Fernanpop © ®</h6>       ";
+                            "        <h6 style=\"text-align: left; margin-top: 50px;\">Todos los derechos reservados al equipo de desarrollo de Webbapop © ®</h6>       ";
 
             message.setContent(contenido, "text/html; charset=utf-8");
 
@@ -278,20 +278,20 @@ public class Notificaciones {
             //message.setText(mensaje);  Si solo mandamos texto
 
             String contenido =
-                    "<div ALIGN=\"center\"> <img src=\"https://i.postimg.cc/hG9Zy2pK/Fernanpop.png\" alt=\"banner de la empresa\" height=\"270\" width=\"750\"></div>\n" +
+                    "<div ALIGN=\"center\"> <img src=\"https://i.postimg.cc/CL8ZxhKm/background.png\" alt=\"banner de la empresa\" height=\"270\" width=\"750\"></div>\n" +
                             "\n" +
                             "    <br> <br> <br>\n" +
-                            "    <div ALIGN=\"center\"><h1 style=\"color: #F5B041; font-family: Arial, Helvetica, sans-serif; text-decoration: underline;\"> <strong> NUEVO PRODUCTO REGISTRADO </strong> </h1>\n" +
+                            "    <div ALIGN=\"center\"><h1 style=\"color: #05963a; font-family: Arial, Helvetica, sans-serif; text-decoration: underline;\"> <strong> NUEVO PRODUCTO REGISTRADO </strong> </h1>\n" +
                             "\n" +
                             "        <h4 style=\"font-family: Arial, Helvetica, sans-serif; line-height: 150%;\">" + usuario.getNombre() + " has registrado un nuevo producto. <br> <br>\n" +
                             "    \n" +
-                            "            A continuación te mostramos toda la información del producto que usted <br> ha registrado en la aplicación de Fernanpop. Gracias por su colaboración. <br>\n" +
+                            "            A continuación te mostramos toda la información del producto que usted <br> ha registrado en la aplicación de Webbapop. Gracias por su colaboración. <br>\n" +
                             "    \n" +
                             "\n" +
                             "<div ALIGN=\"center\">\n" +
                             "    <br>\n" +
                             "        <p>\n" +
-                            "            <div style=\"background-color: #F5B041; padding: 15px; margin-right: 18%; margin-left: 18%;\">\n" +
+                            "            <div style=\"background-color: #05963a; padding: 15px; margin-right: 18%; margin-left: 18%;\">\n" +
                             "                <h3 style=\"text-align: center; font-family: Arial, Helvetica, sans-serif;\">\n" +
                             "                    <strong>\n" +
                             "                        <font style=\"color: black; font-size: 12px;\">\n" +
@@ -308,7 +308,7 @@ public class Notificaciones {
                             "        Atentamente el equipo de desarrollo. </h4> </div>\n" +
                             "\n" +
                             "\n" +
-                            "        <h6 style=\"text-align: left; margin-top: 50px;\">Todos los derechos reservados al equipo de desarrollo de Fernanpop © ®</h6>";
+                            "        <h6 style=\"text-align: left; margin-top: 50px;\">Todos los derechos reservados al equipo de desarrollo de Webbapop © ®</h6>";
             message.setContent(contenido, "text/html; charset=utf-8");
 
             // Intenamos mandar el mensaje
@@ -355,12 +355,12 @@ public class Notificaciones {
             //message.setText(mensaje);  Si solo mandamos texto
 
             String contenido =
-                    "<div ALIGN=\"center\"> <img src=\"https://i.postimg.cc/hG9Zy2pK/Fernanpop.png\" alt=\"banner de la empresa\" height=\"270\" width=\"750\"></div>\n" +
+                    "<div ALIGN=\"center\"> <img src=\"https://i.postimg.cc/hG9Zy2pK/Webbapop.png\" alt=\"banner de la empresa\" height=\"270\" width=\"750\"></div>\n" +
                             "\n" +
                             "    <br> <br> <br>\n" +
-                            "    <div ALIGN=\"center\"><h1 style=\"color: #F5B041; font-family: Arial, Helvetica, sans-serif; text-decoration: underline;\"> <strong> JSON DE JOSE MANUEL GONZALEZ Y DANIEL WEBB </strong> </h1>\n" +
+                            "    <div ALIGN=\"center\"><h1 style=\"color: #05963a; font-family: Arial, Helvetica, sans-serif; text-decoration: underline;\"> <strong> JSON DE JOSE MANUEL GONZALEZ Y DANIEL WEBB </strong> </h1>\n" +
                             "\n" +
-                            "        <h4 style=\"font-family: Arial, Helvetica, sans-serif; line-height: 150%;\"> Bienvenido querido usuario de FERNANPOP. Gracias por utilizar nuestra aplicación. <br> <br>\n" +
+                            "        <h4 style=\"font-family: Arial, Helvetica, sans-serif; line-height: 150%;\"> Bienvenido querido usuario de Webbapop. Gracias por utilizar nuestra aplicación. <br> <br>\n" +
                             "    \n" +
                             "            <!-- A continuación le va a aparecer la inf Para terminar su eliminación de su perfil de usuario tiene que introducir un código proporcionado a continuación. <br> -->\n" +
                             "    \n" +
@@ -373,7 +373,7 @@ public class Notificaciones {
                             "<!-- <div ALIGN=\"center\">\n" +
                             "    <br>\n" +
                             "        <p>\n" +
-                            "            <div style=\"background-color: #F5B041; padding: 15px; margin-right: 30%; margin-left: 30%;\">\n" +
+                            "            <div style=\"background-color: #05963a; padding: 15px; margin-right: 30%; margin-left: 30%;\">\n" +
                             "                <p style=\"text-align: center; font-family: Arial, Helvetica, sans-serif;\">\n" +
                             "                    <strong>\n" +
                             "                        <font style=\"color: black; \">\n" +
@@ -389,7 +389,7 @@ public class Notificaciones {
                             "        Atentamente el equipo de desarrollo. </h4> </div>\n" +
                             "\n" +
                             "\n" +
-                            "        <h6 style=\"text-align: left; margin-top: 50px;\">Todos los derechos reservados al equipo de desarrollo de Fernanpop © ®</h6>";
+                            "        <h6 style=\"text-align: left; margin-top: 50px;\">Todos los derechos reservados al equipo de desarrollo de Webbapop © ®</h6>";
             message.setContent(contenido, "text/html; charset=utf-8");
             // Intenamos mandar el mensaje
             Transport.send(message);
@@ -435,12 +435,12 @@ public class Notificaciones {
             //message.setText(mensaje);  Si solo mandamos texto
 
             String contenido =
-                    "<div ALIGN=\"center\"> <img src=\"https://i.postimg.cc/hG9Zy2pK/Fernanpop.png\" alt=\"banner de la empresa\" height=\"270\" width=\"750\"></div>\n" +
+                    "<div ALIGN=\"center\"> <img src=\"https://i.postimg.cc/hG9Zy2pK/Webbapop.png\" alt=\"banner de la empresa\" height=\"270\" width=\"750\"></div>\n" +
                             "\n" +
                             "    <br> <br> <br>\n" +
-                            "    <div ALIGN=\"center\"><h1 style=\"color: #F5B041; font-family: Arial, Helvetica, sans-serif; text-decoration: underline;\"> <strong> JSON DE JOSE MANUEL GONZALEZ Y DANIEL WEBB </strong> </h1>\n" +
+                            "    <div ALIGN=\"center\"><h1 style=\"color: #05963a; font-family: Arial, Helvetica, sans-serif; text-decoration: underline;\"> <strong> JSON DE JOSE MANUEL GONZALEZ Y DANIEL WEBB </strong> </h1>\n" +
                             "\n" +
-                            "        <h4 style=\"font-family: Arial, Helvetica, sans-serif; line-height: 150%;\"> Bienvenido querido usuario de FERNANPOP. Gracias por utilizar nuestra aplicación. <br> <br>\n" +
+                            "        <h4 style=\"font-family: Arial, Helvetica, sans-serif; line-height: 150%;\"> Bienvenido querido usuario de Webbapop. Gracias por utilizar nuestra aplicación. <br> <br>\n" +
                             "    \n" +
                             "            <!-- A continuación le va a aparecer la inf Para terminar su eliminación de su perfil de usuario tiene que introducir un código proporcionado a continuación. <br> -->\n" +
                             "    \n" +
@@ -453,7 +453,7 @@ public class Notificaciones {
                             "<!-- <div ALIGN=\"center\">\n" +
                             "    <br>\n" +
                             "        <p>\n" +
-                            "            <div style=\"background-color: #F5B041; padding: 15px; margin-right: 30%; margin-left: 30%;\">\n" +
+                            "            <div style=\"background-color: #05963a; padding: 15px; margin-right: 30%; margin-left: 30%;\">\n" +
                             "                <p style=\"text-align: center; font-family: Arial, Helvetica, sans-serif;\">\n" +
                             "                    <strong>\n" +
                             "                        <font style=\"color: black; \">\n" +
@@ -469,7 +469,7 @@ public class Notificaciones {
                             "        Atentamente el equipo de desarrollo. </h4> </div>\n" +
                             "\n" +
                             "\n" +
-                            "        <h6 style=\"text-align: left; margin-top: 50px;\">Todos los derechos reservados al equipo de desarrollo de Fernanpop © ®</h6>";
+                            "        <h6 style=\"text-align: left; margin-top: 50px;\">Todos los derechos reservados al equipo de desarrollo de Webbapop © ®</h6>";
             message.setContent(contenido, "text/html; charset=utf-8");
 
 
