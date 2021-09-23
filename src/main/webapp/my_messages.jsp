@@ -52,12 +52,7 @@
 
                     if (producto != null) {
                         int Product_ID = chat.getID_Product();
-                        Usuario usuarioOtro;
-                        if (loggedInUser.getId() == producto.getIdUsuario()) {
-                            usuarioOtro = gestion.getUsuarioPorId(messages.get(0).getID_User_Sender());
-                        } else {
-                            usuarioOtro = gestion.getUsuarioPorId(producto.getIdUsuario());
-                        }
+                        Usuario usuarioOtro = gestion.getOtherUserFromChat(loggedInUser.getId(), chat.getID_Chat());
 
                         Message lastMessage = new Message(0, 0, 0, 0, 0, "", "", "", 0, 0);
 
@@ -147,16 +142,16 @@
                     chat_id = Integer.parseInt(request.getParameter("Chat_ID").toString());
 
                     Producto producto = gestion.getProductoPorChatId(chat_id);
+                    if(producto!=null) {
+                        Usuario usuarioOtro = gestion.getOtherUserFromChat(loggedInUser.getId(), chat_id);
 
-                    Usuario usuarioOtro = gestion.getOtherUserFromChat(loggedInUser.getId(),chat_id);
+                        ArrayList<Message> messages = gestion.getChatMessages(chat_id);
 
-                    ArrayList<Message> messages = gestion.getChatMessages(chat_id);
-
-                    out.print("<div class=\"user\">\n" +
-                            usuarioOtro.getNombre() +
-                            "      <a class=\"buttonDeleteConvo\" style=\"color:black;\" href=\"#popup1\"><i class=\"fas fa-ellipsis-v\"></i></a>\n" +
-                            "  </div>");
-
+                        out.print("<div class=\"user\">\n" +
+                                usuarioOtro.getNombre() +
+                                "      <a class=\"buttonDeleteConvo\" style=\"color:black;\" href=\"#popup1\"><i class=\"fas fa-ellipsis-v\"></i></a>\n" +
+                                "  </div>");
+                    }
 
                 }
             %>
@@ -217,13 +212,19 @@
                             chat_id = Integer.parseInt(request.getParameter("Chat_ID").toString());
 
                             Producto productoAux = gestion.getProductoPorChatId(chat_id);
-                            out.print("<input type=\"hidden\" name=\"productId\" value=" + productoAux.getid() + ">");
+                            if(productoAux!=null) {
+                                out.print("<input type=\"hidden\" name=\"productId\" value=" + productoAux.getid() + ">");
+                            }
                         }
 
                         if (request.getParameter("Chat_ID") != null) {
+                            if(gestion.getOtherUserFromChat(loggedInUser.getId(), chat_id)!=null){
+
+
                             out.print("<input type=\"hidden\" name=\"idUserReciever\" value=" +gestion.getOtherUserFromChat(loggedInUser.getId(), chat_id).getId() + ">"+
                                     "<input type=\"hidden\" name=\"Chat_ID\" value=" +chat_id + ">"
                             );
+                            }
                         }
                         out.print("<button type=\"submit\" class=\"send\"><i class=\"far fa-paper-plane\"></i></button>" +
                                 "</form>");

@@ -81,10 +81,10 @@ public class GestionAPP implements Serializable {
 
     //Messages
 
-    public Usuario getOtherUserFromChat(int iduser,int chat_id){
+    public Usuario getOtherUserFromChat(int iduser, int chat_id) {
         Usuario usuario = null;
-        for (Chat chat : daoChatSQL.getChat(chat_id,dao)) {
-            if(chat.getID_User()!=iduser){
+        for (Chat chat : daoChatSQL.getChat(chat_id, dao)) {
+            if (chat.getID_User() != iduser) {
                 usuario = getUsuarioPorId(chat.getID_User());
             }
         }
@@ -95,14 +95,18 @@ public class GestionAPP implements Serializable {
         return daoMessageSQL.getAllMessagesFromChat(ID_Chat, dao);
     }
 
-    public int doesChatExist(int id_user, int id_user2) {
+    public int doesChatExist(int id_user, int id_user2, int product_id) {
         ArrayList<Chat> allChats = getAllChats();
         ArrayList<Chat> user1Chats = daoChatSQL.read(id_user, dao);
         ArrayList<Chat> user2Chats = daoChatSQL.read(id_user2, dao);
         for (Chat user1Chat : user1Chats) {
-            for (Chat user2Chat : user2Chats) {
-                if (user1Chat.getID_Chat() == user2Chat.getID_Chat()) {
-                    return user1Chat.getID_Chat();
+            if (user1Chat.getID_Product() == product_id) {
+                for (Chat user2Chat : user2Chats) {
+                    if (user2Chat.getID_Product() == product_id) {
+                        if (user1Chat.getID_Chat() == user2Chat.getID_Chat() && user1Chat.getID_Product() == user2Chat.getID_Product()) {
+                            return user1Chat.getID_Chat();
+                        }
+                    }
                 }
             }
         }
@@ -126,7 +130,7 @@ public class GestionAPP implements Serializable {
             }
         }
         chatID++;
-        if (daoChatSQL.insert(chatID, ID_User,ID_Product, dao) && daoChatSQL.insert(chatID, ID_User_2, ID_Product, dao)) {
+        if (daoChatSQL.insert(chatID, ID_User, ID_Product, dao) && daoChatSQL.insert(chatID, ID_User_2, ID_Product, dao)) {
             return chatID;
         }
         return -1;
@@ -134,6 +138,17 @@ public class GestionAPP implements Serializable {
 
     public ArrayList<Chat> getUserChats(int iduser) {
         return daoChatSQL.read(iduser, dao);
+    }
+
+    public ArrayList<Chat> getUserChatsWithProdId(int iduser, int idProd) {
+        ArrayList<Chat> chats = daoChatSQL.read(iduser, dao);
+        ArrayList<Chat> chatsAUX = new ArrayList<>();
+        for (Chat chat : chats) {
+            if (chat.getID_Product() == idProd) {
+                chatsAUX .add(chat);
+            }
+        }
+        return chatsAUX;
     }
 
     public int generateChatID(int userIDSender, int userIDReciever, int productID) {
@@ -166,13 +181,11 @@ public class GestionAPP implements Serializable {
     }
 
     public ArrayList<Message> getUnreadMessages(int idUser) {
-        ArrayList<Integer> chats = daoMessageSQL.getAllChats(idUser, dao);
-
+        ArrayList<Chat> chats =daoChatSQL.read(idUser,dao);
         ArrayList<Message> unReadMessages = new ArrayList<>();
-        for (Integer product_id : chats) {
-            ArrayList<Message> messages = daoMessageSQL.readMessages(idUser, product_id, dao);
-            for (Message message : messages) {
-                if (message.getID_User_Reciever() == idUser && message.isMessage_Read() == 0 && !message.getMessage().equals("")) {
+        for (Chat chat : chats) {
+            for (Message message : daoMessageSQL.readMessagesChat(chat.getID_Chat(),dao)) {
+                if(message.isMessage_Read()==0 && message.getID_User_Reciever()==idUser){
                     unReadMessages.add(message);
                 }
             }
@@ -332,9 +345,13 @@ public class GestionAPP implements Serializable {
 
     }
 
-    public Producto getProductoPorChatId(int chat_id){
-        ArrayList<Chat> chat = daoChatSQL.getChat(chat_id,dao);
-        return getProductoPorID(chat.get(0).getID_Product());
+    public Producto getProductoPorChatId(int chat_id) {
+        ArrayList<Chat> chat = daoChatSQL.getChat(chat_id, dao);
+        if(chat.size()==0){
+            return null;
+        }else {
+            return getProductoPorID(chat.get(0).getID_Product());
+        }
     }
 
     public boolean quitaProducto(int idProducto) {

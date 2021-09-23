@@ -79,6 +79,41 @@ public class MessageSQL implements DaoMessage {
     }
 
     @Override
+    public ArrayList<Message> readMessagesChat(int ID_Chat,  DAOManager dao) {
+        Message message = null;
+        ArrayList<Message> messages = new ArrayList<>();
+        String sentencia;
+        sentencia = "SELECT * from Messages where ID_Chat= ?";
+        try {
+            PreparedStatement ps = dao.getConn().prepareStatement(sentencia);
+            ps.setInt(1, ID_Chat);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    // obtener cada una de la columnas y mapearlas a la clase Message
+                    //System.out.println(rs.getInt("ID_Message"));
+                    message = new Message(
+                            rs.getInt("ID_Message"),
+                            rs.getInt("ID_User_Sender"),
+                            rs.getInt("ID_User_Reciever"),
+                            rs.getInt("ID_Product"),
+                            rs.getInt("ID_Chat"),
+                            rs.getString("Sent_Date"),
+                            rs.getString("Recieved_Date"),
+                            rs.getString("message"),
+                            rs.getInt("Message_Read"),
+                            rs.getInt("Message_Deleted"));
+                    messages.add(message);
+                }
+                ps.close();
+
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return messages;
+    }
+    @Override
     public ArrayList<Message> readMessages(int ID_User, int ID_Product, DAOManager dao) {
         Message message = null;
         ArrayList<Message> messages = new ArrayList<>();

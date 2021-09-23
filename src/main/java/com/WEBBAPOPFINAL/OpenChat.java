@@ -21,14 +21,14 @@ public class OpenChat extends HttpServlet {
         int ID_User = Integer.parseInt(request.getParameter("ID_User"));
         int ID_Prod = Integer.parseInt(request.getParameter("Product_ID"));
         GestionAPP gestionAPP = new GestionAPP();
-        ArrayList<Chat> chats = gestionAPP.getUserChats(ID_User);
+        ArrayList<Chat> chats = gestionAPP.getUserChatsWithProdId(ID_User,ID_Prod);
         Producto producto = gestionAPP.getProductoPorID(ID_Prod);
-        if(gestionAPP.doesChatExist(ID_User, producto.getIdUsuario())==-1){
+        if(gestionAPP.doesChatExist(ID_User, producto.getIdUsuario(),ID_Prod)==-1){
             if ((chats != null && chats.size() == 0) || chats == null) {
                 request.setAttribute("chat_id",gestionAPP.addChat(ID_User, producto.getIdUsuario(),ID_Prod));
             }
         }else{
-            request.setAttribute("chat_id",gestionAPP.doesChatExist(ID_User, producto.getIdUsuario()));
+            request.setAttribute("chat_id",gestionAPP.doesChatExist(ID_User, producto.getIdUsuario(),ID_Prod));
         }
         request.setAttribute("Product_ID",ID_Prod);
         RequestDispatcher rd = request.getRequestDispatcher("user.jsp");

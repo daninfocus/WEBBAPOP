@@ -1,8 +1,5 @@
-<%@ page import="Modelo.GestionAPP" %>
-<%@ page import="Modelo.Usuario" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="Modelo.Trato" %>
-<%@ page import="Modelo.Producto" %><%--
+<%@ page import="Modelo.*" %><%--
   Created by IntelliJ IDEA.
   User: Dan
   Date: 10/09/2021
@@ -59,6 +56,11 @@ href="img/logo512circle.png"
         <%
             for (Trato trato : tratos) {
                 if(trato.getCompletado()==1) {
+
+
+
+
+
                     Usuario usuarioOtro = gestion.getUsuarioPorEmail(trato.getEmailUsuarioOtro());
                     Producto producto = gestion.getProductoPorID(trato.getIdProducto());
                     out.print("<div class=\"review\">\n" +
@@ -71,7 +73,7 @@ href="img/logo512circle.png"
                             "                <div class=\"productName\">" + producto.getNombre() + "</div>\n" +
                             "                <div id=\"stars\" class=\"stars\">" + trato.getPuntuacion() + "</div>\n" +
                             "                <div class=\"reviewMessage\">" + (trato.getComentario() == null ? "Esperando opinion..." : trato.getComentario()) + "</div>\n" +
-                            "                <div class=\"footerReview\">Por&nbsp;<a href=\"#Profile\">" + usuarioOtro.getNombre() + "</a>&nbsp;el&nbsp;<div\n" +
+                            "                <div class=\"footerReview\">Por&nbsp;<a href=\"#Profile\">" + trato.getEmailUsuarioOtro() + "</a>&nbsp;el&nbsp;<div\n" +
                             "                        class=\"dateReview\">" + trato.getFecha() + "\n" +
                             "                </div>\n" +
                             "                </div>\n" +
