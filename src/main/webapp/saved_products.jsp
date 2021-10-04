@@ -42,7 +42,8 @@ href="./resources/img/logo512circle.png"/>
                             "                <div class=\"description\">"+producto.getDescripcion()+"</div>\n" +
                             "            </div>\n" +
                             "            <div class=\"buts\">\n" +
-                            "                <a href=\"/SaveProduct?Delete="+producto.getid()+"&User_ID="+loggedInUser.getId()+"\"  class=\"deleteProd\"><i class=\"fas fa-heart-broken\"></i> Eliminar</a>\n" +
+                            "                <a href=\"/SaveProduct?Delete="+producto.getid()+"&User_ID="+loggedInUser.getId()+"\"  class=\"deleteProd\"><i class=\"fas fa-heart-broken\"></i> Eliminar</a><br>\n" +
+                            "                <a href=\"/OpenChat?ID_User="+loggedInUser.getId()+"&Product_ID="+producto.getid()+"\"  class=\"chatProd\"><i class=\"far fa-comment-dots\"></i> Mensaje</a>\n" +
                             "            </div>\n" +
                             "  </div>");
 

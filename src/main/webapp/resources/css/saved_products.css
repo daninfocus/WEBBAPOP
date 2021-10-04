@@ -1,3 +1,4 @@
+
 html {
     background-image: url("../img/cover.png");
     margin: 0;
@@ -126,6 +127,15 @@ h4 {
     color: antiquewhite;
 }
 .deleteProd:hover{
+    text-decoration: underline;
+    color: brown;
+}
+
+.chatProd{
+    text-decoration: none;
+    color: seagreen;
+}
+.chatProd:hover{
     text-decoration: underline;
     color: brown;
 }

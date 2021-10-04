@@ -182,11 +182,11 @@
 
                         if (messages.size() >=1) {
                             for (Message message : messages) {
-                                if (message.getID_User_Reciever() == loggedInUser.getId() && message.isMessage_Deleted() == 0) {
+                                if (message.getID_User_Reciever() == loggedInUser.getId()) {
                                     out.print("<p class=\"messageContentOther\">" + message.getMessage() + "</p><br>");
                                     if (message.isMessage_Read() == 0) {
                                         message.setMessage_Read(1);
-                                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+                                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
                                         Calendar cal = new GregorianCalendar();
                                         message.setRecieved_Date(sdf.format(cal.getTime()));

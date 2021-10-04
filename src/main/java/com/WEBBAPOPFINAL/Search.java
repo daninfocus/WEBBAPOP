@@ -2,6 +2,8 @@ package com.WEBBAPOPFINAL;
 
 import Modelo.GestionAPP;
 import Modelo.Producto;
+import Modelo.Usuario;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -24,7 +26,9 @@ public class Search extends HttpServlet {
         String search = request.getParameter("search");
         GestionAPP gestionAPP = new GestionAPP();
         ArrayList<Producto> productos = gestionAPP.buscaProductoTexto(search);
+        ArrayList<Usuario> usuarios = gestionAPP.buscaUsuarioTexto(search);
         request.setAttribute("productos",productos);
+        request.setAttribute("usuarios",usuarios);
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
         RequestDispatcher rd = request.getRequestDispatcher("search.jsp");

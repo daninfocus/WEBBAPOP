@@ -1,6 +1,8 @@
 <%@ page import="Modelo.Producto" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="java.text.DecimalFormat" %><%--
+<%@ page import="java.text.DecimalFormat" %>
+<%@ page import="Modelo.Usuario" %>
+<%@ page import="Modelo.GestionAPP" %><%--
   Created by IntelliJ IDEA.
   User: Dan
   Date: 15/09/2021
@@ -30,7 +32,7 @@
 <body>
 <div class="header">
     <!-----------------------------------------------------------------------------------------------------------------SearchBAR -->
-    <a href="${pageContext.request.contextPath}/Home" class="logo"><i class="fab fa-weebly"></i>ebbaPop</a
+    <a href="${pageContext.request.contextPath}/" class="logo"><i class="fab fa-weebly"></i>ebbaPop</a
     ><!--Webbapop logo -->
 
     <form action="/Search" method="get">
@@ -71,36 +73,130 @@
 
     <%
         DecimalFormat df = new DecimalFormat("#,##0.##");
-        if(request.getAttribute("productos")==null){
-            out.print("Nada");
-        }else{
+        boolean search = false;
+        if(request.getAttribute("productos")!=null){
             ArrayList<Producto> productos = (ArrayList<Producto>) request.getAttribute("productos");
-            for (Producto producto : productos) {
-                if (producto.getVendido() == 0 && producto.getDeleted()==0) {
+            if(productos==null || productos.size()<1){
+                search=true;
+            }else{
+                out.print("<div class=\"flex-container\">");
+                for (Producto producto : productos) {
+                    if (producto.getVendido() == 0 && producto.getDeleted()==0) {
 
-                    out.print("<a href=\"/Product?Product_ID=" + producto.getid() + "\">\n" +
-                            "<div class=\"child-container\">\n" +
-                            "    <div class=\"images\">\n" +
-                            "        <img class=\"img\" src=\"image.jsp?imgID="+producto.getid()+"\"/>\n" +
-                            "    </div>\n" +
-                            "    <div class=\"product\">\n" +
-                            "        <h2 class=\"price\">" + df.format(producto.getPrecio()) + " <i class=\"fa fa-euro-sign\" aria-hidden=\"true\"></i></h2 >\n" +
-                            "        <h1 class=\"h1\">" + producto.getNombre() + "</h1>\n" +
-                            "        <hr>" +
-                            "        <p class=\"p\">" + producto.getDescripcion() + "</p>\n" +
-                            "        <div class=\"buttons\">\n" +
-                            "         \n" +
-                            "        </div>" +
-                            "    </div>\n" +
-                            "</div></a>\n" +
-                            "<br>");
+                        out.print("<a href=\"/Product?Product_ID=" + producto.getid() + "\">\n" +
+                                "<div class=\"child-container\">\n" +
+                                "    <div class=\"images\">\n" +
+                                "        <img class=\"img\" src=\"image.jsp?imgID="+producto.getid()+"\"/>\n" +
+                                "    </div>\n" +
+                                "    <div class=\"product\">\n" +
+                                "        <h2 class=\"price\">" + df.format(producto.getPrecio()) + " <i class=\"fa fa-euro-sign\" aria-hidden=\"true\"></i></h2 >\n" +
+                                "        <h1 class=\"h1\">" + producto.getNombre() + "</h1>\n" +
+                                "        <hr>" +
+                                "        <p class=\"p\">" + producto.getDescripcion() + "</p>\n" +
+                                "        <div class=\"buttons\">\n" +
+                                "         \n" +
+                                "        </div>" +
+                                "    </div>\n" +
+                                "</div></a>\n" +
+                                "<br>");
+                    }
+                }
+                out.print(" </div>");
+            }
+        }
+
+
+        GestionAPP gestion = new GestionAPP();
+        boolean searchprod = false;
+
+        if(session.getAttribute("loggedInUser")!=null){
+            Usuario usuarioLogeado = gestion.getUsuarioPorEmail(session.getAttribute("loggedInUser").toString());
+            if(request.getAttribute("usuarios")!=null) {
+                ArrayList<Usuario> usuarios = (ArrayList<Usuario>) request.getAttribute("usuarios");
+
+                if (usuarios == null || usuarios.size() < 1) {
+                    searchprod=true;
+                } else {
+                    for (Usuario usuario : usuarios) {
+                        if(usuario.getId()!=usuarioLogeado.getId()){
+                            out.print("<div id=\"popup"+usuario.getId()+"\" class=\"overlay\">\n" +
+                                    "    <div class=\"popup\">\n" +
+                                    "        <h2>Productos</h2>\n" +
+                                    "        <a class=\"close\" href=\"#\">&times;</a>\n" +
+                                    "        <div class=\"popUpContent\">\n" +
+                                    "            <ul>\n");
+
+                                    for (Producto producto : gestion.getProductosDeUsuario(usuario.getId())) {
+                                        out.print("<li><a href=\"/OpenChat?ID_User="+usuarioLogeado.getId()+"&Product_ID="+producto.getid()+"\">"+producto.getNombre()+"</a></li>\n\n");
+                                    }
+                            out.print("            </ul>\n" +
+                                    "        </div>\n" +
+                                    "    </div>\n" +
+                                    "</div>");
+
+                            out.print(
+                                    "<div class=\"child-container\">\n" +
+                                            "    <div class=\"images\">\n" +
+                                            "        <img class=\"img\" src=\"./resources/img/user.png\"/>\n" +
+                                            "    </div>\n" +
+                                            "    <div class=\"product\">\n" +
+
+                                            "        <h1 class=\"h1\">" + usuario.getNombre() + "</h1>\n" +
+                                            "        <hr>" +
+                                            "        <p class=\"p\">" + usuario.getApellidos() + "</p>\n" +
+                                            "        <div class=\"buttons\">\n" +
+                                            "           <button class=\"add\" onclick=\"location.href='#popup"+usuario.getId()+"'\">Chat&nbsp;&nbsp;<i class=\"far fa-comment-dots\"></i></button>\n" +
+                                            "        </div>" +
+                                            "    </div>\n" +
+                                            "</div></a>\n");
+                        }else{
+                            searchprod=true;
+                        }
+                    }
+                }
+            }
+        }else{
+
+            if(request.getAttribute("usuarios")!=null) {
+                ArrayList<Usuario> usuarios = (ArrayList<Usuario>) request.getAttribute("usuarios");
+
+                if (usuarios == null || usuarios.size() < 1) {
+                    searchprod=true;
+                } else {
+                    for (Usuario usuario : usuarios) {
+
+                        out.print(
+                                "<div class=\"child-container\">\n" +
+                                        "    <div class=\"images\">\n" +
+                                        "        <img class=\"img\" src=\"./resources/img/user.png\"/>\n" +
+                                        "    </div>\n" +
+                                        "    <div class=\"product\">\n" +
+
+                                        "        <h1 class=\"h1\">" + usuario.getNombre() + "</h1>\n" +
+                                        "        <hr>" +
+                                        "        <p class=\"p\">" + usuario.getApellidos() + "</p>\n" +
+                                        "        <div class=\"buttons\">\n" +
+                                        "           <button class=\"add\" onclick=\"location.href='/Login'\">Chat&nbsp;&nbsp;<i class=\"far fa-comment-dots\"></i></button>\n" +
+                                        "        </div>" +
+                                        "    </div>\n" +
+                                        "</div></a>\n");
+
+                    }
+
                 }
             }
         }
+
+
+        if(search && searchprod){
+            out.print("<h2>No hay resultados que corresponden con tu busqueda</h2>");
+        }
+
     %>
 </div>
+
 <div class="footer">
-    <p>
+    <div>
         <a href="https://github.com/daninfocus" target="_blank"
         ><i class="fab fa-github"></i
         ></a>
@@ -110,7 +206,10 @@
         <a href="https://www.linkedin.com/in/danielwebb99" target="_blank"
         ><i class="fab fa-linkedin"></i
         ></a>
-    </p>
+    </div>
+    <div style="color: darkslategrey;font-size: 16px;padding: 3px;">
+        Designed by Daniel Webb
+    </div>
 </div>
 
 <script src="resources/js/index.js"></script>

@@ -68,23 +68,19 @@
                     for (Producto producto : productos) {
                         out.print(
                                 "<input type=\"checkbox\" class=\"checkbox\" name=\"checkbox"+num+"\" value="+producto.getid()+">\n" +
-                                        "<a class=\"list\" href=\"/Product?Product_ID=" + producto.getid() + "\">\n" +
+                                        "<div class=\"list\"><a  href=\"/Product?Product_ID=" + producto.getid() + "\">\n" +
                                         "    <div class=\"imgContainer\"><img\n" +
                                         "            class=\"img\"\n" +
                                         "            src=\"image.jsp?imgID="+producto.getid()+"\"\n" +
                                         "    />\n" +
                                         (producto.getReserved()==1?"    <div class=\"reserved\"> <i class=\"far fa-bookmark\"></i></div>":"") +
-                                        "    </div><div class=\"text-container\">\n" +
+                                        "    </div></a><div class=\"text-container\">\n" +
                                         "        <div class=\"price\">"+df.format(producto.getPrecio())+"<i class=\"fa fa-euro-sign\" aria-hidden=\"true\"></i></div>\n" +
                                         "        <div style=\"overflow:hidden;white-space: nowrap;\" class=\"name"+num+"\">"+producto.getNombre()+"</div>\n" +
                                         "    </div>\n" +
                                         "    <div class=\"publishDate-container\">\n" +
                                         "        <div class=\"text\">Publicado</div>\n" +
                                         "        <div class=\"publishDate\">"+producto.getFecha()+"</div>\n" +
-                                        "    </div>\n" +
-                                        "    <div class=\"modifyDate-container\">\n" +
-                                        "        <div class=\"text\">Modify</div>\n" +
-                                        "        <div class=\"modifyDate\">15/08/2021</div>\n" +
                                         "    </div>\n" +
                                         "    <div class=\"buttons\">\n" +
                                         "        <button onclick=\"window.location.href='/Sold?Product_ID="+producto.getid()+"';\" type=\"button\" title=\"Marcar como vendido\" class=\"sell\">\n" +
@@ -95,7 +91,7 @@
                                         "        </button>\n" +
                                         "        <button onclick=\"window.location.href='/Profile?editProduct="+producto.getid()+"';\" type=\"button\" title=\"Editar\"class=\"edit\"><i class=\"far fa-edit\"></i></button>\n" +
                                         "    </div>\n" +
-                                        "</a>" +
+                                        "</div>\n" +
                                         "<br>");
                         num++;
                     }
@@ -126,13 +122,13 @@
                     for (Producto producto : productosVendidos) {
                         out.print(
                                 "<input type=\"checkbox\" class=\"checkbox\" name=\"checkbox"+num+"\" value="+producto.getid()+">\n" +
-                                        "<a class=\"list\" href=\"/Product?Product_ID=" + producto.getid() + "\">\n" +
+                                        "<div class=\"list\"><a  href=\"/Product?Product_ID=" + producto.getid() + "\">\n" +
                                         "    <div class=\"imgContainer\"><img\n" +
                                         "            class=\"img\"\n" +
                                         "            src=\"image.jsp?imgID="+producto.getid()+"\"\n" +
                                         "    />\n" +
                                         (producto.getVendido()==1? "    <div class=\"sold\"> <i class=\"far fa-handshake\"></i></div>":"") +
-                                        "    </div><div class=\"text-container\">\n" +
+                                        "    </div></a><div class=\"text-container\">\n" +
                                         "        <div class=\"price\">"+df.format(producto.getPrecio())+"<i class=\"fa fa-euro-sign\" aria-hidden=\"true\"></i></div>\n" +
                                         "        <div style=\"overflow:hidden;white-space: nowrap;\" class=\"name"+num+"\">"+producto.getNombre()+"</div>\n" +
                                         "    </div>\n" +
@@ -140,12 +136,8 @@
                                         "        <div class=\"text\">Publicado</div>\n" +
                                         "        <div class=\"publishDate\">"+producto.getFecha()+"</div>\n" +
                                         "    </div>\n" +
-                                        "    <div class=\"modifyDate-container\">\n" +
-                                        "        <div class=\"text\">Modify</div>\n" +
-                                        "        <div class=\"modifyDate\">15/08/2021</div>\n" +
-                                        "    </div>\n" +
-                                        "</a>" +
-                                        "</a>" +
+                                        "</div>\n" +
+
                                         "<br>");
                         num++;
                     }

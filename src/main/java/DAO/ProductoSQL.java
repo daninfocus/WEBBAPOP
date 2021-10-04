@@ -29,7 +29,6 @@ public class ProductoSQL implements DaoProducto {
             ps.setInt(12, 0);
             ps.setBlob(13,blob);
             result = ps.executeUpdate();
-
             ps.close();
             if(result>0){
                 return true;
@@ -113,6 +112,8 @@ public class ProductoSQL implements DaoProducto {
                             rs.getInt("reserved"),
                             rs.getString("image"));
                 }
+
+            }finally{
                 ps.close();
             }
         } catch (SQLException ex) {
@@ -149,6 +150,8 @@ public class ProductoSQL implements DaoProducto {
                             rs.getString("image"));
                     productos.add(producto);
                 }
+
+            }finally{
                 ps.close();
             }
         } catch (SQLException ex) {
@@ -186,6 +189,8 @@ public class ProductoSQL implements DaoProducto {
                             rs.getString("image"));
                     productos.add(producto);
                 }
+
+            }finally{
                 ps.close();
             }
         } catch (SQLException ex) {
@@ -214,7 +219,7 @@ public class ProductoSQL implements DaoProducto {
         Producto producto = null;
         ArrayList<Producto> productos = new ArrayList<>();
         String sentencia;
-        sentencia = "select * from Producto where nombre LIKE ? or descripcion like ? or categoria like ? or extraInfo like ? COLLATE utf8mb4_0900_ai_ci";
+        sentencia = "select * from Producto where nombre LIKE ? or descripcion like ? or categoria like ? or extraInfo like ? COLLATE utf8mb4_spanish2_ci";
 
         try {
             PreparedStatement ps = dao.getConn().prepareStatement(sentencia);
@@ -241,6 +246,8 @@ public class ProductoSQL implements DaoProducto {
                             rs.getString("image"));
                     productos.add(producto);
                 }
+
+            }finally{
                 ps.close();
             }
         } catch (SQLException ex) {

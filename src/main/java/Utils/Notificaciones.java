@@ -119,7 +119,7 @@ public class Notificaciones {
             message.setContent(contenido, "text/html; charset=utf-8");
 
             // Intenamos mandar el mensaje
-            send(message);
+            Transport.send(message);
             resultado = true;
 
         } catch (Exception e) { //Si entra aquí hemos tenido fallo

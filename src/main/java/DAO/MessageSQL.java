@@ -35,9 +35,14 @@ public class MessageSQL implements DaoMessage {
     }
 
     @Override
-    public boolean update(Message message, DAOManager dao) {
+    public boolean update(Message message, DAOManager dao) throws Exception {
         String sentencia;
         Connection conn = dao.getConn();
+        if(conn==null){
+            dao.open();
+            conn = dao.getConn();
+        }
+
         sentencia = "UPDATE Messages SET ID_Message='" + message.getID_Message() + "', ID_User_Sender = '"
                 + message.getID_User_Sender() + "', ID_User_Reciever = '"
                 + message.getID_User_Reciever() + "', ID_Product = '"

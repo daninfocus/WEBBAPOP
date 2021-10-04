@@ -14,7 +14,7 @@ public class DAOManager {
 
     private DAOManager() { //Constructor privado para que no se pueda llamar las veces que se quiera
         this.conn = null;
-        this.URL = "jdbc:mysql://127.0.0.1:3030/fernanpop?characterEncoding=utf8"; //Enlazo la dirección del servidor y de la base de datos a usar
+        this.URL = "jdbc:mysql://127.0.0.1:3000/fernanpop?characterEncoding=utf8"; //Enlazo la dirección del servidor y de la base de datos a usar
         this.USER = "admin"; //Usuario de la BBDD
         this.PASS = "admin"; //Clave de la BBDD
     }

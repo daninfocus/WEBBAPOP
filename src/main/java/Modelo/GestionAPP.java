@@ -30,7 +30,7 @@ public class GestionAPP implements Serializable {
 
     /* Constructor */
     public GestionAPP() {
-        propertiesFile = new File("C:\\Users\\Dan\\Desktop\\PROGRAMIN'\\WEBBAPOPFINAL\\src\\main\\resources\\properties.prop");
+        propertiesFile = new File("C:\\Users\\dan\\IdeaProjects\\demo\\WEBBAPOP\\src\\main\\resources\\properties.prop");
         props = new Properties();
 
         try {
@@ -145,7 +145,7 @@ public class GestionAPP implements Serializable {
         ArrayList<Chat> chatsAUX = new ArrayList<>();
         for (Chat chat : chats) {
             if (chat.getID_Product() == idProd) {
-                chatsAUX .add(chat);
+                chatsAUX.add(chat);
             }
         }
         return chatsAUX;
@@ -181,11 +181,11 @@ public class GestionAPP implements Serializable {
     }
 
     public ArrayList<Message> getUnreadMessages(int idUser) {
-        ArrayList<Chat> chats =daoChatSQL.read(idUser,dao);
+        ArrayList<Chat> chats = daoChatSQL.read(idUser, dao);
         ArrayList<Message> unReadMessages = new ArrayList<>();
         for (Chat chat : chats) {
-            for (Message message : daoMessageSQL.readMessagesChat(chat.getID_Chat(),dao)) {
-                if(message.isMessage_Read()==0 && message.getID_User_Reciever()==idUser){
+            for (Message message : daoMessageSQL.readMessagesChat(chat.getID_Chat(), dao)) {
+                if (message.isMessage_Read() == 0 && message.getID_User_Reciever() == idUser) {
                     unReadMessages.add(message);
                 }
             }
@@ -193,7 +193,7 @@ public class GestionAPP implements Serializable {
         return unReadMessages;
     }
 
-    public boolean updateMessage(Message message) {
+    public boolean updateMessage(Message message) throws Exception {
         return daoMessageSQL.update(message, dao);
     }
 
@@ -315,6 +315,13 @@ public class GestionAPP implements Serializable {
     }
 
     //Productos
+    public boolean isProductReserved(Producto producto){
+        if(producto.getReserved()==1){
+            return true;
+        }
+        return false;
+    }
+
     public boolean deleteSavedProduct(SavedProducts products) {
         return daoSavedProductSQL.delete(products, dao);
     }
@@ -347,9 +354,9 @@ public class GestionAPP implements Serializable {
 
     public Producto getProductoPorChatId(int chat_id) {
         ArrayList<Chat> chat = daoChatSQL.getChat(chat_id, dao);
-        if(chat.size()==0){
+        if (chat.size() == 0) {
             return null;
-        }else {
+        } else {
             return getProductoPorID(chat.get(0).getID_Product());
         }
     }
@@ -383,6 +390,9 @@ public class GestionAPP implements Serializable {
     }
 
     //Usuarios
+    public ArrayList<Usuario> buscaUsuarioTexto(String search) {
+        return daoUsuarioSQL.searchByText(search, dao);
+    }
 
     public boolean updateUsuario(Usuario usuario) {
         return daoUsuarioSQL.update(usuario, dao);

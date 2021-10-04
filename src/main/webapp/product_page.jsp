@@ -84,7 +84,7 @@
             "  <div class=\"userContainer\">\n" +
             "    <div class=\"userName\">\n" +
             "      <i class=\"far fa-user\"></i>\n" +
-            "      <div style=\"font-size:16px;font-weight:bold;width: 350px;margin-left: 20px;\" >"+seller.getNombre()+"</div>\n" +
+            "      <div style=\"font-size:16px;font-weight:bold;margin-left: 20px;\" >"+seller.getNombre()+"</div>\n" +
             "    </div>\n" +
             "    <div class=\"rating\">\n" +
             "      <div class=\"stars\" id=\"stars\">"+ seller.getNotaMedia()+"</div>\n" +
@@ -131,7 +131,7 @@
             "  <div class=\"userContainer\">\n" +
             "    <div class=\"userName\">\n" +
             "      <i class=\"far fa-user\"></i>\n" +
-            "      <div style=\"font-size:16px;font-weight:bold;width: 350px;margin-left: 20px;\" >"+seller.getNombre()+"</div>\n" +
+            "      <div style=\"font-size:16px;font-weight:bold;margin-left: 20px;\" >"+seller.getNombre()+"</div>\n" +
             "    </div>\n" +
             "      <div class=\"buttons\">\n" +
             (product.getVendido()==0?"          <button onclick=\"window.location.href='/Sold?Product_ID="+product.getid()+"';\" type=\"button\" title=\"Marcar como vendido\" class=\"sell\">\n" +

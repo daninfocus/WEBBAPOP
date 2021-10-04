@@ -75,12 +75,12 @@ public class Sold extends HttpServlet {
                 String review = request.getParameter("reviewContent");
 
 
-                if(request.getParameter("Tipo")!=null) {
-                    Trato tratoVenta = new Trato(0, "Venta", usuarioOtro.getEmail(), usuarioLogeado.getEmail(), productID, LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString(), price, review, points, 1);
-                    Trato tratoCompra = new Trato(0, "Compra", usuarioLogeado.getEmail(), usuarioOtro.getEmail(), productID,"", 0,"",0, 1);
+                if(request.getParameter("Tipo")!=null) {//Trato terminado
+                    Trato tratoVenta = new Trato(0, "Venta", usuarioOtro.getEmail(), usuarioLogeado.getEmail(), productID, LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString(), price, review, points, 0);
+                    Trato tratoCompra = new Trato(0, "Compra", usuarioLogeado.getEmail(), usuarioOtro.getEmail(), productID,"", 0,"",0, 0);
                     gestion.updateTrato(tratoVenta);
                     gestion.updateTrato(tratoCompra);
-                }else{
+                }else{//Trato iniciado
                     Trato tratoVenta = new Trato(0, "Venta", usuarioLogeado.getEmail(), buyerEmail, productID, "", price, "", 0, 0);
                     Trato tratoCompra = new Trato(0, "Compra", usuarioOtro.getEmail(), usuarioLogeado.getEmail(), productID, LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString(), price, review, points, 1);
                     gestion.addTrato(tratoCompra);

@@ -16,4 +16,6 @@ public interface DaoUsuario {
     public boolean delete(int id, DAOManager dao);
 
     public ArrayList<Usuario> getAll(DAOManager dao);
+
+    public ArrayList<Usuario> searchByText(String text, DAOManager dao);
 }

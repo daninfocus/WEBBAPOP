@@ -25,7 +25,12 @@ public class ReserveProduct extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         int productID = Integer.parseInt(request.getParameter("Product_ID"));
         GestionAPP gestionAPP = new GestionAPP();
-        gestionAPP.reserveProduct(productID);
+        Producto producto = gestionAPP.getProductoPorID(productID);
+        if(gestionAPP.isProductReserved(producto)) {
+            producto.setReserved(0);
+            gestionAPP.updateProducto(producto);
+        }else gestionAPP.reserveProduct(productID);
+
         response.sendRedirect("/Profile");
     }
 

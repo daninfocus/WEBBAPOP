@@ -25,7 +25,7 @@
 <body>
 <div class="header">
     <!-----------------------------------------------------------------------------------------------------------------SearchBAR -->
-    <a href="${pageContext.request.contextPath}/Home" class="logo"><i class="fab fa-weebly"></i>ebbaPop</a
+    <a href="${pageContext.request.contextPath}/" class="logo"><i class="fab fa-weebly"></i>ebbaPop</a
     ><!--Webbapop logo -->
     <form action="/Search" method="get">
         <div class="wrap">
@@ -67,7 +67,7 @@
             class="fas fa-tv"></i>Informática</a></div>
     <div class="motor"><a title="Motor" class="catOption" href="/Search?search=Motor"><i class="fas fa-car-side"></i>Motor</a>
     </div>
-    <div class="property"><a title="Property" class="catOption" href="/Search?search=Property"><i
+    <div class="property"><a title="Propiedades" class="catOption" href="/Search?search=Property"><i
             class="fas fa-home"></i>Property</a></div>
     <div class="fashion"><a title="Moda" class="catOption" href="/Search?search=Moda"><i class="fas fa-tshirt"></i>Moda</a>
     </div>
@@ -83,6 +83,7 @@
     DecimalFormat df = new DecimalFormat("#,##0.##");
 
     if (productos.size() > 3) {
+        out.print("<div class=\"flex-container\">");
         for (int i = 0; i < 3; i++) {
             if (productos.get(i).getVendido() == 0 && productos.get(i).getDeleted() == 0) {
 
@@ -108,12 +109,13 @@
                         "<br>");
             }
         }
+        out.print(" </div>");
     }
 %>
 </div>
 <!--<div class="content"></div>-->
 <div class="footer">
-    <p>
+    <div>
         <a href="https://github.com/daninfocus" target="_blank"
         ><i class="fab fa-github"></i
         ></a>
@@ -123,7 +125,10 @@
         <a href="https://www.linkedin.com/in/danielwebb99" target="_blank"
         ><i class="fab fa-linkedin"></i
         ></a>
-    </p>
+    </div>
+    <div style="color: darkslategrey;font-size: 16px;padding: 3px;">
+        Designed by Daniel Webb
+    </div>
 </div>
 
 <script src="resources/js/index.js"></script>

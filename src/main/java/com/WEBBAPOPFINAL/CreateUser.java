@@ -33,7 +33,6 @@ public class CreateUser extends HttpServlet {
         if(pass!=null && pass2!=null && Usuario.validarPassword(pass) && Usuario.validarPassword(pass2)) {
             if (pass.equals(pass2)) {
                 if(Usuario.validarEmail(email)) {
-
                     GestionAPP gestion = new GestionAPP();
                     if (gestion.getUsuarioPorEmail(email) == null) {
 

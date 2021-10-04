@@ -64,7 +64,11 @@
                                 if (option.localeCompare("reviews") == 0) {
                                     myReviews()
                                 } else {
-                                    myProducts();
+                                    if (option.localeCompare("favourites") == 0) {
+                                        myFavs()
+                                    } else {
+                                        myProducts();
+                                    }
                                 }
                             }
                         }

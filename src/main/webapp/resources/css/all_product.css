@@ -8,6 +8,7 @@
 }
 
 .child-container {
+    /*height: 215px;*/
     display: flex;
     transition: all 0.1s ease-in-out;
     margin: 10px;
@@ -180,4 +181,33 @@ hr {
     font-size: 20px;
     text-align: center;
     border-radius: 10px;
+}
+@media screen and (max-width: 540px){
+    .flex-container{
+        flex-direction: column;
+    }
+    .child-container{
+        width: auto;
+    }
+    .images{
+        width: 200px;
+    }
+    .img{
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 380px){
+    .flex-container{
+        flex-direction: column;
+    }
+    .child-container{
+        width: auto;
+    }
+    .images{
+        width: 150px;
+    }
+    .img{
+        width: 100%;
+    }
 }

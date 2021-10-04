@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public interface DaoMessage {
     public boolean insert(Message message, DAOManager dao);
 
-    public boolean update(Message message, DAOManager dao);
+    public boolean update(Message message, DAOManager dao) throws Exception;
 
     public boolean delete(int ID_Message, DAOManager dao);
 

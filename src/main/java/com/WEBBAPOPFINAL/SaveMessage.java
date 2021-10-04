@@ -30,7 +30,7 @@ public class SaveMessage extends HttpServlet {
         int chad_id = Integer.parseInt(request.getParameter("Chat_ID"));
 
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
         Calendar cal = new GregorianCalendar();
 

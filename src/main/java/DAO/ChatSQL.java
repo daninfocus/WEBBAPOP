@@ -77,10 +77,11 @@ public class ChatSQL implements DaoChat {
                             rs.getInt("ID_Chat"),
                             rs.getInt("ID_User"),
                             rs.getInt("ID_Product"));
+                    if(chat!=null){
+                        chats.add(chat);
+                    }
                 }
-                if(chat!=null){
-                    chats.add(chat);
-                }
+
 
                 ps.close();
             }

@@ -54,7 +54,7 @@
         $(window).load(function () {
             // Animate loader off screen
             $(".se-pre-con").fadeOut("slow");
-            ;
+
         });
     </script>
 
@@ -124,8 +124,8 @@
     GestionAPP gestion = (GestionAPP) session.getAttribute("gestion");
     Usuario loggedInUser = gestion.getUsuarioPorEmail(session.getAttribute("loggedInUser").toString());
     ArrayList<Message> messages = gestion.getUnreadMessages(loggedInUser.getId());
-    if (!messages.isEmpty() || messages.size()>=2) {
-        out.print("<a href=\"/Profile?Option=messages&Chat_ID=" + messages.get(0).getID_Product() + "\" title=\"Tienes un mensaje nuevo\">\n" +
+    if (!messages.isEmpty() || messages.size() >= 2) {
+        out.print("<a href=\"/Profile\" title=\"Tienes un mensaje nuevo\">\n" +
                 "    <div class=\"notification-box\">\n" +
                 "        <span class=\"notification-count\"><i class=\"far fa-comment-dots\"></i>" + messages.size() + "</span>\n" +
                 "\n" +
@@ -143,7 +143,7 @@
 
     Trato tratos = gestion.getNotFinishedTrato(userEmail);
     if (tratos != null && tratos.getTipoTrato().equals("Compra")) {
-        out.print("<a href=\"/ReviewPage?Product_ID="+tratos.getIdProducto()+"&OpenChats=Yes\" title=\"Tienes una reseña nueva\">\n" +
+        out.print("<a href=\"/ReviewPage?Product_ID=" + tratos.getIdProducto() + "&OpenChats=Yes\" title=\"Tienes una reseña nueva\">\n" +
                 "    <div class=\"notification-box\">\n" +
                 "        <span class=\"notification-count\"><i class=\"fas fa-star-half-alt\"></i></span>\n" +
                 "\n" +
@@ -162,7 +162,7 @@
 
 
 <div class="footer">
-    <p>
+    <div>
         <a href="https://github.com/daninfocus" target="_blank"
         ><i class="fab fa-github"></i
         ></a>
@@ -172,7 +172,10 @@
         <a href="https://www.linkedin.com/in/danielwebb99" target="_blank"
         ><i class="fab fa-linkedin"></i
         ></a>
-    </p>
+    </div>
+    <div style="color: darkslategrey;font-size: 16px;padding: 3px;">
+        Designed by Daniel Webb
+    </div>
 </div>
 
 <script src="resources/js/index.js"></script>
