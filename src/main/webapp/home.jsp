@@ -125,7 +125,7 @@
     Usuario loggedInUser = gestion.getUsuarioPorEmail(session.getAttribute("loggedInUser").toString());
     ArrayList<Message> messages = gestion.getUnreadMessages(loggedInUser.getId());
     if (!messages.isEmpty() || messages.size() >= 2) {
-        out.print("<a href=\"/Profile\" title=\"Tienes un mensaje nuevo\">\n" +
+        out.print("<a href=\"/Profile?Option=messages&Chat_ID="+messages.get(0).getID_Chat()+"\" title=\"Tienes un mensaje nuevo\">\n" +
                 "    <div class=\"notification-box\">\n" +
                 "        <span class=\"notification-count\"><i class=\"far fa-comment-dots\"></i>" + messages.size() + "</span>\n" +
                 "\n" +

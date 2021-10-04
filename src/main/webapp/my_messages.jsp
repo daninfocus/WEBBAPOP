@@ -37,6 +37,7 @@
     <div class="containerMessage">
         <div class="containerList">
             <%
+                int messageIDUpdate=0;
                 ArrayList<Chat> chats = gestion.getUserChats(loggedInUser.getId());
                 for (Chat chat : chats) {
                     ArrayList<Chat> chatUsers = gestion.getChat(chat.getID_Chat());
@@ -149,7 +150,6 @@
 
                         out.print("<div class=\"user\">\n" +
                                 usuarioOtro.getNombre() +
-                                "      <a class=\"buttonDeleteConvo\" style=\"color:black;\" href=\"#popup1\"><i class=\"fas fa-ellipsis-v\"></i></a>\n" +
                                 "  </div>");
                     }
 
@@ -185,12 +185,7 @@
                                 if (message.getID_User_Reciever() == loggedInUser.getId()) {
                                     out.print("<p class=\"messageContentOther\">" + message.getMessage() + "</p><br>");
                                     if (message.isMessage_Read() == 0) {
-                                        message.setMessage_Read(1);
-                                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
-                                        Calendar cal = new GregorianCalendar();
-                                        message.setRecieved_Date(sdf.format(cal.getTime()));
-                                        gestion.updateMessage(message);
+                                        messageIDUpdate=message.getID_Message();
                                     }
                                 } else {
                                     if (message.getID_User_Sender() == loggedInUser.getId() && message.isMessage_Deleted() == 0) {
@@ -201,7 +196,6 @@
                                         }
                                     }
                                 }
-
                             }
                         }
                         out.print("</div><div class=\"formDiv\"><form class=\"messageForm\" action=\"/saveMessage\" method=\"post\">\n" +
@@ -237,11 +231,25 @@
                             out.print("<p style=\"text-align: center;margin-top:50px; color:white;font-size:25px\" ><i style=\"position: inherit;right: inherit;margin-top: inherit;\" class=\"far fa-hand-point-left excl\"></i> Selecciona un chat <i style=\"position: inherit;right: inherit;margin-top: inherit;\" class=\"fas fa-exclamation \"></i></p>");
                         }
                     }
+
                 %>
             </div>
         </div>
     </div>
 </div>
+
+<%
+    if(messageIDUpdate!=0){
+        Message message = gestion.getMessageByID(messageIDUpdate);
+        message.setMessage_Read(1);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+        Calendar cal = new GregorianCalendar();
+        message.setRecieved_Date(sdf.format(cal.getTime()));
+
+        gestion.updateMessage(message);
+    }
+%>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script>
     $("#message-box").on("keydown", function () {

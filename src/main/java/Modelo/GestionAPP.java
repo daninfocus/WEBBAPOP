@@ -30,7 +30,7 @@ public class GestionAPP implements Serializable {
 
     /* Constructor */
     public GestionAPP() {
-        propertiesFile = new File("C:\\Users\\dan\\IdeaProjects\\demo\\WEBBAPOP\\src\\main\\resources\\properties.prop");
+        propertiesFile = new File("C:\\Users\\Dan\\Desktop\\PROGRAMIN'\\WEBBAPOPFINAL\\src\\main\\resources\\properties.prop");
         props = new Properties();
 
         try {
@@ -191,6 +191,10 @@ public class GestionAPP implements Serializable {
             }
         }
         return unReadMessages;
+    }
+
+    public Message getMessageByID(int id) throws Exception {
+        return daoMessageSQL.readMessage(id, dao);
     }
 
     public boolean updateMessage(Message message) throws Exception {

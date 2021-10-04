@@ -12,6 +12,8 @@ public interface DaoMessage {
 
     public boolean delete(int ID_Message, DAOManager dao);
 
+    public Message readMessage(int ID_Message, DAOManager dao);
+
     public ArrayList<Message> readMessages(int ID_User, int ID_Product, DAOManager dao);
 
     public ArrayList<Message> readMessagesChat(int ID_Chat,  DAOManager dao);

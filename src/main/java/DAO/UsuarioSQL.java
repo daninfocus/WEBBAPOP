@@ -12,17 +12,17 @@ public class UsuarioSQL implements DaoUsuario {
     public boolean insert(Usuario usuario, DAOManager dao) {
         try {
             PreparedStatement ps = dao.getConn().prepareStatement("INSERT INTO Usuario VALUES (?,?,?,?,?,?,?,?,?,?,?)");
-                    ps.setInt(1,usuario.getId());
-                    ps.setString(2, usuario.getNombre());
-                    ps.setString(3, usuario.getApellidos());
-                    ps.setString(4, usuario.getDireccion());
-                    ps.setString(5, usuario.getTelefono());
-                    ps.setString(6, usuario.getSexo());
-                    ps.setString(7, usuario.getEmail());
-                    ps.setString(8, usuario.getFecha_nacimiento());
-                    ps.setString(9, usuario.getPassword());
-                    ps.setInt(10,usuario.getValoracionesPendientes());
-                    ps.setDouble(11, usuario.getNotaMedia());
+            ps.setInt(1, usuario.getId());
+            ps.setString(2, usuario.getNombre());
+            ps.setString(3, usuario.getApellidos());
+            ps.setString(4, usuario.getDireccion());
+            ps.setString(5, usuario.getTelefono());
+            ps.setString(6, usuario.getSexo());
+            ps.setString(7, usuario.getEmail());
+            ps.setString(8, usuario.getFecha_nacimiento());
+            ps.setString(9, usuario.getPassword());
+            ps.setInt(10, usuario.getValoracionesPendientes());
+            ps.setDouble(11, usuario.getNotaMedia());
 
             // enviar el commando insert
             ps.executeUpdate();
@@ -66,11 +66,11 @@ public class UsuarioSQL implements DaoUsuario {
     public Usuario read(String email, DAOManager dao) {
         Usuario usuario = null;
         String sentencia;
-        sentencia = "select * from Usuario where email ='"+email+"'";
+        sentencia = "select * from Usuario where email ='" + email + "'";
 
         try {
             Connection conn = dao.getConn();
-            if(conn==null){
+            if (conn == null) {
                 dao.open();
                 conn = dao.getConn();
             }
@@ -122,9 +122,13 @@ public class UsuarioSQL implements DaoUsuario {
                             rs.getString("fecha_nacimiento"),
                             rs.getString("password"),
                             rs.getDouble("nota_media"));
+                } else {
+                    if (rs != null)
+                        rs.close();
                 }
-            }finally{
-                ps.close();
+            } finally {
+                if (ps != null)
+                    ps.close();
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -154,8 +158,9 @@ public class UsuarioSQL implements DaoUsuario {
         String sentencia = "select * from Usuario";
         try {
             PreparedStatement ps = dao.getConn().prepareStatement(sentencia);
-
-            try (ResultSet rs = ps.executeQuery()) {
+            ResultSet rs = null;
+            try {
+                rs = ps.executeQuery();
                 while (rs.next()) {
                     usuario = new Usuario(
                             rs.getInt("id"),
@@ -171,8 +176,11 @@ public class UsuarioSQL implements DaoUsuario {
                     usuarios.add(usuario);
                 }
 
-            }finally{
-                ps.close();
+            } finally {
+                if(ps != null)
+                    ps.close();
+                if(rs != null)
+                    rs.close();
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -207,7 +215,7 @@ public class UsuarioSQL implements DaoUsuario {
                     usuarios.add(usuario);
                 }
 
-            }finally{
+            } finally {
                 ps.close();
             }
         } catch (SQLException ex) {

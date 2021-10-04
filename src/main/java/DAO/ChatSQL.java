@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class ChatSQL implements DaoChat {
 
     @Override
-    public boolean insert(int ID_chat, int ID_user, int ID_Product,DAOManager dao) {
+    public boolean insert(int ID_chat, int ID_user, int ID_Product, DAOManager dao) {
         int result = 0;
         try {
             Connection con = dao.getConn();
@@ -77,7 +77,7 @@ public class ChatSQL implements DaoChat {
                             rs.getInt("ID_Chat"),
                             rs.getInt("ID_User"),
                             rs.getInt("ID_Product"));
-                    if(chat!=null){
+                    if (chat != null) {
                         chats.add(chat);
                     }
                 }
@@ -101,29 +101,30 @@ public class ChatSQL implements DaoChat {
         try {
             PreparedStatement ps = dao.getConn().prepareStatement(sentencia);
             ps.setString(1, String.valueOf(ID_Chat));
-
-            try (ResultSet rs = ps.executeQuery()) {
+            ResultSet rs = null;
+            try {
+                rs = ps.executeQuery();
                 while (rs.next()) {
                     // obtener cada una de la columnas y mapearlas a la clase Alumno
                     chat = new Chat(
                             rs.getInt("ID_Chat"),
                             rs.getInt("ID_User"),
                             rs.getInt("ID_Product"));
-                    if(chat!=null){
+                    if (chat != null) {
                         chats.add(chat);
                     }
                 }
 
-
+                rs.close();
                 ps.close();
+            } catch (SQLException ex) {
+                ex.printStackTrace();
             }
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
-
         return chats;
     }
-
 
     @Override
     public ArrayList<Chat> getAll(DAOManager dao) {
@@ -143,7 +144,7 @@ public class ChatSQL implements DaoChat {
                             rs.getInt("ID_User"),
                             rs.getInt("ID_Product"));
                 }
-                if(chat!=null) {
+                if (chat != null) {
                     chats.add(chat);
                 }
                 ps.close();
